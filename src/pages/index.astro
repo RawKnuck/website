@@ -1,17 +1,728 @@
 ---
-
+import { getCollection, render } from 'astro:content';
+const allBlogs = await getCollection('blogs');
 ---
 
+<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raunak Jalan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════
+     MAIN PAGE
+════════════════════════════════════════════════════ -->
+<div id="main" class="page active">
+
+  <nav class="nav">
+    <div class="nav-logo" onclick="goHome()">Raunak Jalan</div>
+    <div class="nav-pill">
+      <button onclick="scrollToSection('works')">Works</button>
+      <button onclick="scrollToSection('about')">About</button>
+      <button onclick="showPage('blog-index')">Blogs</button>
+      <button onclick="scrollToSection('contact')">Contact</button>
+    </div>
+    <div class="nav-status"><span class="nav-dot"></span>available for opportunities</div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-eyebrow"><span class="dot"></span>chemical engineer · builder · generalist</div>
+    <h1 class="hero-title fade-in fd1">Building things <em>at the edges.</em></h1>
+    <p class="hero-sub fade-in fd2">Science, data, and ideas — I work wherever the problems are interesting. Chemical engineering, machine learning, startups, and now AI.</p>
+    <div class="hero-btns fade-in fd3">
+      <button class="btn-fill" onclick="scrollToSection('works')">View projects →</button>
+      <button class="btn-ghost" onclick="scrollToSection('contact')">Get in touch</button>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div>
+      <p class="about-label">About</p>
+      <p class="about-text">Chemical engineer by education, builder by inclination. I've worked across different domains — not because I couldn't pick a lane, but because the interesting problems rarely stay in one.<br><br>Currently exploring what happens when you apply rigorous thinking to machine learning and large language models.</p>
+    </div>
+    <div class="about-human">
+      <div class="human-row"><span class="h-label">Education</span><span class="h-val">B.Tech Chemical Engineering, IIT Kanpur <em>(2026)</em><br>Bachelors in Fine Arts, Prachin Kala Kendra <em>(2019)</em></span></div>
+      <div class="human-row"><span class="h-label">The Physical</span><span class="h-val">Powerlifting, Biomechanics, Bodybuilding, Cycling</span></div>
+      <div class="human-row"><span class="h-label">The Senses</span><span class="h-val">Perfumery, Fine Arts & Design, Mixology<br><em>Co-founder, Meraki (Culinary Arts Society, IITK)</em></span></div>
+      <div class="human-row"><span class="h-label">The Mind</span><span class="h-val">Neuroscience, Evolutionary Psych, Eastern Philosophy & Consciousness</span></div>
+      <div class="human-row"><span class="h-label">Trivia</span><span class="h-val">130+ WPM Typist <em>(<a href="https://monkeytype.com/profile/RawKnuck" target="_blank">99th percentile</a>)</em></span></div>
+    </div>
+  </section>
+
+  <!-- WORKS -->
+  <section class="works" id="works">
+    <div class="works-head">
+      <h2 class="works-title">Selected Work</h2>
+      <div class="filters">
+        <button class="filter f-active" data-filter="all">All</button>
+        <button class="filter" data-filter="chemeng">ChemEng</button>
+        <button class="filter" data-filter="ml">Data / ML</button>
+        <button class="filter" data-filter="startup">Startup</button>
+        <button class="filter" data-filter="ai">AI</button>
+      </div>
+    </div>
+    <div class="proj-grid">
+      <div class="proj-tile wide t-bubble" data-filter="chemeng" onclick="showPage('proj-bubble')">
+        <div class="proj-bg"><div class="geo"></div><div class="geo2"></div></div>
+        <div class="proj-overlay"><span class="view-pill">view project</span></div>
+        <div class="proj-info">
+          <div class="proj-meta"><span class="live-dot"></span>live demo</div>
+          <div class="proj-name">Bubble Dynamics &amp; Minnaert Frequency</div>
+          <div class="proj-cat">Chemical Engineering / Acoustics</div>
+        </div>
+      </div>
+      <div class="proj-tile t-startup" data-filter="startup" onclick="showPage('proj-startup')">
+        <div class="proj-bg"><div class="geo"></div></div>
+        <div class="proj-overlay"><span class="view-pill">view project</span></div>
+        <div class="proj-info">
+          <div class="proj-meta">write-up</div>
+          <div class="proj-name">Co-founder Experience</div>
+          <div class="proj-cat">Startup / Entrepreneurship</div>
+        </div>
+      </div>
+      <div class="proj-tile t-power" data-filter="ml" onclick="showPage('proj-power')">
+        <div class="proj-bg"><div class="geo"></div></div>
+        <div class="proj-overlay"><span class="view-pill">view project</span></div>
+        <div class="proj-info">
+          <div class="proj-meta"><span class="live-dot"></span>live demo</div>
+          <div class="proj-name">Powerlifting Strength Analytics</div>
+          <div class="proj-cat">Data / Machine Learning</div>
+        </div>
+      </div>
+      <div class="proj-tile wide t-chem2" data-filter="chemeng" onclick="showPage('proj-chem2')">
+        <div class="proj-bg"><div class="geo"></div></div>
+        <div class="proj-overlay"><span class="view-pill">view project</span></div>
+        <div class="proj-info">
+          <div class="proj-meta">write-up</div>
+          <div class="proj-name">Chemical Engineering Project #2</div>
+          <div class="proj-cat">Chemical Engineering</div>
+        </div>
+      </div>
+      <div class="proj-tile full t-ai" data-filter="ai" style="opacity:.5;" onclick="showPage('proj-ai')">
+        <div class="proj-bg"><div class="geo"></div></div>
+        <div class="proj-overlay"><span class="view-pill">coming soon</span></div>
+        <div class="proj-info">
+          <div class="proj-meta"><span class="soon-dot"></span>in progress</div>
+          <div class="proj-name">AI / LLM Project</div>
+          <div class="proj-cat">Artificial Intelligence</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <p class="contact-pre">Get in touch</p>
+    <h2 class="contact-headline">Let's talk about<br><em>interesting things.</em></h2>
+    <div class="contact-links">
+      <a href="mailto:you@email.com" class="contact-row"><span class="contact-platform">Email</span><span class="contact-val">you@email.com</span><span class="contact-arr">↗</span></a>
+      <a href="https://github.com/yourname" target="_blank" class="contact-row"><span class="contact-platform">GitHub</span><span class="contact-val">github.com/yourname</span><span class="contact-arr">↗</span></a>
+      <a href="https://linkedin.com/in/yourname" target="_blank" class="contact-row"><span class="contact-platform">LinkedIn</span><span class="contact-val">linkedin.com/in/yourname</span><span class="contact-arr">↗</span></a>
+    </div>
+  </section>
+
+  <footer>
+    <span>Raunak Jalan — 2026</span>
+    <span>built with intention.</span>
+  </footer>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     PROJECT PAGES
+════════════════════════════════════════════════════ -->
+<!-- PROJECT: BUBBLE DYNAMICS -->
+<div id="proj-bubble" class="page">
+  <nav class="proj-nav">
+    <button class="back-btn" onclick="goHome()"><span class="back-arr">←</span> All projects</button>
+    <span class="proj-nav-name">Bubble Dynamics / ChemEng</span>
+  </nav>
+  <div class="proj-header">
+    <div class="proj-tags">
+      <span class="ptag">Chemical Engineering</span>
+      <span class="ptag">Acoustics</span>
+      <span class="ptag">Fluid Mechanics</span>
+      <span class="ptag">Physics</span>
+    </div>
+    <h1 class="proj-page-title">Bubble Dynamics &amp; <em>Minnaert Frequency</em></h1>
+    <p class="proj-tagline">An interactive simulator exploring how gas bubbles oscillate in different liquid media — and why they make the sounds they do.</p>
+  </div>
+  <div class="demo-zone">
+    <div class="demo-label"><span class="live-dot"></span>Interactive Simulator</div>
+    <div class="demo-frame">
+      <div class="demo-frame-inner">
+        <div class="demo-title-sm">Bubble Oscillation Simulator</div>
+        <div class="demo-coming">Interactive demo loading here — fluid presets, bubble radius slider, audio playback</div>
+      </div>
+    </div>
+  </div>
+  <div class="proj-body">
+    <div class="proj-section">
+      <div class="proj-section-label">The Problem</div>
+      <p class="proj-p">When a gas bubble in a liquid is disturbed — by a pressure wave, a vibration, or simply being formed — it doesn't just sit there. It oscillates, expanding and contracting at a characteristic frequency. This is the Minnaert frequency, named after the Dutch physicist Marcel Minnaert who first described it in 1933.</p>
+      <p class="proj-p">Understanding this frequency matters across a surprising range of applications: acoustic cavitation in medical ultrasound, the distinct sound signature of carbonated beverages, underwater acoustics, and even industrial mixing processes. The sound of a stream, it turns out, is almost entirely the sound of bubbles.</p>
+    </div>
+    <div class="proj-section">
+      <div class="proj-section-label">Approach</div>
+      <p class="proj-p">The Minnaert frequency is derived from the equation of motion of a bubble modeled as a damped harmonic oscillator. For a spherical bubble of radius R in a liquid of density ρ at ambient pressure P₀, the resonant frequency is:</p>
+      <p class="proj-p" style="font-family:monospace;font-size:14px;color:rgba(240,239,235,0.5);padding:1rem 1.25rem;background:var(--bg1);border-radius:8px;border:1px solid var(--border);">f = (1/2πR) × √(3γP₀/ρ)</p>
+      <p class="proj-p">I implemented this model computationally and extended it to account for different fluid media — varying surface tension, dissolved gas concentration, and viscosity. The simulator uses presets for water, carbonated water, beer (CO₂ in solution), and nitrogenated stout (a CO₂/N₂ mix), which explains the dramatically different bubble behaviour and sound between, say, a Guinness and a lager.</p>
+    </div>
+    <div class="proj-section">
+      <div class="proj-section-label">Outcomes</div>
+      <p class="proj-p">The finished tool lets users set bubble radius and fluid properties (via presets or custom sliders), visualise the oscillation waveform in real time, and hear the computed resonant frequency as an audio tone. The difference between CO₂ bubbles in lager (~2mm radius, ~1.6 kHz) and nitrogen bubbles in stout (~0.05mm radius, ~65 kHz) is immediately audible.</p>
+    </div>
+  </div>
+  <div class="proj-links-row">
+    <a href="#" class="btn-fill">GitHub Repository →</a>
+  </div>
+  <footer>
+    <span>Raunak Jalan — 2026</span>
+    <button class="btn-ghost" onclick="goHome()" style="font-size:12px;">← Back to all projects</button>
+  </footer>
+</div>
+
+<!-- PROJECT: POWERLIFTING ML -->
+<div id="proj-power" class="page">
+  <nav class="proj-nav">
+    <button class="back-btn" onclick="goHome()"><span class="back-arr">←</span> All projects</button>
+    <span class="proj-nav-name">Powerlifting Analytics / ML</span>
+  </nav>
+  <div class="proj-header">
+    <div class="proj-tags">
+      <span class="ptag">Machine Learning</span>
+      <span class="ptag">Data Science</span>
+      <span class="ptag">Python</span>
+      <span class="ptag">OpenPowerlifting</span>
+    </div>
+    <h1 class="proj-page-title">Powerlifting <em>Strength Analytics</em></h1>
+    <p class="proj-tagline">Using competitive powerlifting data to answer a deceptively simple question: how strong is strong?</p>
+  </div>
+  <div class="demo-zone">
+    <div class="demo-label"><span class="live-dot"></span>Strength Percentile Calculator</div>
+    <div class="demo-frame">
+      <div class="demo-frame-inner">
+        <div class="demo-title-sm">How strong are you?</div>
+        <div class="demo-coming">Enter your squat / bench / deadlift → get your percentile against competitive lifters</div>
+      </div>
+    </div>
+  </div>
+  <div class="proj-body">
+    <div class="proj-section">
+      <div class="proj-section-label">The Problem</div>
+      <p class="proj-p">Strength has no obvious benchmark. A 140kg deadlift feels impressive until you're in a gym full of serious lifters. A 200kg squat sounds elite until you see what competitive powerlifters do. There's no intuitive way for most people — even dedicated gym-goers — to contextualise their numbers.</p>
+      <p class="proj-p">The goal was to build a model that could map raw lift numbers to meaningful percentiles within a large, real-world population of strength athletes.</p>
+    </div>
+    <div class="proj-section">
+      <div class="proj-section-label">Approach</div>
+      <p class="proj-p">The OpenPowerlifting dataset is one of the largest open databases of powerlifting competition records — millions of individual meet results spanning dozens of federations, weight classes, age groups, and equipment categories. After cleaning and filtering for raw (unequipped) lifters, the usable dataset contained several hundred thousand entries.</p>
+      <p class="proj-p">The analysis explored the distribution of squat, bench press, and deadlift performance by bodyweight bracket. A percentile model was built that accounts for bodyweight scaling, allowing fair comparison across different body sizes. The tool also surfaces the Wilks and DOTS coefficients as secondary metrics for those familiar with them.</p>
+    </div>
+    <div class="proj-section">
+      <div class="proj-section-label">Outcomes & Findings</div>
+      <p class="proj-p">The strength distribution is dramatically non-linear. The gap between the 50th and 90th percentile is large but achievable with serious training. The gap between the 90th and 99th percentile is enormous — reflecting years of dedicated competition-level preparation. Getting to "pretty strong" is accessible. Getting to "elite" is a different conversation.</p>
+      <p class="proj-p">The calculator lets anyone enter their three competition lifts and bodyweight, and returns their percentile ranking against the dataset — broken down by lift and combined total. A simple, honest benchmark.</p>
+    </div>
+  </div>
+  <div class="proj-links-row">
+    <a href="#" class="btn-fill">GitHub Repository →</a>
+  </div>
+  <footer>
+    <span>Raunak Jalan — 2026</span>
+    <button class="btn-ghost" onclick="goHome()" style="font-size:12px;">← Back to all projects</button>
+  </footer>
+</div>
+
+<!-- PROJECT: STARTUP / CO-FOUNDER -->
+<div id="proj-startup" class="page">
+  <nav class="proj-nav">
+    <button class="back-btn" onclick="goHome()"><span class="back-arr">←</span> All projects</button>
+    <span class="proj-nav-name">Co-founder Experience / Startup</span>
+  </nav>
+  <div class="startup-hero">
+    <h1 class="startup-headline">Not all startups <span class="dim-line">go through.</span></h1>
+    <p class="startup-sub">Some ideas are right but the timing is wrong. Some teams are good but the alignment is off. Ours was probably both. This is the honest version of what happened.</p>
+  </div>
+  <div class="proj-body" style="max-width:680px;margin:0 auto;">
+    <div class="proj-section">
+      <div class="proj-section-label">The Idea</div>
+      <p class="proj-p">[Describe your startup idea here — what problem were you trying to solve, who was the customer, what was the core hypothesis you were betting on.]</p>
+      <p class="proj-p">We were convinced the problem was real. We'd seen it ourselves. We knew people who had it. That felt like enough to start.</p>
+    </div>
+    <div class="proj-section">
+      <div class="proj-section-label">What We Built</div>
+      <p class="proj-p">[Describe the MVP — what you shipped, what tools/stack you used, what stage you got to before calling it. A rough product description, how many users you reached if any, what the feedback was.]</p>
+      <p class="proj-p">We moved fast. Maybe faster than we should have. The product worked, technically. What it didn't do was solve a problem people would pay to have solved.</p>
+    </div>
+    <div class="proj-section">
+      <div class="proj-section-label">What Went Wrong</div>
+      <p class="proj-p">The honest answer is that we built before we validated. We assumed that people acknowledging a problem meant they wanted a solution — and specifically, wanted to pay for ours. That assumption turned out to be wrong.</p>
+      <p class="proj-p">Co-founder dynamics added to it. Two people with different risk tolerances and different timelines for "this isn't working" will eventually diverge. We diverged. The company didn't survive it.</p>
+    </div>
+    <div class="proj-section">
+      <div class="proj-section-label">What I Took From It</div>
+      <p class="proj-p">Talk to customers before you build, not while you build. "I would use that" is not the same as "I will pay for that." The gap between the two is where most startups die.</p>
+      <p class="proj-p">Choose co-founders not just for their skills but for their values around time, sacrifice, and what failure looks like. And be honest, early, when things aren't working — with your co-founder and with yourself.</p>
+      <p class="proj-p">I'd do it again. Different idea, different approach — but yes, again. The experience of building something from nothing, even if it doesn't make it, is genuinely irreplaceable.</p>
+    </div>
+  </div>
+  <footer>
+    <span>Raunak Jalan — 2026</span>
+    <button class="btn-ghost" onclick="goHome()" style="font-size:12px;">← Back to all projects</button>
+  </footer>
+</div>
+
+<!-- PROJECT: CHEMENG #2 -->
+<div id="proj-chem2" class="page">
+  <nav class="proj-nav">
+    <button class="back-btn" onclick="goHome()"><span class="back-arr">←</span> All projects</button>
+    <span class="proj-nav-name">ChemEng Project #2</span>
+  </nav>
+  <div class="proj-header">
+    <div class="proj-tags">
+      <span class="ptag">Chemical Engineering</span>
+      <span class="ptag">Sustainable Manufacturing Processes</span>
+      <span class="ptag">Engineering Design</span>
+      <span class="ptag">ASPEN Plus V15</span>
+    </div>
+    <h1 class="proj-page-title">Chemical Engineering <em>Project #2</em></h1>
+    <p class="proj-tagline">[Your one-line description of what this project is about and why it matters.]</p>
+  </div>
+  <div class="proj-body">
+    <div class="proj-section">
+      <div class="proj-section-label">The Problem</div>
+      <p class="proj-p">[Describe the engineering problem or research question this project addressed. What was the context — coursework, independent research, industrial application? What made it interesting or challenging?]</p>
+    </div>
+    <div class="proj-section">
+      <div class="proj-section-label">Approach</div>
+      <p class="proj-p">[Describe your methodology — models used, experiments run, tools and software, any novel approaches or adaptations. Keep it accessible but don't dumb it down.]</p>
+      <p class="proj-p">[Second paragraph if needed — specific results, data, any interesting intermediate findings.]</p>
+    </div>
+    <div class="proj-section">
+      <div class="proj-section-label">Outcomes</div>
+      <p class="proj-p">[What were the results? Quantify where possible. What would you do differently? What did this project lead to — further work, insights, publications, tools?]</p>
+    </div>
+  </div>
+  <div class="proj-links-row">
+    <a href="#" class="btn-fill">GitHub Repository →</a>
+    <a href="#" class="btn-outline">Report / Paper ↗</a>
+  </div>
+  <footer>
+    <span>Raunak Jalan — 2026</span>
+    <button class="btn-ghost" onclick="goHome()" style="font-size:12px;">← Back to all projects</button>
+  </footer>
+</div>
+
+<!-- PROJECT: AI / LLM (COMING SOON) -->
+<div id="proj-ai" class="page">
+  <nav class="proj-nav">
+    <button class="back-btn" onclick="goHome()"><span class="back-arr">←</span> All projects</button>
+    <span class="proj-nav-name">AI / LLM Project</span>
+  </nav>
+  <div class="coming-hero">
+    <div class="proj-tags" style="margin-bottom:2rem;">
+      <span class="ptag">Artificial Intelligence</span>
+      <span class="ptag">LLMs</span>
+      <span class="ptag">In Progress</span>
+    </div>
+    <h2 class="coming-title">Something's being<br><em>built here.</em></h2>
+    <p class="coming-sub">Currently working on a project in the AI and LLM space. Write-up and interactive demo to follow on completion.</p>
+    <div class="progress-bar"><div class="progress-fill"></div></div>
+    <p class="progress-label">~30% complete</p>
+  </div>
+  <div class="proj-body">
+    <div class="proj-section">
+      <div class="proj-section-label">What it's about</div>
+      <p class="proj-p">[Tease what you're building here — enough to be interesting, without giving it all away. What problem is it trying to solve? What makes it different from just using an existing LLM tool?]</p>
+      <p class="proj-p">Check back in a few weeks — or reach out if you want to hear about it directly.</p>
+    </div>
+  </div>
+  <div class="proj-links-row">
+    <button class="btn-fill" onclick="scrollToSection('contact')">Get notified when it's live →</button>
+  </div>
+  <footer>
+    <span>Raunak Jalan — 2026</span>
+    <button class="btn-ghost" onclick="goHome()" style="font-size:12px;">← Back to all projects</button>
+  </footer>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     BLOG HUB (NEW PAGE)
+════════════════════════════════════════════════════ -->
+<div id="blog-index" class="page">
+  <nav class="proj-nav">
+    <button class="back-btn" onclick="goHome()"><span class="back-arr">←</span> Home</button>
+    <span class="proj-nav-name">Writings & Thoughts</span>
+  </nav>
+  <div class="proj-header">
+    <h1 class="proj-page-title">Essays & <em>Musings</em></h1>
+    <p class="proj-tagline">Thoughts on evolutionary psychology, modern consumerism, consciousness, and the mechanics of the human mind.</p>
+  </div>
+  <section class="works" style="padding-top: 0; border-bottom: none;">
+    <div class="proj-grid">
+      {allBlogs.map((blog) => (
+        <div class={`proj-tile ${blog.data.theme}`} onclick={`showPage('${blog.id}')`}>
+          <div class="proj-bg">
+            {blog.data.image ? (
+              <img src={blog.data.image} alt={blog.data.title} style="width: 100%; height: 100%; object-fit: cover; opacity: 0.6;" />
+            ) : (
+              <div class="geo"></div>
+            )}
+          </div>
+          <div class="proj-overlay"><span class="view-pill">Read Essay</span></div>
+          <div class="proj-info">
+            <div class="proj-meta">{blog.data.meta}</div>
+            <div class="proj-name">{blog.data.title}</div>
+            <div class="proj-cat">{blog.data.category}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+  <footer>
+    <span>Raunak Jalan — 2026</span>
+    <button class="btn-ghost" onclick="goHome()" style="font-size:12px;">← Back to Home</button>
+  </footer>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     BLOG ARTICLES (DYNAMIC)
+════════════════════════════════════════════════════ -->
+{allBlogs.map(async (blog) => {
+  const { Content } = await render(blog);
+  return (
+    <div id={blog.id} class="page">
+      <nav class="proj-nav">
+        <button class="back-btn" onclick="showPage('blog-index')"><span class="back-arr">←</span> Back to Blogs</button>
+      </nav>
+      <div class="proj-header">
+        <h1 class="proj-page-title">{blog.data.title}</h1>
+      </div>
+      <div class="proj-body">
+        <Content />
+      </div>
+    </div>
+  );
+})}
+
+</body>
 </html>
+
+<style is:global>
+/* ── MOBILE RESPONSIVENESS ─────────────────────────── */
+@media (max-width: 768px) {
+  .nav, .proj-nav { padding: 1rem 1.5rem; }
+  .nav-status { display: none; }
+  .hero, .about, .works, .contact, .proj-header, .proj-body, .demo-zone { 
+    padding-left: 1.5rem; padding-right: 1.5rem; 
+  }
+  .about { grid-template-columns: 1fr; gap: 2.5rem; }
+  .human-row { grid-template-columns: 1fr; gap: 0.25rem; padding: 1rem 0; }
+  .proj-grid { grid-template-columns: 1fr; }
+  .proj-tile.wide, .proj-tile.full { grid-column: span 1; aspect-ratio: 16/10; }
+  .hero-title { font-size: clamp(40px, 10vw, 52px); }
+  .proj-page-title { font-size: clamp(32px, 8vw, 48px); }
+  .contact-row { flex-wrap: wrap; gap: 0.5rem; }
+}
+
+/* ── RESET & BASE ──────────────────────────────────── */
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+:root{
+  --bg:#0d0d0d;
+  --bg1:#141414;
+  --bg2:#1c1c1c;
+  --text:#f0efeb;
+  --muted:#888;
+  --dim:#444;
+  --green:#22c55e;
+  --border:rgba(255,255,255,0.08);
+  --border2:rgba(255,255,255,0.14);
+  --ff:'Space Grotesk',system-ui,sans-serif;
+  --fi:'Playfair Display',Georgia,serif;
+}
+body {
+  font-family: var(--ff);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Notice we removed html, #main, and .page! */
+a{color:inherit;text-decoration:none;}
+button{font-family:var(--ff);cursor:pointer;}
+
+/* ── PAGES ─────────────────────────────────────────── */
+.page{display:none;}
+.page.active{display:block;}
+
+/* ── NAV ───────────────────────────────────────────── */
+.nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.4rem 3rem;position:sticky;top:0;z-index:100;
+  background:rgba(13,13,13,0.92);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{font-size:15px;font-weight:700;letter-spacing:-0.02em;cursor:pointer;flex:1;}
+.nav-pill{
+  display:flex;gap:0;background:rgba(255,255,255,0.05);border:1px solid var(--border);
+  border-radius:100px;padding:0.3rem;
+}
+.nav-pill button{
+  font-size:12px;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;
+  color:var(--muted);padding:0.45rem 1.1rem;border-radius:100px;border:none;
+  background:transparent;transition:color .2s,background .2s;
+}
+.nav-pill button:hover,.nav-pill button.active-link{color:var(--text);background:rgba(255,255,255,0.09);}
+.nav-status{
+  display:flex;align-items:center;justify-content:flex-end;
+  gap:7px;font-size:11px;color:var(--muted);letter-spacing:0.04em;flex:1;
+}
+.nav-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 7px var(--green);}
+
+/* ── PROJECT NAV ────────────────────────────────────── */
+.proj-nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.4rem 3rem;position:sticky;top:0;z-index:100;
+  background:rgba(13,13,13,0.92);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+}
+.back-btn{
+  display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);
+  border:none;background:transparent;transition:color .2s;padding:0;
+}
+.back-btn:hover{color:var(--text);}
+.back-arr{font-size:15px;}
+.proj-nav-name{font-size:13px;color:var(--dim);font-weight:400;}
+
+/* ── BUTTONS ────────────────────────────────────────── */
+.btn-fill{
+  display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;
+  letter-spacing:0.01em;background:var(--text);color:var(--bg);border:none;
+  padding:.75rem 1.75rem;border-radius:100px;transition:opacity .2s;
+}
+.btn-fill:hover{opacity:.82;}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:500;
+  background:transparent;color:var(--muted);border:none;padding:.75rem 0;transition:color .2s;
+}
+.btn-ghost:hover{color:var(--text);}
+.btn-outline{
+  display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:500;
+  letter-spacing:0.04em;text-transform:uppercase;background:transparent;color:var(--muted);
+  border:1px solid var(--border2);padding:.55rem 1.2rem;border-radius:100px;
+  transition:color .2s,border-color .2s;
+}
+.btn-outline:hover{color:var(--text);border-color:rgba(255,255,255,0.3);}
+:focus:not(:focus-visible) { outline: none; }
+:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; border-radius: 4px; }
+.nav-pill button:focus-visible { outline-offset: 2px; border-radius: 100px; }
+
+/* ── MAIN PAGE SECTIONS ─────────────────────────────── */
+.hero{padding:5rem 3rem 5.5rem;border-bottom:1px solid var(--border);}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--muted);border:1px solid var(--border);
+  padding:.4rem .9rem;border-radius:100px;margin-bottom:2.5rem;
+}
+.hero-eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--green);}
+.hero-title{
+  font-size:clamp(52px,7.5vw,82px);font-weight:700;letter-spacing:-0.04em;
+  line-height:1.0;color:var(--text);max-width:780px;margin-bottom:1.75rem;
+}
+.hero-title em{font-family:var(--fi);font-style:italic;font-weight:400;color:rgba(240,239,235,0.45);display:block;}
+.hero-sub{font-size:15px;color:var(--muted);line-height:1.8;max-width:440px;margin-bottom:2.5rem;}
+.hero-btns{display:flex;gap:1.25rem;align-items:center;flex-wrap:wrap;}
+
+.about{display:grid;grid-template-columns:1fr 1fr;gap:4rem;padding:4rem 3rem;border-bottom:1px solid var(--border);align-items:start;}
+.about-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1.25rem;}
+.about-text{font-size:16px;line-height:1.85;color:rgba(240,239,235,0.7);max-width:420px;}
+.about-human {display: flex; flex-direction: column;}
+.human-row {display: grid; grid-template-columns: 110px 1fr; gap: 1.5rem; align-items: baseline; padding: 1.25rem 0; border-bottom: 1px solid var(--border);}
+.human-row:first-child { border-top: 1px solid var(--border); }
+.h-label {font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 500;}
+.h-val {font-size: 14px; color: rgba(240,239,235,0.9); line-height: 1.6;}
+.h-val em {font-style: normal; color: var(--dim); font-size: 12px; margin-left: 4px;}
+.h-val a {text-decoration: underline; text-decoration-color: var(--dim); text-underline-offset: 3px; transition: color .2s;}
+.h-val a:hover { color: var(--text); text-decoration-color: var(--text); }
+
+.works{padding:4rem 3rem;border-bottom:1px solid var(--border);}
+.works-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2.5rem;flex-wrap:wrap;gap:1rem;}
+.works-title{font-size:36px;font-weight:700;letter-spacing:-0.03em;}
+.filters{display:flex;gap:.5rem;flex-wrap:wrap;}
+.filter{
+  font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:500;
+  padding:.4rem .9rem;border-radius:100px;border:1px solid var(--border);color:var(--muted);
+  cursor:pointer;transition:all .2s;background:transparent;
+}
+.filter:hover,.filter.f-active{background:var(--text);color:var(--bg);border-color:var(--text);}
+
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
+.proj-tile{background:var(--bg);aspect-ratio:4/5;position:relative;overflow:hidden;cursor:pointer;}
+.proj-tile.wide{grid-column:span 2;aspect-ratio:16/9;}
+.proj-tile.full{grid-column:span 3;aspect-ratio:21/6;}
+.proj-bg{position:absolute;inset:0;transition:transform .6s ease;}
+.proj-tile:hover .proj-bg{transform:scale(1.04);}
+
+/* Tile Backgrounds */
+.t-bubble{background:radial-gradient(ellipse at 70% 60%,#0a1628 0%,#060b14 100%);}
+.t-startup{background:radial-gradient(ellipse at 30% 70%,#1a1108 0%,#0d0d0d 100%);}
+.t-power{background:radial-gradient(ellipse at 50% 40%,#0f0f1f 0%,#0d0d0d 100%);}
+.t-chem2{background:radial-gradient(ellipse at 60% 60%,#0a140f 0%,#0d0d0d 100%);}
+.t-ai{background:radial-gradient(ellipse at 50% 50%,#110e1a 0%,#0d0d0d 100%);}
+.t-blog1{background:radial-gradient(ellipse at 80% 20%,#1a0e10 0%,#0d0d0d 100%);}
+.t-blog2{background:radial-gradient(ellipse at 20% 80%,#0e141a 0%,#0d0d0d 100%);}
+.t-blog3{background:radial-gradient(ellipse at 50% 50%,#141a0e 0%,#0d0d0d 100%);}
+
+.proj-tile .geo{position:absolute;width:200px;height:200px;border-radius:50%;border:1px solid rgba(255,255,255,0.05);right:-50px;bottom:-50px;}
+.proj-overlay{position:absolute;inset:0;background:rgba(13,13,13,0);display:flex;align-items:center;justify-content:center;transition:background .3s;}
+.proj-tile:hover .proj-overlay{background:rgba(13,13,13,0.5);}
+.view-pill{
+  font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:500;
+  color:var(--text);opacity:0;border:1px solid rgba(255,255,255,0.25);
+  padding:.5rem 1.3rem;border-radius:100px;transition:opacity .3s;
+}
+.proj-tile:hover .view-pill{opacity:1;}
+.proj-info{position:absolute;bottom:0;left:0;right:0;padding:1.5rem 1.75rem;background:linear-gradient(transparent,rgba(13,13,13,0.98) 60%);}
+.proj-meta{display:flex;align-items:center;gap:7px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.live-dot{width:5px;height:5px;border-radius:50%;background:var(--green);}
+.soon-dot{width:5px;height:5px;border-radius:50%;background:#f5a623;}
+.proj-name{font-size:16px;font-weight:600;color:var(--text);letter-spacing:-0.01em;line-height:1.3;}
+.proj-cat{font-size:12px;color:var(--dim);margin-top:3px;}
+
+.contact{padding:5rem 3rem 4rem;}
+.contact-pre{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1.5rem;}
+.contact-headline{font-size:clamp(40px,6vw,64px);font-weight:700;letter-spacing:-0.04em;line-height:1.0;margin-bottom:3rem;}
+.contact-headline em{font-family:var(--fi);font-style:italic;font-weight:400;color:rgba(240,239,235,0.4);}
+.contact-links{display:flex;flex-direction:column;max-width:560px;}
+.contact-row{display:flex;align-items:center;gap:1.5rem;padding:1.25rem 0;border-bottom:1px solid var(--border);transition:opacity .2s;}
+.contact-row:first-child{border-top:1px solid var(--border);}
+.contact-row:hover{opacity:.7;}
+.contact-platform{font-size:13px;font-weight:600;color:var(--text);min-width:90px;}
+.contact-val{font-size:14px;color:var(--muted);}
+.contact-arr{margin-left:auto;color:var(--dim);font-size:14px;}
+
+footer{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 3rem;border-top:1px solid var(--border);}
+footer span{font-size:12px;color:var(--dim);}
+
+/* ── SHARED PROJECT/BLOG PAGES ──────────────────────── */
+.proj-header{padding:4.5rem 3rem 3.5rem;border-bottom:1px solid var(--border);}
+.proj-tags{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem;}
+.ptag{
+  font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:500;
+  padding:.35rem .85rem;border-radius:100px;border:1px solid var(--border2);color:var(--muted);
+}
+.proj-page-title{font-size:clamp(40px,6vw,68px);font-weight:700;letter-spacing:-0.04em;line-height:1.0;color:var(--text);max-width:800px;margin-bottom:1.25rem;}
+.proj-page-title em{font-family:var(--fi);font-style:italic;font-weight:400;color:rgba(240,239,235,0.45);}
+.proj-tagline{font-size:16px;color:var(--muted);line-height:1.75;max-width:560px;}
+.proj-body{padding:4rem 3rem;max-width:760px; margin: 0 auto;} 
+.proj-section{margin-bottom:3.5rem;}
+.proj-p, .proj-body p {font-size:15px;color:rgba(240,239,235,0.65);line-height:1.9;margin-bottom:1rem;}
+.blog-date-meta { font-size:12px; color:var(--dim); margin-bottom: 2rem; display: block; border-bottom: 1px solid var(--border); padding-bottom: 1rem;}
+.demo-zone{margin:0;padding:3.5rem 3rem;border-bottom:1px solid var(--border);background:var(--bg1);}
+.demo-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1.5rem;display:flex;align-items:center;gap:8px;}
+.demo-label .live-dot{display:inline-block;}
+.demo-frame{border:1px solid var(--border2);border-radius:12px;aspect-ratio:16/7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.75rem;background:var(--bg);position:relative;overflow:hidden;}
+.demo-frame-inner{text-align:center;}
+.demo-coming{font-size:13px;color:var(--dim);letter-spacing:.05em;}
+.demo-title-sm{font-size:22px;font-weight:600;color:rgba(240,239,235,0.35);letter-spacing:-0.02em;margin-bottom:.5rem;}
+.proj-links-row{display:flex;gap:1rem;flex-wrap:wrap;padding:2.5rem 3rem;border-top:1px solid var(--border);}
+.startup-hero{padding:5rem 3rem 4rem;border-bottom:1px solid var(--border);text-align:center;}
+.startup-headline{font-size:clamp(44px,7vw,80px);font-weight:700;letter-spacing:-0.04em;line-height:1.05;color:var(--text);margin-bottom:0;}
+.startup-headline .dim-line{display:block;color:rgba(240,239,235,0.28);font-weight:700;}
+.startup-sub{font-size:15px;color:var(--muted);line-height:1.8;max-width:500px;margin:2rem auto 0;}
+.coming-hero{min-height:60vh;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:5rem 3rem;border-bottom:1px solid var(--border);}
+.coming-title{font-size:clamp(48px,7vw,80px);font-weight:700;letter-spacing:-0.04em;line-height:1.0;color:var(--text);max-width:700px;margin-bottom:1.25rem;}
+.coming-title em{font-family:var(--fi);font-style:italic;font-weight:400;color:rgba(240,239,235,0.35);}
+.coming-sub{font-size:15px;color:var(--muted);line-height:1.8;max-width:420px;margin-bottom:2rem;}
+.progress-bar{width:220px;height:2px;background:var(--border2);border-radius:2px;margin-bottom:.5rem;}
+.progress-fill{width:30%;height:100%;background:var(--text);border-radius:2px;}
+.progress-label{font-size:11px;color:var(--dim);letter-spacing:.05em;}
+.proj-section-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--border);}
+
+/* Animations */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
+.fade-in{animation:fadeUp .45s ease both;}
+.fd1{animation-delay:.05s;}.fd2{animation-delay:.12s;}.fd3{animation-delay:.2s;}
+</style>
+
+<script is:inline>
+function showPage(id, pushHistory = true){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'instant'});
+  if(pushHistory) window.history.pushState({ pageId: id }, "", `#${id}`);
+}
+
+function goHome(pushHistory = true){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('main').classList.add('active');
+  window.scrollTo({top:0,behavior:'instant'});
+  if(pushHistory) window.history.pushState({ pageId: 'main' }, "", window.location.pathname);
+}
+
+window.addEventListener('popstate', (event) => {
+  if (event.state && event.state.pageId) {
+    showPage(event.state.pageId, false);
+  } else {
+    goHome(false); 
+  }
+});
+
+function scrollToSection(sectionId){
+  const inMain = document.getElementById('main').classList.contains('active');
+  if(!inMain){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.getElementById('main').classList.add('active');
+    setTimeout(()=>{
+      document.getElementById(sectionId)?.scrollIntoView({behavior:'smooth',block:'start'});
+    }, 50);
+  } else {
+    document.getElementById(sectionId)?.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+}
+
+const sections = ['about', 'works', 'contact'];
+const navBtns = document.querySelectorAll('.nav-pill button');
+window.addEventListener('scroll',()=>{
+  if(!document.getElementById('main').classList.contains('active')) return;
+  let current = '';
+  sections.forEach(id=>{
+    const el = document.getElementById(id);
+    if(el && window.scrollY >= el.offsetTop - 120) current = id;
+  });
+  navBtns.forEach(btn=>{
+    btn.classList.remove('active-link');
+    if(btn.textContent.toLowerCase()===current) btn.classList.add('active-link');
+  });
+},{ passive:true });
+
+// Works Filtering Logic
+document.querySelectorAll('.filter').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.filter').forEach(b=>b.classList.remove('f-active'));
+    btn.classList.add('f-active');
+    const f = btn.dataset.filter;
+    document.querySelectorAll('#works .proj-tile').forEach(tile=>{
+      if(f==='all'||tile.dataset.filter===f){
+        tile.style.display='';
+      } else {
+        tile.style.display='none';
+      }
+    });
+  });
+});
+</script>
