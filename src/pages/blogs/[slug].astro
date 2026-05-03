@@ -1,34 +1,109 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 
-// This tells Astro to build a page for every markdown file it finds
 export async function getStaticPaths() {
   const blogEntries = await getCollection('blogs');
   return blogEntries.map(entry => ({
-    params: { slug: entry.slug }, 
+    params: { slug: entry.id }, 
     props: { entry },
   }));
 }
 
-// This grabs the specific content for the page you clicked
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 ---
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>{entry.data.title}</title>
+    <meta name="viewport" content="width=device-width" />
+    <title>{entry.data.title} | Raunak Jalan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
   </head>
   <body>
-    <a href="/blogs">← Back to Blogs</a>
-    
-    <article>
-      <h1>{entry.data.title}</h1>
+    <!-- display: block ensures the .page class isn't hidden -->
+    <div id="blog-post" class="page" style="display: block;">
       
-      <!-- This renders your markdown text -->
-      <Content />
-      
-    </article>
+      <nav class="proj-nav">
+        <a href="/blogs" class="back-btn">
+          <span class="back-arr">←</span> Back to Blogs
+        </a>
+        <span class="proj-nav-name">Writings & Thoughts</span>
+      </nav>
+
+      <header class="proj-header">
+        <div class="proj-tags">
+          <span class="ptag">{entry.data.category}</span>
+        </div>
+        <h1 class="proj-page-title">{entry.data.title}</h1>
+        <p class="proj-tagline">{entry.data.description}</p>
+      </header>
+
+      <main class="proj-body">
+        <span class="blog-date-meta">Published: {entry.data.meta}</span>
+        <article class="essay-content">
+          <Content />
+        </article>
+      </main>
+
+      <footer>
+        <span>Raunak Jalan — 2026</span>
+        <a href="/blogs" class="btn-ghost" style="font-size:12px;">← Back to Blogs</a>
+      </footer>
+    </div>
   </body>
 </html>
+
+<style is:global>
+:root{
+  --bg:#0d0d0d;
+  --text:#f0efeb;
+  --muted:#888;
+  --dim:#444;
+  --border:rgba(255,255,255,0.08);
+  --ff:'Space Grotesk', sans-serif;
+  --fi:'Playfair Display', serif;
+}
+
+body {
+  font-family: var(--ff);
+  background: var(--bg);
+  color: var(--text);
+  margin: 0;
+}
+
+/* 1. Kill Underlines Globally */
+a { 
+  text-decoration: none !important; 
+  color: inherit;
+}
+
+/* 2. Fix Nav Name (Writings & Thoughts) */
+.proj-nav-name {
+  font-size: 13px; 
+  color: var(--dim); 
+  font-weight: 400;
+  font-family: var(--ff);
+}
+
+/* Header & Typography */
+.proj-header { padding: 6rem 3rem 4rem; border-bottom: 1px solid var(--border); }
+.proj-page-title { font-family: var(--ff); font-weight: 700; font-size: clamp(40px, 6vw, 68px); letter-spacing: -0.04em; line-height: 1.0; margin-bottom: 1.25rem; }
+.proj-tagline { font-size: 16px; color: var(--muted); line-height: 1.75; max-width: 560px; font-family: var(--ff); }
+
+/* Essay Content */
+.proj-body { padding: 4rem 3rem; max-width: 800px; margin: 0 auto; }
+.essay-content p { font-size: 17px; line-height: 1.9; color: rgba(240,239,235,0.75); margin-bottom: 1.5rem; font-family: var(--ff); }
+.blog-date-meta { font-size: 12px; color: var(--dim); margin-bottom: 2rem; display: block; border-bottom: 1px solid var(--border); padding-bottom: 1rem; font-family: var(--ff); }
+
+/* Navigation & Footer Coherency */
+.proj-nav { display: flex; align-items: center; justify-content: space-between; padding: 1.4rem 3rem; position: sticky; top: 0; z-index: 100; background: rgba(13, 13, 13, 0.92); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+.back-btn { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); transition: color .2s; font-family: var(--ff); }
+.back-btn:hover { color: var(--text); }
+footer { display: flex; justify-content: space-between; align-items: center; padding: 2rem 3rem; border-top: 1px solid var(--border); font-family: var(--ff); }
+footer span { font-size: 12px; color: var(--dim); }
+.btn-ghost { font-size: 12px; color: var(--muted); transition: color .2s; }
+.btn-ghost:hover { color: var(--text); }
+</style>

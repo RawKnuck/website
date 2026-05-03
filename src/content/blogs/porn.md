@@ -1,10 +1,10 @@
 ---
-title: "Why you should quit social media"
+title: "Why you should quit watching pornography"
 date: "2026-05-03"
 meta: "Philosophy"
 category: "Attention & Society"
 theme: "t-blog1"
-image: "/test.webp"
+image: "blogassets/test.webp"
 ---
 
 Your essay text goes here...
