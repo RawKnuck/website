@@ -1,7 +1,7 @@
 ---
 title: "Why you should quit watching pornography"
-date: "2026-05-03"
-meta: "Philosophy"
+description: "A short one-sentence hook for the grid card."
+meta: "June 2026 • 10 min read"
 category: "Attention & Society"
 theme: "t-blog1"
 image: "/blogassets/test.webp"

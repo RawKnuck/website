@@ -1,8 +1,8 @@
 ---
 title: "Why you should quit social media"
-date: "2026-05-03"
-meta: "Philosophy"
-category: "Attention & Society"
+description: "A short one-sentence hook for the grid card."
+meta: "July 2026 • 15 min read"
+category: "Dopamine Detox"
 theme: "t-blog1"
 image: "/blogassets/test.webp"
 ---
