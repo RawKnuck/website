@@ -1,0 +1,31 @@
+---
+import { getCollection } from 'astro:content';
+
+// This grabs all the markdown files from your 'blogs' collection
+const allBlogs = await getCollection('blogs');
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Blogs | Raunak Jalan</title>
+  </head>
+  <body>
+    <nav>
+      <a href="/">← Back to Home</a>
+    </nav>
+
+    <main>
+      <h1>My Writings</h1>
+      
+      <ul>
+        <!-- This loops through your markdown files and creates links -->
+        {allBlogs.map((post) => (
+          <li>
+            <a href={`/blogs/${post.slug}`}>{post.data.title}</a>
+          </li>
+        ))}
+      </ul>
+    </main>
+  </body>
+</html>

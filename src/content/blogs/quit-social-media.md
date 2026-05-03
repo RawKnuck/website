@@ -1,5 +1,6 @@
 ---
 title: "Why you should quit social media"
+date: "2026-05-03"
 meta: "Philosophy"
 category: "Attention & Society"
 theme: "t-blog1"

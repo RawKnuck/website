@@ -1,0 +1,34 @@
+---
+import { getCollection } from 'astro:content';
+
+// This tells Astro to build a page for every markdown file it finds
+export async function getStaticPaths() {
+  const blogEntries = await getCollection('blogs');
+  return blogEntries.map(entry => ({
+    params: { slug: entry.slug }, 
+    props: { entry },
+  }));
+}
+
+// This grabs the specific content for the page you clicked
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{entry.data.title}</title>
+  </head>
+  <body>
+    <a href="/blogs">← Back to Blogs</a>
+    
+    <article>
+      <h1>{entry.data.title}</h1>
+      
+      <!-- This renders your markdown text -->
+      <Content />
+      
+    </article>
+  </body>
+</html>
