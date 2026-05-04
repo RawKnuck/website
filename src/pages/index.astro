@@ -16,12 +16,23 @@ const allBlogs = await getCollection('blogs');
 </head>
 <body>
 
+<script is:inline>
+    if (sessionStorage.getItem('introPlayed')) {
+      document.documentElement.classList.add('hide-intro');
+      document.documentElement.classList.add('reveal-ready');
+    }
+  </script>
+
+<div id="intro-loader">
+  <div id="loader-counter">000</div>
+</div>
+
 <!-- ═══════════════════════════════════════════════════
      MAIN PAGE
 ════════════════════════════════════════════════════ -->
 <div id="main" class="page active">
 
-  <nav class="nav">
+  <nav class="nav animate-pill">
     <div class="nav-logo" onclick="goHome()">Raunak Jalan</div>
     <div class="nav-pill">
       <button onclick="scrollToSection('works')">Works</button>
@@ -35,7 +46,7 @@ const allBlogs = await getCollection('blogs');
   <!-- HERO -->
   <section class="hero" id="hero">
     <div class="hero-eyebrow"><span class="dot"></span>chemical engineer · generalist</div>
-    <h1 class="hero-title fade-in fd1">Solving Complex Problems <em>at the edges.</em></h1>
+    <h1 class="hero-title animate-text-1">Solving Complex Problems <em class="animate-text-2">at the edges.</em></h1>
     <p class="hero-sub fade-in fd2">Science, data, and ideas — I work wherever the problems are interesting & status quo is the bottleneck. Chemical Engineering, Machine Learning, Electric Mobility and now LLMs (for good).</p>
     <div class="hero-btns fade-in fd3">
       <button class="btn-fill" onclick="scrollToSection('works')">View projects →</button>
@@ -359,12 +370,12 @@ const allBlogs = await getCollection('blogs');
      BLOG HUB (NEW PAGE)
 ════════════════════════════════════════════════════ -->
 <div id="blog-index" class="page">
-  <nav class="proj-nav">
+  <nav class="proj-nav animate-pill">
     <button class="back-btn" onclick="goHome()"><span class="back-arr">←</span> Home</button>
     <span class="proj-nav-name">Writings & Thoughts</span>
   </nav>
   <div class="proj-header">
-    <h1 class="proj-page-title">Essays & <em>Musings</em></h1>
+    <h1 class="proj-page-title animate-blog-1">Essays & <em class="animate-blog-2" style="display:inline-block;">Musings</em></h1>
     <p class="proj-tagline">Thoughts on evolutionary psychology, modern consumerism, consciousness, and the mechanics of the human mind.</p>
   </div>
   <section class="works" style="padding-top: 0; border-bottom: none;">
@@ -419,6 +430,88 @@ const allBlogs = await getCollection('blogs');
 </html>
 
 <style is:global>
+
+/* 1. Define the Keyframes */
+@keyframes blurSlideDown {
+  0% { opacity: 0; transform: translateY(-20px); filter: blur(10px); }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+@keyframes blurSlideUp {
+  0% { opacity: 0; transform: translateY(20px); filter: blur(10px); }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+/* 2. Hide elements initially so they don't flash before animating */
+.animate-pill, .animate-text-1, .animate-text-2, .animate-blog-1, .animate-blog-2 {
+  opacity: 0;
+  will-change: transform, opacity, filter; /* Optimizes performance */
+}
+
+/* 3. The Triggered States (Fires when 'reveal-ready' is added to HTML) */
+html.reveal-ready .animate-pill {
+  animation: blurSlideDown 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+html.reveal-ready .animate-text-1 {
+  animation: blurSlideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+html.reveal-ready .animate-text-2 {
+  animation: blurSlideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation-delay: 0.15s; /* The split-second delay */
+}
+
+/* Blog page specific classes */
+html.reveal-ready .animate-blog-1 {
+  animation: blurSlideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+html.reveal-ready .animate-blog-2 {
+  animation: blurSlideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation-delay: 0.15s;
+}
+
+/* Instantly hides the loader if the blocking script fired */
+html.hide-intro #intro-loader {
+  display: none !important;
+}
+
+/* Full-screen black overlay */
+#intro-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--bg, #0d0d0d); /* Use your site's dark hex code */
+  z-index: 9999;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding: 4rem; 
+  transition: opacity 0.6s ease-in-out;
+}
+
+/* The numbers */
+#loader-counter {
+  font-family: var(--ff, 'Space Grotesk', sans-serif);
+  font-size: clamp(80px, 12vw, 160px);
+  font-weight: 300;
+  color: var(--text, #f0efeb);
+  line-height: 1;
+  font-variant-numeric: tabular-nums; 
+}
+
+/* Fade out classes */
+.loader-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+body.loading {
+  overflow: hidden;
+}
+
 /* ── MOBILE RESPONSIVENESS ─────────────────────────── */
 @media (max-width: 768px) {
   .nav, .proj-nav { padding: 1rem 1.5rem; }
@@ -725,4 +818,42 @@ document.querySelectorAll('.filter').forEach(btn=>{
     });
   });
 });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const loader = document.getElementById('intro-loader');
+    const counterElement = document.getElementById('loader-counter');
+    
+    // Checks if the user already saw it in this tab
+    if (sessionStorage.getItem('introPlayed')) {
+      loader.style.display = 'none';
+      return;
+    }
+
+    let count = 0;
+    document.body.classList.add('loading');
+
+    // Runs the counter from 0 to 100 in 1 second
+    const updateCounter = setInterval(() => {
+      count += 1;
+      counterElement.textContent = count.toString().padStart(3, '0');
+
+      if (count >= 100) {
+        clearInterval(updateCounter);
+        
+        setTimeout(() => {
+          loader.classList.add('loader-hidden');
+          document.body.classList.remove('loading');
+          sessionStorage.setItem('introPlayed', 'true');
+
+          document.documentElement.classList.add('reveal-ready');
+          
+          setTimeout(() => {
+            loader.remove();
+          }, 600); 
+        }, 200); 
+      }
+    }, 7.5);
+  });
 </script>

@@ -18,7 +18,8 @@ const allBlogs = await getCollection('blogs');
     <!-- display: block overrides the 'none' in your CSS for .page -->
     <div id="blog-index" class="page" style="display: block;">
       
-      <nav class="proj-nav">
+      <!-- Added animate-pill here -->
+      <nav class="proj-nav animate-pill">
         <a href="/" class="back-btn">
           <span class="back-arr">←</span> Home
         </a>
@@ -26,7 +27,8 @@ const allBlogs = await getCollection('blogs');
       </nav>
 
       <div class="proj-header">
-        <h1 class="proj-page-title">Essays & <em>Musings</em></h1>
+        <!-- Added animate-blog-1 and animate-blog-2 here -->
+        <h1 class="proj-page-title"><span class="animate-blog-1" style="display:inline-block;">Essays & </span><em class="animate-blog-2" style="display:inline-block;">Musings</em></h1>
         <p class="proj-tagline">Thoughts on evolutionary psychology, modern consumerism, consciousness, and the mechanics of the human mind.</p>
       </div>
 
@@ -57,10 +59,49 @@ const allBlogs = await getCollection('blogs');
         <a href="/" class="btn-ghost" style="font-size:12px; text-decoration: none;">← Back to Home</a>
       </footer>
     </div>
+
+    <!-- Script to instantly trigger animations on page load -->
+    <!-- Script to trigger animations reliably on page load -->
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      document.documentElement.classList.add('reveal-ready');
+    }, 50);
+  });
+</script>
   </body>
 </html>
 
 <style is:global>
+/* ── NEW ANIMATION CSS ─────────────────────────────── */
+@keyframes blurSlideDown {
+  0% { opacity: 0; transform: translateY(-20px); filter: blur(10px); }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+@keyframes blurSlideUp {
+  0% { opacity: 0; transform: translateY(20px); filter: blur(10px); }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+.animate-pill, .animate-blog-1, .animate-blog-2 {
+  opacity: 0;
+  will-change: transform, opacity, filter;
+}
+
+html.reveal-ready .animate-pill {
+  animation: blurSlideDown 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+html.reveal-ready .animate-blog-1 {
+  animation: blurSlideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+html.reveal-ready .animate-blog-2 {
+  animation: blurSlideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation-delay: 0.15s;
+}
+
 /* ── MOBILE RESPONSIVENESS ─────────────────────────── */
 @media (max-width: 768px) {
   .nav, .proj-nav { padding: 1rem 1.5rem; }
