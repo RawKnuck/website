@@ -47,7 +47,7 @@ const allBlogs = await getCollection('blogs');
   <section class="hero" id="hero">
     <div class="hero-eyebrow"><span class="dot"></span>chemical engineer · generalist</div>
     <h1 class="hero-title animate-text-1">Solving Complex Problems <em class="animate-text-2">at the edges.</em></h1>
-    <p class="hero-sub fade-in fd2">Science, data, and ideas — I work wherever the problems are interesting & status quo is the bottleneck. Chemical Engineering, Machine Learning, Electric Mobility and now LLMs (for good).</p>
+    <p class="hero-sub fade-in fd2">Science, data, and ideas. I work wherever the status quo is the bottleneck.</p>
     <div class="hero-btns fade-in fd3">
       <button class="btn-fill" onclick="scrollToSection('works')">View projects →</button>
       <button class="btn-ghost" onclick="scrollToSection('contact')">Get in touch</button>
@@ -57,15 +57,40 @@ const allBlogs = await getCollection('blogs');
   <!-- ABOUT -->
   <section class="about" id="about">
     <div>
-      <p class="about-label">About</p>
-      <p class="about-text">Chemical engineer by education, builder by inclination. I've worked across different domains — not because I couldn't pick a lane, but because the interesting problems rarely stay in one.<br><br>Currently exploring what happens when you apply rigorous thinking to machine learning and large language models.</p>
+      <h2 class="works-title" style="margin-bottom: 2.5rem;">About Me</h2>
+      <p class="about-text">Chemical engineer by education, builder by inclination. I like to work across different domains, not because I couldn't pick a lane, but because the interesting problems rarely stay in one. <br><br>Currently exploring what happens when you point Large Language Models at the attention economy; building systems to tackle modern behavioral decay from chronic doomscrolling to unhealthy levels of digital dependency.</p>
     </div>
     <div class="about-human">
+      <!-- Top Row: Education (Unchanged) -->
       <div class="human-row"><span class="h-label">Education</span><span class="h-val">B.Tech. Chemical Engineering, IIT Kanpur <em>(2026)</em><br>B.F.A. Visual Arts, Prachin Kala Kendra Chandigarh <em>(2019)</em></span></div>
-      <div class="human-row"><span class="h-label">The Physical</span><span class="h-val">Powerlifting, Biomechanics, Bodybuilding, Cycling</span></div>
-      <div class="human-row"><span class="h-label">The Senses</span><span class="h-val">Perfumery, Web & Graphic Design, Mixology<br><em>Co-founder, Meraki (Culinary Arts Society, IITK)</em></span></div>
-      <div class="human-row"><span class="h-label">The Mind</span><span class="h-val">Neuroscience, Evolutionary Psych, Eastern Philosophy & Consciousness</span></div>
-      <div class="human-row"><span class="h-label">Trivia</span><span class="h-val">Top 1% Typing Speed | 130+ WPM <em>(<a href="https://monkeytype.com/profile/RawKnuck" target="_blank">monkeytype profile</a>)</em></span></div>
+      
+      <!-- Middle Section: Stealth Bento Grid -->
+      <div class="bento-hobbies">
+        <div class="bento-card b-physical">
+          <span class="b-title">Physical Stuff</span>
+          <span class="b-desc">Bodybuilding & Powerlifting</span>
+        </div>
+        <div class="bento-card b-mind">
+          <span class="b-title">TNT For the brain</span>
+          <span class="b-desc">Neuroscience & Psychology, Consciousness Studies</span>
+        </div>
+        <div class="bento-card b-senses">
+          <span class="b-title">Artistic Hobbies</span>
+          <div class="b-desc">
+            Web & Graphic Design, Mixology & Perfumery<br>
+            <em>I also co-founded Meraki (Culinary Arts Society) at IIT Kanpur along with seniors and one friend.</em>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Row: Trivia (Updated with Cycling) -->
+      <div class="human-row">
+        <span class="h-label">Trivia</span>
+        <span class="h-val">
+          Top 1% Typing Speed | Avg 130+ WPM <em>(<a href="https://monkeytype.com/profile/RawKnuck" target="_blank">monkeytype profile</a>)</em><br>
+          Endurance Cyclist | Best 160kms/8hrs <em>(Kanpur → Kannauj & Back)</em>
+        </span>
+      </div>
     </div>
   </section>
 
@@ -123,7 +148,7 @@ const allBlogs = await getCollection('blogs');
         <div class="proj-overlay"><span class="view-pill">coming soon</span></div>
         <div class="proj-info">
           <div class="proj-meta"><span class="soon-dot"></span>in progress</div>
-          <div class="proj-name">AI / LLM Project</div>
+          <div class="proj-name">LLM Project</div>
           <div class="proj-cat">Artificial Intelligence</div>
         </div>
       </div>
@@ -344,16 +369,16 @@ const allBlogs = await getCollection('blogs');
       <span class="ptag">LLMs</span>
       <span class="ptag">In Progress</span>
     </div>
-    <h2 class="coming-title">Something's being<br><em>built here.</em></h2>
-    <p class="coming-sub">Currently working on a project in the AI and LLM space. Write-up and interactive demo to follow on completion.</p>
+    <h2 class="coming-title">Harnessing LLMs for<br><em>human behavioral change.</em></h2>
+    <p class="coming-sub">May I have your attention please?</p>
     <div class="progress-bar"><div class="progress-fill"></div></div>
-    <p class="progress-label">~30% complete</p>
+    <p class="progress-label">~10% complete</p>
   </div>
   <div class="proj-body">
     <div class="proj-section">
       <div class="proj-section-label">What it's about</div>
-      <p class="proj-p">[Tease what you're building here — enough to be interesting, without giving it all away. What problem is it trying to solve? What makes it different from just using an existing LLM tool?]</p>
-      <p class="proj-p">Check back in a few weeks — or reach out if you want to hear about it directly.</p>
+      <p class="proj-p"></p>
+      <p class="proj-p">Check back in a few weeks or reach out if you want to hear about it directly.</p>
     </div>
   </div>
   <div class="proj-links-row">
@@ -430,7 +455,88 @@ const allBlogs = await getCollection('blogs');
 </html>
 
 <style is:global>
+.h-val em a {
+  color: var(--muted);
+  text-decoration-color: rgba(255, 255, 255, 0.1);
+}
 
+.h-val em a:hover {
+  color: var(--text);
+}
+/* ── STEALTH BENTO HOBBIES GRID ────────────────────── */
+.bento-hobbies {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.bento-card {
+  background: transparent; /* Stripped the heavy background */
+  border: 1px solid rgba(255, 255, 255, 0.03); /* Barely visible resting border */
+  border-radius: 8px; /* Slightly sharper, less bubbly corners */
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.bento-card:hover {
+  background: rgba(255, 255, 255, 0.02); /* Only fills on hover */
+  border-color: rgba(255, 255, 255, 0.1); /* Border brightens on hover */
+  transform: translateY(-2px);
+}
+
+.b-senses {
+  grid-column: span 2;
+  display: flex; /* Ensures horizontal layout */
+  flex-direction: row; 
+  align-items: flex-start; /* Aligns both sides to the top */
+  gap: 1.5rem; /* Gap between label and content */
+}
+
+/* Matched exactly to your .h-label style */
+.b-title {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+  width: 110px; /* MATCHED TO YOUR EDUCATION SECTION */
+  flex-shrink: 0; /* Prevents the label from squishing */
+  padding-top: 4px; /* Tiny adjustment to align text baseline with the bold header */
+}
+
+/* Matched exactly to your .h-val style */
+.b-desc {
+  font-size: 14px;
+  color: rgba(240,239,235,0.9);
+  line-height: 1.6;
+  flex: 1; /* Lets the description take the rest of the space */
+}
+
+.b-desc em {
+  font-style: normal;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+@media (max-width: 768px) {
+  .bento-hobbies {
+    grid-template-columns: 1fr;
+  }
+  .b-senses {
+    grid-column: span 1;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .b-title {
+    min-width: auto;
+  }
+}
 /* 1. Define the Keyframes */
 @keyframes blurSlideDown {
   0% { opacity: 0; transform: translateY(-20px); filter: blur(10px); }
@@ -648,13 +754,18 @@ button{font-family:var(--ff);cursor:pointer;}
 .human-row:first-child { border-top: 1px solid var(--border); }
 .h-label {font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 500;}
 .h-val {font-size: 14px; color: rgba(240,239,235,0.9); line-height: 1.6;}
-.h-val em {font-style: normal; color: var(--dim); font-size: 12px; margin-left: 4px;}
+.h-val em {font-style: normal; color: var(--muted); font-size: 12px; margin-left: 4px;}
 .h-val a {text-decoration: underline; text-decoration-color: var(--dim); text-underline-offset: 3px; transition: color .2s;}
 .h-val a:hover { color: var(--text); text-decoration-color: var(--text); }
 
 .works{padding:4rem 3rem;border-bottom:1px solid var(--border);}
 .works-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2.5rem;flex-wrap:wrap;gap:1rem;}
-.works-title{font-size:36px;font-weight:700;letter-spacing:-0.03em;}
+.works-title {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text); /* Ensures it's the bright white color */
+}
 .filters{display:flex;gap:.5rem;flex-wrap:wrap;}
 .filter{
   font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:500;
