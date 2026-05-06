@@ -1,13 +1,10 @@
 ---
-title: "Why you should quit watching pornography"
+title: "Why you should stop consuming pornography (for your own good)"
 description: "A short one-sentence hook for the grid card."
-meta: "June 2026 • 10 min read"
-category: "Attention & Society"
+meta: "May 2026 • 10 min read"
+category: "Neuroscience & Psychology"
 theme: "t-blog1"
-image: "/blogassets/test.webp"
+image: "/blogassets/porn.png"
 ---
 
-Your essay text goes here...
-This is where you will write your actual essay. 
-
-Because we are using Markdown, you can easily use **bold text**, create lists, and even drop in code blocks without ever touching an HTML tag.
+(*Cover image designed by me with the assistance of Gemini 3.1 Pro*)

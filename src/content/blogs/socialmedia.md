@@ -1,13 +1,10 @@
 ---
-title: "Why you should quit social media"
+title: "Why you should probably quit social media in 2026"
 description: "A short one-sentence hook for the grid card."
-meta: "July 2026 • 15 min read"
-category: "Dopamine Detox"
+meta: "May 2026 • 15 min read"
+category: "Neuroscience & Psychology"
 theme: "t-blog1"
-image: "/blogassets/test.webp"
+image: "/blogassets/sm.jpg"
 ---
 
-Your essay text goes here...
-This is where you will write your actual essay. 
-
-Because we are using Markdown, you can easily use **bold text**, create lists, and even drop in code blocks without ever touching an HTML tag.
+[(Cover image source- _Cyber Addiction_ by Paco Afromonkey Puente)](https://c1.staticflickr.com/1/259/32348180371_3c63c6bce0_o.jpg)

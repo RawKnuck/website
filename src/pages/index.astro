@@ -106,17 +106,30 @@ const allBlogs = await getCollection('blogs');
         <button class="filter" data-filter="ai">AI</button>
       </div>
     </div>
+    
+    <!-- STEP 1 IMPLEMENTATION: Converted divs to anchor tags -->
     <div class="proj-grid">
-      <div class="proj-tile wide t-bubble" data-filter="chemeng" onclick="showPage('proj-bubble')">
-        <div class="proj-bg"><div class="geo"></div><div class="geo2"></div></div>
-        <div class="proj-overlay"><span class="view-pill">view project</span></div>
-        <div class="proj-info">
-          <div class="proj-meta"><span class="live-dot"></span>live demo</div>
-          <div class="proj-name">Bubble Dynamics &amp; Minnaert Frequency</div>
-          <div class="proj-cat">Chemical Engineering / Acoustics</div>
-        </div>
-      </div>
-      <div class="proj-tile t-startup" data-filter="startup" onclick="showPage('proj-startup')">
+      <a href="/proj-bubble" class="proj-tile wide t-bubble" data-filter="chemeng" style="display:block; text-decoration:none;">
+  <div class="proj-bg">
+    <!-- THE NEW VIDEO TAG -->
+    <video 
+      src="/projects/bubble-loop.mp4" 
+      autoplay 
+      loop 
+      muted 
+      playsinline
+      style="width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transform: scale(1.025);"
+    ></video>
+  </div>
+  <div class="proj-overlay"><span class="view-pill">view project</span></div>
+  <div class="proj-info">
+    <div class="proj-meta"><span class="live-dot"></span>live demo</div>
+    <div class="proj-name">Bubble Dynamics &amp; Minnaert Frequency</div>
+    <div class="proj-cat">Fluid Mechanics / Acoustics</div>
+  </div>
+</a>
+      
+      <a href="/proj-startup" class="proj-tile t-startup" data-filter="startup" style="display:block; text-decoration:none;">
         <div class="proj-bg"><div class="geo"></div></div>
         <div class="proj-overlay"><span class="view-pill">view project</span></div>
         <div class="proj-info">
@@ -124,8 +137,9 @@ const allBlogs = await getCollection('blogs');
           <div class="proj-name">Co-founder Experience</div>
           <div class="proj-cat">Startup / Entrepreneurship</div>
         </div>
-      </div>
-      <div class="proj-tile t-power" data-filter="ml" onclick="showPage('proj-power')">
+      </a>
+      
+      <a href="/proj-power" class="proj-tile t-power" data-filter="ml" style="display:block; text-decoration:none;">
         <div class="proj-bg"><div class="geo"></div></div>
         <div class="proj-overlay"><span class="view-pill">view project</span></div>
         <div class="proj-info">
@@ -133,17 +147,22 @@ const allBlogs = await getCollection('blogs');
           <div class="proj-name">Powerlifting Strength Analytics</div>
           <div class="proj-cat">Data / Machine Learning</div>
         </div>
-      </div>
-      <div class="proj-tile wide t-chem2" data-filter="chemeng" onclick="showPage('proj-chem2')">
-        <div class="proj-bg"><div class="geo"></div></div>
-        <div class="proj-overlay"><span class="view-pill">view project</span></div>
-        <div class="proj-info">
-          <div class="proj-meta">write-up</div>
-          <div class="proj-name">Chemical Engineering Project #2</div>
-          <div class="proj-cat">Chemical Engineering</div>
-        </div>
-      </div>
-      <div class="proj-tile full t-ai" data-filter="ai" style="opacity:.5;" onclick="showPage('proj-ai')">
+      </a>
+      
+      <a href="/proj-adipic" class="proj-tile wide t-adipic" data-filter="chemeng" style="display:block; text-decoration:none;">
+  <div class="proj-bg">
+    <!-- Here is your new cover image -->
+    <img src="/projects/adipic2.jpg" alt="Sustainable Adipic Acid Production" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.6;" />
+  </div>
+  <div class="proj-overlay"><span class="view-pill">view project</span></div>
+  <div class="proj-info">
+    <div class="proj-meta">write-up</div>
+    <div class="proj-name">Novel Sustainable Process Design For Production Of Adipic Acid</div>
+    <div class="proj-cat">Chemical Engineering</div>
+  </div>
+</a>
+      
+      <a href="/proj-ai" class="proj-tile full t-ai" data-filter="ai" style="display:block; text-decoration:none; opacity:.5;">
         <div class="proj-bg"><div class="geo"></div></div>
         <div class="proj-overlay"><span class="view-pill">coming soon</span></div>
         <div class="proj-info">
@@ -151,7 +170,7 @@ const allBlogs = await getCollection('blogs');
           <div class="proj-name">LLM Project</div>
           <div class="proj-cat">Artificial Intelligence</div>
         </div>
-      </div>
+      </a>
     </div>
   </section>
 
@@ -318,7 +337,7 @@ const allBlogs = await getCollection('blogs');
 </div>
 
 <!-- PROJECT: CHEMENG #2 -->
-<div id="proj-chem2" class="page">
+<div id="proj-adipic" class="page">
   <nav class="proj-nav">
     <button class="back-btn" onclick="goHome()"><span class="back-arr">←</span> All projects</button>
     <span class="proj-nav-name">ChemEng Project #2</span>
@@ -785,7 +804,7 @@ button{font-family:var(--ff);cursor:pointer;}
 .t-bubble{background:radial-gradient(ellipse at 70% 60%,#0a1628 0%,#060b14 100%);}
 .t-startup{background:radial-gradient(ellipse at 30% 70%,#1a1108 0%,#0d0d0d 100%);}
 .t-power{background:radial-gradient(ellipse at 50% 40%,#0f0f1f 0%,#0d0d0d 100%);}
-.t-chem2{background:radial-gradient(ellipse at 60% 60%,#0a140f 0%,#0d0d0d 100%);}
+.t-adipic{background:radial-gradient(ellipse at 60% 60%,#0a140f 0%,#0d0d0d 100%);}
 .t-ai{background:radial-gradient(ellipse at 50% 50%,#110e1a 0%,#0d0d0d 100%);}
 .t-blog1{background:radial-gradient(ellipse at 80% 20%,#1a0e10 0%,#0d0d0d 100%);}
 .t-blog2{background:radial-gradient(ellipse at 20% 80%,#0e141a 0%,#0d0d0d 100%);}
