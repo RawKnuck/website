@@ -40,19 +40,28 @@
   </div>
   <div class="proj-body">
     <div class="proj-section">
-      <div class="proj-section-label">The Problem</div>
-      <p class="proj-p">Strength has no obvious benchmark. A 140kg deadlift feels impressive until you're in a gym full of serious lifters. A 200kg squat sounds elite until you see what competitive powerlifters do. There's no intuitive way for most people — even dedicated gym-goers — to contextualise their numbers.</p>
-      <p class="proj-p">The goal was to build a model that could map raw lift numbers to meaningful percentiles within a large, real-world population of strength athletes.</p>
+      <div class="proj-section-label">Why & How?</div>
+      <p class="proj-p">[<i>Powerlifting is a sport in which you are required to lift heavy on the ‘‘Big 3’’ lifts- Squat, Bench Press & Deadlift. The total score is the sum of weight lifted in all 3 lifts. There are bodyweight, gender and age classes for level playing field.</i>]</p>
+      <p class="proj-p">After falling down the powerlifting rabbit hole, I discovered <a href="https://www.openpowerlifting.org/" style="text-decoration: underline; color: inherit;" target="_blank">OpenPowerlifting</a>: an open-source database which tracks literally EVERY SINGLE national & international powerlifting competitions from the 1970s to today. It is updated daily. <i>(Click on the link above & you will see why it's one of the best sports to analyse!)</i> I initially downloaded it to do some basic trend analysis in Excel for fun, only to watch my PC lagging and crashing when trying to load over a million rows.</p>
+      <p class="proj-p">Hence I was resorted to Python, and what started as a timepass curiosity evolved into what is *likely* the most rigorous statistical and ML-based breakdown of this dataset to date on the internet.</p>
     </div>
+    
     <div class="proj-section">
       <div class="proj-section-label">Approach</div>
-      <p class="proj-p">The OpenPowerlifting dataset is one of the largest open databases of powerlifting competition records — millions of individual meet results spanning dozens of federations, weight classes, age groups, and equipment categories. After cleaning and filtering for raw (unequipped) lifters, the usable dataset contained several hundred thousand entries.</p>
-      <p class="proj-p">The analysis explored the distribution of squat, bench press, and deadlift performance by bodyweight bracket. A percentile model was built that accounts for bodyweight scaling, allowing fair comparison across different body sizes. The tool also surfaces the Wilks and DOTS coefficients as secondary metrics for those familiar with them.</p>
+      <p class="proj-p">The analysis utilized the OpenPowerlifting dataset, rigorously filtering over one million raw entries down to 433,376 drug-tested, full-power competition records to establish a clean baseline for pure raw strength[cite: 1].</p>
+      <p class="proj-p">The methodology combined Exploratory Data Analysis with advanced statistical techniques, using log-log linear regression to extract allometric scaling exponents and bootstrap confidence intervals to pinpoint biological peak ages[cite: 1].</p>
+      <p class="proj-p">To move beyond static observations, medical Kaplan-Meier survival modeling was applied to quantify athlete retention and churn rates[cite: 1]. Finally, a temporally split XGBoost machine learning architecture and Unsupervised K-Means clustering were deployed to predict strength totals and identify distinct biomechanical archetypes[cite: 1].</p>
     </div>
+    
     <div class="proj-section">
       <div class="proj-section-label">Outcomes & Findings</div>
-      <p class="proj-p">The strength distribution is dramatically non-linear. The gap between the 50th and 90th percentile is large but achievable with serious training. The gap between the 90th and 99th percentile is enormous — reflecting years of dedicated competition-level preparation. Getting to "pretty strong" is accessible. Getting to "elite" is a different conversation.</p>
-      <p class="proj-p">The calculator lets anyone enter their three competition lifts and bodyweight, and returns their percentile ranking against the dataset — broken down by lift and combined total. A simple, honest benchmark.</p>
+      <ul style="color:rgba(240,239,235,0.65); font-size:15px; line-height:1.9; margin-left: 20px; margin-bottom: 1rem;">
+        <li><strong>Sex-Specific Scaling Bias:</strong> Log-log regression empirically proved that male strength scales at an exponent of 0.672 (near perfect geometric scaling), while female strength diverges heavily at 0.460[cite: 1]. This mathematically proves that standard coefficients like Wilks inherently penalize heavier women[cite: 1].</li>
+        <li><strong>The Biological Peak:</strong> Bootstrap analysis clustered the peak age for raw lifters at 31.0 years for males and 30.0 years for females[cite: 1]. The performance curve is remarkably flat across the prime competitive window, confirming a gradual decline rather than a sudden "athletic cliff"[cite: 1].</li>
+        <li><strong>High-Churn Sport:</strong> Survival analysis revealed a median career duration of just 98 to 119 days, proving powerlifting functions largely as a high-churn tourist sport[cite: 1]. However, athletes who compete three or more times in their first year double their five-year retention probability[cite: 1].</li>
+        <li><strong>Machine Learning Predictions:</strong> A temporally split XGBoost architecture successfully predicted raw total outputs using purely baseline demographic inputs (Age, Sex, Bodyweight, Year) with an $R^{2}$ of 0.722, quantifying a lifter's pure biological potential without knowing their training history[cite: 1].</li>
+        <li><strong>Biomechanical Archetypes:</strong> K-Means clustering identified 5 distinct lifter profiles[cite: 1]. This validated the "Old Man Bench" phenomenon (aging lifters shifting to upper-body reliance) and proved that a "Balanced Push-Pull" strategy achieves the highest elite totals rather than extreme specialization[cite: 1].</li>
+      </ul>
     </div>
   </div>
   <div class="proj-links-row">
