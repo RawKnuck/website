@@ -17,7 +17,7 @@
 <div id="proj-adipic" style="display: block;">
   <nav class="proj-nav animate-pill">
     <a href="/#works" class="back-btn" style="text-decoration:none;"><span class="back-arr">←</span> All projects</a>
-    <span class="proj-nav-name">ChemEng Project #2</span>
+    
   </nav>
   <div class="proj-header">
     <div class="proj-tags">
@@ -26,22 +26,177 @@
       <span class="ptag">Engineering Design</span>
       <span class="ptag">ASPEN Plus V15</span>
     </div>
-    <h1 class="proj-page-title"><span class="animate-blog-1" style="display:inline-block;">Chemical Engineering </span><em class="animate-blog-2" style="display:inline-block;">Project #2</em></h1>
-    <p class="proj-tagline">[Your one-line description of what this project is about and why it matters.]</p>
+    <h1 class="proj-page-title"><span class="animate-blog-1" style="display:inline-block;">Novel Sustainable Process Design</span><em class="animate-blog-2" style="display:inline-block;">for Production of Adipic Acid</em></h1>
+    <p class="proj-tagline">An alternative approach to industrially produce Adipic Acid in an operationally and environmnentally safer way through Cyclohexene & H<sub>2</sub>O<sub>2</sub> pathway.</p>
   </div>
   <div class="proj-body">
     <div class="proj-section">
-      <div class="proj-section-label">The Problem</div>
-      <p class="proj-p">[Describe the engineering problem or research question this project addressed. What was the context — coursework, independent research, industrial application? What made it interesting or challenging?]</p>
+      <div class="proj-section-label">The Problem With Conventional Process</div>
+      
+      <div class="problem-bento">
+        <div class="p-card donut-card">
+          <div class="donut-wrapper">
+            <svg viewBox="0 0 36 36" class="donut-chart">
+              <path class="donut-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+              <path class="donut-fill" stroke-dasharray="12.3, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+            </svg>
+            <div class="donut-text">~12.3%</div>
+          </div>
+          <div class="p-card-info">
+            <div class="p-card-title">Global N₂O Share</div>
+            <div class="p-card-desc">of all global N₂O emissions are driven by Adipic Acid production alone. <br>(~0.3kg N₂O / kg of AA)</br></div>
+          </div>
+        </div>
+
+        <div class="p-card">
+          <div class="p-stat-hero">~370M <span class="p-unit">Tonnes</span></div>
+          <div class="p-card-title" style="margin-bottom: 0.75rem;">Annual CO₂-e Emissions</div>
+          <div class="p-card-desc" style="margin-bottom: 1rem;">It is equivalent to the entire carbon footprint of the Netherlands !</div>
+          
+          <div class="micro-stats">
+            <div class="m-stat"><span>Photochemical Smog</span><span>1.02 kg O₃-e / kg of AA</span></div>
+            <div class="m-stat"><span>Acidification</span><span>0.06 kg SO₂-e / kg of AA</span></div>
+          </div>
+        </div>
+
+        <div class="p-card hazard-card">
+          <div class="p-card-title hazard-title"><span class="hazard-icon">⚠</span> Conventional Route Operational Hazards</div>
+          <div class="hazard-grid">
+            <div class="h-item">Generation of highly toxic NOₓ gases</div>
+            <div class="h-item">Extremely corrosive operational environment</div>
+            <div class="h-item">High risk of exothermic thermal runaway</div>
+          </div>
+        </div>
+      </div>
     </div>
+    
     <div class="proj-section">
-      <div class="proj-section-label">Approach</div>
-      <p class="proj-p">[Describe your methodology — models used, experiments run, tools and software, any novel approaches or adaptations. Keep it accessible but don't dumb it down.]</p>
-      <p class="proj-p">[Second paragraph if needed — specific results, data, any interesting intermediate findings.]</p>
+      <div class="proj-section-label">APPROACH & ENGINEERING DESIGN</div>
+      
+      <div class="software-badge">
+        <span class="live-dot"></span> Designed & Simulated in <strong>ASPEN Plus V15</strong>
+      </div>
+
+      <div class="pipeline-grid">
+        <div class="pipe-card">
+          <div class="pipe-num">01</div>
+          <div class="pipe-title">Foundation</div>
+          <ul class="pipe-list">
+            <li>Thermodynamic Property Package selection and VLE validation for complex non-ideal mixtures involved in our plant.</li>
+            <li>Binary interaction parameter estimation and tuning via regression.</li>
+            <li>Integrated sub-critical Co-Generation Power Plant & Cooling Water loop for Plant's utility needs.</li>
+            <li>Implemented Heat Exchangers across the plant & utilised Heat Integration to minimise external energy needs. </li>
+          </ul>
+        </div>
+
+        <div class="pipe-card">
+          <div class="pipe-num">02</div>
+          <div class="pipe-title">Core Process Synthesis</div>
+          <ul class="pipe-list">
+            <li>Engineered an Multi-Tubular Capillary Microreactor utilising the principle of <a href="https://www.aiche.org/sites/default/files/docs/news/010022_cep_stankiewicz.pdf"><u><strong>Process Intensification</strong></u></a> for enhanced HT-MT for given reaction kinetics.</li>
+            <li>Designed a Heterogeneous Azeotropic Distillation setup for complex Cyclohexene-Water separation.</li>
+            <li>Established plant-wide recycle loops & purge streams for maximising closed-loop raw materials recovery.</li>
+          </ul>
+        </div>
+
+        <!-- Phase 3 -->
+        <div class="pipe-card">
+          <div class="pipe-num">03</div>
+          <div class="pipe-title"> Process Dynamics, Economics & Safety</div>
+          <ul class="pipe-list">
+            <li>Conducted rigorous equipment sizing along with detailed Techno-Economic Analysis to assess economic feasibility.</li>
+            <li>Implemented plant-wide control architectures along with dynamic simulation of the PFD to validate operational stability.</li>
+            <li>Evaluated environmental impact and operational hazards against the conventional route using the Inherent Safety Design framework.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tech-addendum">
+        If I were to talk about only one technique which sits at the heart of this Process Design, it's going to be <a href="https://scienceinsights.org/what-is-a-sensitivity-analysis-and-how-does-it-work/"><u><strong>Sensitivity Analysis.</strong></u></a> It was utilised at every major cornerstone of this process, be it deciding the operating temperature or number of capillaries in the Microreactor, or optimising recycle loops to minimise feed wastage. <br><br> It tells you how the output variables (e.g. reactor conversion) of the model (e.g. the microreactor) respond on changing the inputs (e.g. Temperature, Pressure, No. Of Capillaries, etc.). It aids the user in getting more out of less by making better data-driven design tradeoffs & removing the guesswork.
+      </div>
     </div>
+    
     <div class="proj-section">
-      <div class="proj-section-label">Outcomes</div>
-      <p class="proj-p">[What were the results? Quantify where possible. What would you do differently? What did this project lead to — further work, insights, publications, tools?]</p>
+      <div class="proj-section-label">Outcomes & Takeaways</div>
+      
+      <div class="impact-grid">
+        <div class="impact-card">
+          <div class="impact-icon">Key Performance Indicators</div>
+          <div class="bento-stats-2x2">
+            <div class="b-stat">
+              <div class="b-val highlight-green">99.8%</div>
+              <div class="b-label">Polymer-Grade Purity</div>
+            </div>
+            <div class="b-stat">
+              <div class="b-val highlight-red">100%</div>
+              <div class="b-label">NOₓ Elimination</div>
+            </div>
+            <div class="b-stat">
+              <div class="b-val">96.7%</div>
+              <div class="b-label">H₂O₂ Conversion</div>
+            </div>
+            <div class="b-stat">
+              <div class="b-val">98.0%</div>
+              <div class="b-label">Cyclohexene Recovery</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="impact-card">
+          <div class="impact-icon">Economic Feasibility</div>
+          <div class="b-hero-stat">
+            2.5 <span class="b-unit">Years</span>
+          </div>
+          <div class="b-hero-label">Capital Payback Period</div>
+          
+          <div class="b-divider"></div>
+          
+          <div class="b-row-stat">
+            <span>Profit/Investment Ratio (POI)</span>
+            <span class="highlight-green">7.7x</span>
+          </div>
+        </div>
+
+        <div class="impact-card" style="border-color: rgba(34, 197, 94, 0.3);">
+          <div class="impact-icon" style="color: var(--green);">Microreactor Design</div>
+          <div class="b-hero-stat highlight-green" style="margin-bottom: 0.25rem;">
+            245x <span class="b-unit">Intensification</span>
+          </div>
+          <div class="b-hero-label" style="margin-bottom: 1rem;">Surface-Area-to-Volume Ratio</div>
+          
+          <div class="vs-bar-container">
+            <div class="vs-label"><span>Single Tube</span><span>4.08 m⁻¹</span></div>
+            <div class="vs-bar-bg"><div class="vs-bar-fill" style="width: 5%;"></div></div>
+            
+            <div class="vs-label" style="margin-top: 0.75rem;">
+              <span style="color: var(--text);">60k Capillaries</span>
+              <span class="highlight-green">1,000 m⁻¹</span>
+            </div>
+            <div class="vs-bar-bg"><div class="vs-bar-fill highlight-bg" style="width: 100%;"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tech-addendum" style="margin-top: 2.5rem; border-left-color: #f59e0b; background: linear-gradient(90deg, rgba(245, 158, 11, 0.05) 0%, rgba(255,255,255,0.01) 100%);">
+        <div style="color: #f59e0b; font-weight: 600; font-size: 15px; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 8px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+          Bottlenecks In The Alternative Route
+        </div>
+        <p class="proj-p" style="margin-bottom: 0.75rem;">
+          If this alternative chemistry is potentially highly profitable and eliminates NOₓ why hasn't the industry tried to adopt this pathway? The simulation represents an idealized thermodynamic envelope, but physical pilot scale-up will introduce some major problems:
+        </p>
+        <ul class="pipe-list" style="gap: 0.5rem;">
+          <li><strong>Capillary Fouling:</strong> The 245x intensification relies on 60,000 micro-tubes. Even minor catalyst degradation or Adipic Acid solidification will cause fouling, leading to high pressure drops and plant downtime.</li>
+          <li><strong>H<sub>2</sub>O<sub>2</sub> Logistics:</strong> While a ‘green’ oxidant, sourcing, transporting, and storing industrial volumes of 90% conc H<sub>2</sub>O<sub>2</sub> is very expensive (& dangerous on par) compared to legacy HNO<sub>3</sub> feed.</li>
+          <li><strong>Azeotropic Column Stability & Operation:</strong> The heterogeneous azeotropic separation of Cyclohexene/Water is highly sensitive. Minor fluctuations in a pilot plant could easily destabilize the column. This was evident in the ASPEN Plus simulation as well where it took a lots of efforts to converge the column properly as well as the dynamic PFD simulation.</li>
+        </ul>
+      </div>
+
+      <div style="margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.05);">
+        <p class="proj-p" style="margin: 0; color: rgba(240, 239, 235, 0.85);">
+          <strong>Conclusion & Further Takeaways:</strong> This simulation successfully validates the potential technical and economic viability of this alternate route to produce adipic acid in a zero-emission fashion. While the capillary microreactor provides the massive process intensification required to make the phase transfer catalysis feasible, to move beyond the PFDs in ASPEN, further experimental pilot-scale studies are necessary to assess real-world operations and practicality of the process.
+        </p><br>
+        <p>If you have access to ASPEN Plus software, then do check out the simulation file in the GitHub repository below.</p>
+      </div>
     </div>
   </div>
   <div class="proj-links-row">
@@ -213,4 +368,312 @@ footer span{font-size:12px;color:var(--dim);}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
 .fade-in{animation:fadeUp .45s ease both;}
 .fd1{animation-delay:.05s;}.fd2{animation-delay:.12s;}.fd3{animation-delay:.2s;}
+
+/* ── BENTO PROBLEM SECTION ─────────────────────────── */
+.problem-bento {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.p-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hazard-card {
+  grid-column: span 2;
+  background: radial-gradient(ellipse at top right, rgba(239, 68, 68, 0.05) 0%, rgba(255,255,255,0.02) 100%);
+  border-color: rgba(239, 68, 68, 0.15);
+}
+
+@media (max-width: 768px) {
+  .problem-bento { grid-template-columns: 1fr; }
+  .hazard-card { grid-column: span 1; }
+}
+
+.donut-card {
+  flex-direction: row;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.donut-wrapper {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  flex-shrink: 0;
+}
+
+.donut-chart { width: 100%; height: 100%; transform: rotate(-90deg); }
+.donut-bg { fill: transparent; stroke: rgba(255,255,255,0.05); stroke-width: 3.5; }
+.donut-fill { 
+  fill: transparent; 
+  stroke: #ef4444; /* Aggressive red for N2O */
+  stroke-width: 3.5; 
+  stroke-dasharray: 0, 100; 
+  animation: fillDonut 1.5s ease-out forwards 0.5s;
+}
+
+@keyframes fillDonut { to { stroke-dasharray: 12.3, 100; } }
+
+.donut-text {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.p-card-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 0.25rem; }
+.p-card-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.p-stat-hero { font-size: 36px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; line-height: 1; margin-bottom: 0.5rem; }
+.p-unit { font-size: 14px; font-weight: 500; color: var(--muted); letter-spacing: normal; }
+
+.micro-stats { display: flex; flex-direction: column; gap: 0.5rem; }
+.m-stat {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--dim);
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.m-stat:last-child { border-bottom: none; padding-bottom: 0; }
+.m-stat span:last-child { color: rgba(240,239,235,0.8); font-weight: 500; }
+
+.hazard-title { color: #ef4444; display: flex; align-items: center; gap: 8px; margin-bottom: 1rem; }
+.hazard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+.h-item { font-size: 13px; color: rgba(240,239,235,0.7); line-height: 1.5; padding-left: 12px; position: relative; }
+.h-item::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 6px;
+  width: 4px; height: 4px;
+  background: #ef4444;
+  border-radius: 50%;
+}
+
+/* ── PIPELINE SECTION ─────────────────────────────── */
+.software-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(34, 197, 94, 0.05);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  color: var(--green);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  padding: 0.5rem 1rem;
+  border-radius: 100px;
+  margin-bottom: 2rem;
+}
+.software-badge strong {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.pipeline-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.pipe-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.pipe-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Subtle top border highlight to match your green aesthetic */
+.pipe-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.5), transparent);
+  opacity: 0.3;
+}
+
+.pipe-num {
+  font-family: var(--ff);
+  font-size: 42px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.08);
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+
+.pipe-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 1.25rem;
+}
+
+.pipe-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.pipe-list li {
+  font-size: 13px;
+  color: rgba(240, 239, 235, 0.7);
+  line-height: 1.6;
+  padding-left: 16px;
+  position: relative;
+}
+
+.pipe-list li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--dim);
+  font-size: 12px;
+}
+
+.pipe-list strong {
+  color: rgba(240, 239, 235, 0.95);
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .pipeline-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* ── TECHNICAL ADDENDUM ────────────────────────────── */
+.tech-addendum {
+  margin-top: 2.5rem;
+  padding: 1.25rem 1.5rem;
+  background: rgba(255, 255, 255, 0.02);
+  border-left: 3px solid var(--green);
+  border-radius: 0 8px 8px 0;
+  font-size: 14px;
+  color: rgba(240, 239, 235, 0.75);
+  line-height: 1.7;
+}
+
+.tech-addendum strong {
+  color: var(--text);
+  font-weight: 600;
+  margin-right: 6px;
+}
+
+/* ── IMPACT GRID ────────────────────────────── */
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+.impact-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.impact-icon {
+  font-family: var(--ff);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: rgba(240, 239, 235, 0.5);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 0.5rem;
+}
+
+.impact-card .proj-p {
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.impact-card strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .impact-grid { grid-template-columns: 1fr; }
+}
+
+/* ── BENTO IMPACT STATS ────────────────────────────── */
+.bento-stats-2x2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-top: 0.5rem;
+}
+
+.b-stat { display: flex; flex-direction: column; gap: 0.25rem; }
+.b-val { font-size: 24px; font-weight: 700; color: var(--text); line-height: 1; letter-spacing: -0.02em; }
+.b-label { font-size: 12px; color: var(--muted); line-height: 1.3; }
+
+.highlight-green { color: var(--green) !important; }
+.highlight-red { color: #ef4444 !important; }
+.highlight-bg { background: var(--green) !important; }
+
+.b-hero-stat { font-size: 42px; font-weight: 700; color: var(--text); line-height: 1; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
+.b-unit { font-size: 16px; font-weight: 500; color: var(--muted); letter-spacing: normal; }
+.b-hero-label { font-size: 13px; color: var(--muted); font-weight: 500; }
+
+.b-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.05);
+  margin: 1.25rem 0;
+}
+
+.b-row-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: var(--dim);
+  margin-bottom: 0.75rem;
+}
+.b-row-stat:last-child { margin-bottom: 0; }
+.b-row-stat span:first-child { color: rgba(240, 239, 235, 0.7); }
+.b-row-stat span:last-child { font-weight: 600; color: var(--text); }
+
+.b-badge {
+  background: rgba(34, 197, 94, 0.1);
+  color: var(--green) !important;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Visual Comparison Bars */
+.vs-bar-container { margin-top: 1.25rem; }
+.vs-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+.vs-label span:last-child { font-weight: 600; font-family: var(--ff); }
+.vs-bar-bg { width: 100%; height: 6px; background: rgba(255, 255, 255, 0.05); border-radius: 3px; overflow: hidden; }
+.vs-bar-fill { height: 100%; background: rgba(255, 255, 255, 0.2); border-radius: 3px; }
 </style>
