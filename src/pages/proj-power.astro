@@ -6,7 +6,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Powerlifting Analytics | Raunak Jalan</title>
+  <title>Powerlifting Meets ML | Raunak Jalan</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,12 +26,12 @@
       <span class="ptag">Python</span>
       <span class="ptag">OpenPowerlifting</span>
     </div>
-    <h1 class="proj-page-title"><span class="animate-blog-1" style="display:inline-block;">Powerlifting </span><em class="animate-blog-2" style="display:inline-block;">Strength Analytics</em></h1>
-    <p class="proj-tagline">Using competitive powerlifting data to answer a deceptively simple question: how strong is strong?</p>
+    <h1 class="proj-page-title"><span class="animate-blog-1" style="display:inline-block;">Powerlifting </span><em class="animate-blog-2" style="display:inline-block;">Meets Machine Learning</em></h1>
+    <p class="proj-tagline">The most rigorous multidimensional analysis of 50+ years of Powerlifting historical data on the internet, through the lens of Machine Learning & Statistics, with real-life practical insights.</p>
   </div>
   
   <div class="demo-zone">
-    <div class="demo-label"><span class="live-dot"></span>Biological Potential Calculator</div>
+    <div class="demo-label"><span class="live-dot"></span>Strength Potential Calculator Based On 50+ Years Of Powerlifting</div>
     <div class="demo-frame" style="height: auto; padding: 2.5rem 1.5rem;">
       <div class="calc-container">
         <div class="calc-inputs">
@@ -64,7 +64,7 @@
         
         <div class="calc-outputs empty-state" id="output-board">
           <div class="output-header">
-            <div class="live-indicator"><span class="pulse-dot"></span> <span id="status-text">Awaiting Input...</span></div>
+            <div class="live-indicator"><span class="pulse-dot"></span> <span id="status-text">XGBoost Awaiting Input...</span></div>
           </div>
           
           <div class="total-box">
@@ -129,8 +129,8 @@
       </div>
       
       <div class="quote-box">
-        <p>"Do not worry about your individual potential since it's an expression of possibility, and something that can only be measured in retrospect... you never know how good you become unless you try."</p>
-        <span>— Mike Mentzer</span>
+        <p>"Do not worry about your individual potential. Potential is only the expression of a possibility, something that can be assessed accurately only in retrospect. <span class="quote-punchline">IN OTHER WORDS YOU'LL NEVER KNOW HOW GOOD YOU BECOME AT SOMETHING, UNLESS YOU TRY.</span>"</p>
+        <div class="author-tag">Mike Mentzer</div>
       </div>
     </div>
   </div>
@@ -140,25 +140,161 @@
       <div class="proj-section-label">Why & How?</div>
       <p class="proj-p">[<i>Powerlifting is a sport in which you are required to lift heavy on the ‘‘Big 3’’ lifts- Squat, Bench Press & Deadlift. The total score is the sum of weight lifted in all 3 lifts. There are bodyweight, gender and age classes for level playing field.</i>]</p>
       <p class="proj-p">After falling down the powerlifting rabbit hole, I discovered <a href="https://www.openpowerlifting.org/" style="text-decoration: underline; color: inherit;" target="_blank">OpenPowerlifting</a>: an open-source database which tracks literally EVERY SINGLE national & international powerlifting competitions from the 1970s to today. It is updated daily. <i>(Click on the link above & you will see why it's one of the best sports to analyse!)</i> I initially downloaded it to do some basic trend analysis in Excel for fun, only to watch my PC lagging and crashing when trying to load over a million rows.</p>
-      <p class="proj-p">Hence I was resorted to Python, and what started as a timepass curiosity evolved into what is *likely* the most rigorous statistical and ML-based breakdown of this dataset to date on the internet.</p>
+      <p class="proj-p">Hence I was resorted to Python, and what started as a timepass curiosity evolved into what is *likely* the most rigorous statistical and ML-based breakdown of this dataset till date on the internet.</p>
     </div>
     
     <div class="proj-section">
-      <div class="proj-section-label">Approach</div>
-      <p class="proj-p">The analysis utilized the OpenPowerlifting dataset, rigorously filtering over one million raw entries down to 433,376 drug-tested, full-power competition records to establish a clean baseline for pure raw strength.</p>
-      <p class="proj-p">The methodology combined Exploratory Data Analysis with advanced statistical techniques, using log-log linear regression to extract allometric scaling exponents and bootstrap confidence intervals to pinpoint biological peak ages.</p>
-      <p class="proj-p">To move beyond static observations, medical Kaplan-Meier survival modeling was applied to quantify athlete retention and churn rates. Finally, a temporally split XGBoost machine learning architecture and Unsupervised K-Means clustering were deployed to predict strength totals and identify distinct biomechanical archetypes.</p>
+      <div class="proj-section-label">Methodology Pipeline</div>
+      
+      <div class="pipeline-container">
+    <div class="pipe-step">
+      <div class="pipe-node"></div>
+      <div class="pipe-content">
+        <div class="pipe-title">1. Massive-Scale Data Engineering</div>
+        <p class="pipe-desc">Ingested the colossal 1,048,575-row OpenPowerlifting databank. Executed a merciless multi-stage filter to strip away untested entries and equipped anomalies, yielding a pristine, steroid-free baseline of <strong>433,376 full-power (SBD) records</strong>. Engineered multidimensional features including continuous Wilks2 recomputes and true allometric scaling metrics.</p>
+      </div>
+    </div>
+    
+    <div class="pipe-step">
+      <div class="pipe-node"></div>
+      <div class="pipe-content">
+        <div class="pipe-title">2. Allometric Auditing & Survival Modeling</div>
+        <p class="pipe-desc">Deployed <strong>Log-log linear regression</strong> to mathematically extract the true biological scaling constants of human mass-to-force translation. Simultaneously mapped the brutal attrition of the sport using medical-grade <strong>Kaplan-Meier survival estimators</strong> to quantify athlete churn and lifecycle half-lives.</p>
+      </div>
+    </div>
+    
+    <div class="pipe-step">
+      <div class="pipe-node"></div>
+      <div class="pipe-content">
+        <div class="pipe-title">3. Non-Linear Machine Learning Architecture</div>
+        <p class="pipe-desc">Architected a temporally-split (pre-2022 vs 2022+) <strong>XGBoost Regressor</strong> to predict absolute biological potential strictly from demographic baselines, eliminating data leakage. Unpacked the algorithmic black box via <strong>SHAP TreeExplainer</strong> to reveal the precise kilogram-impact of sexual dimorphism and age.</p>
+      </div>
+    </div>
+
+    <div class="pipe-step">
+      <div class="pipe-node"></div>
+      <div class="pipe-content">
+        <div class="pipe-title">4. Unsupervised Phenotype Clustering</div>
+        <p class="pipe-desc">Utilized <strong>Unsupervised K-Means clustering</strong> across a four-dimensional biomechanical feature space to organically discover five distinct lifter archetypes, mathematically validating gym lore like the "Old Man Bench" and identifying the true push-pull blueprint for elite totals.</p>
+      </div>
+    </div>
+  </div>
     </div>
     
     <div class="proj-section">
-      <div class="proj-section-label">Outcomes & Findings</div>
-      <ul style="color:rgba(240,239,235,0.65); font-size:15px; line-height:1.9; margin-left: 20px; margin-bottom: 1rem;">
-        <li><strong>Sex-Specific Scaling Bias:</strong> Log-log regression empirically proved that male strength scales at an exponent of 0.672 (near perfect geometric scaling), while female strength diverges heavily at 0.460. This mathematically proves that standard coefficients like Wilks inherently penalize heavier women.</li>
-        <li><strong>The Biological Peak:</strong> Bootstrap analysis clustered the peak age for raw lifters at 31.0 years for males and 30.0 years for females. The performance curve is remarkably flat across the prime competitive window, confirming a gradual decline rather than a sudden "athletic cliff".</li>
-        <li><strong>High-Churn Sport:</strong> Survival analysis revealed a median career duration of just 98 to 119 days, proving powerlifting functions largely as a high-churn tourist sport. However, athletes who compete three or more times in their first year double their five-year retention probability.</li>
-        <li><strong>Machine Learning Predictions:</strong> A temporally split XGBoost architecture successfully predicted raw total outputs using purely baseline demographic inputs (Age, Sex, Bodyweight, Year) with an R<sup>2</sup> of 0.722, quantifying a lifter's pure biological potential without knowing their training history.</li>
-        <li><strong>Biomechanical Archetypes:</strong> K-Means clustering identified 5 distinct lifter profiles. This validated the "Old Man Bench" phenomenon (aging lifters shifting to upper-body reliance) and proved that a "Balanced Push-Pull" strategy achieves the highest elite totals rather than extreme specialization.</li>
-      </ul>
+      <div class="proj-section-label">Scientific Discoveries & Insights</div>
+      
+      <div class="bento-grid">
+        
+        <div class="bento-card col-span-2">
+          <div class="bento-metric">M: 0.672 <span class="divider" style="margin: 0 8px; color: var(--border);">|</span> F: 0.460</div>
+          <div class="bento-title">31% Allometric Divergence</div>
+          <p class="bento-desc">Theoretical strength scaling sits at an exponent of 0.667. Male scaling matches perfectly, but female scaling severely lags at 0.460. Female strength grows dramatically slower per unit of added mass.</p>
+        </div>
+        
+        <div class="bento-card">
+          <div class="bento-metric">ρ = −0.17</div>
+          <div class="bento-title">Mathematical Bias in Wilks</div>
+          <p class="bento-desc">The Spearman correlation for females is negatively biased. A heavier female lifter is structurally disadvantaged by male-optimized scoring polynomials, regardless of her absolute raw strength.</p>
+        </div>
+        
+        <div class="bento-card">
+          <div class="bento-metric">~20% Flat</div>
+          <div class="bento-title">Zero Mass-to-Force Transfer</div>
+          <p class="bento-desc">While male bench press share rises with bodyweight (up to 24.4%), the female ratio stays perfectly flat at ~20% across all weight classes. Upper-body force is bound by androgen receptors, not just mass.</p>
+        </div>
+
+        <div class="bento-card">
+          <div class="bento-metric">98 - 119 Days</div>
+          <div class="bento-title">The 12-Week Churn Rate</div>
+          <p class="bento-desc">Applying the Kaplan-Meier estimator proves powerlifting functions as a high-churn tourist sport. For both sexes, the median career duration is effectively just one single competition prep block.</p>
+        </div>
+
+        <div class="bento-card">
+          <div class="bento-metric">3+ Meets</div>
+          <div class="bento-title">Beating the Drop-Out Curve</div>
+          <p class="bento-desc">Lifters who compete only once have a ~15% 2-year survival rate. Securing three or more meets in year one fundamentally changes the curve, doubling their 5-year retention probability to ~25%.</p>
+        </div>
+
+        <div class="bento-card">
+          <div class="bento-metric">1.7× Impact</div>
+          <div class="bento-title">Biological Sex Dominates BW</div>
+          <p class="bento-desc">SHAP analysis reveals biological sex acts as a far more powerful total predictor (|SHAP| = 79.6 kg) than the athlete's own bodyweight (46.4 kg), organically learning the massive hormonal force divergence.</p>
+        </div>
+
+        <div class="bento-card">
+          <div class="bento-metric">Blind Recovery</div>
+          <div class="bento-title">K-Means Reconstructs Sex</div>
+          <p class="bento-desc">Pure mathematical clustering on lift proportions alone independently partitioned the population by sex. The "Anti-Bencher" cluster formed organically, mapping strictly to a 66.8% female demographic.</p>
+        </div>
+
+        <div class="bento-card col-span-2">
+          <div class="bento-metric">1.90x → 2.21x</div>
+          <div class="bento-title">Accelerating Sexual Dimorphism</div>
+          <p class="bento-desc">The overall male-to-female total ratio is a stable 1.75x. However, the upper-body strength divergence isn't fixed—it's dynamic, widening aggressively from 1.90x in lightweights to 2.21x in heavyweights.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="proj-section">
+      <div class="proj-section-label">Actionable Insights For Lifters</div>
+      
+      <div class="bento-grid">
+        
+        <div class="bento-card col-span-2">
+          <div class="bento-metric">Flat from 27 → 35</div>
+          <div class="bento-title">"Age is Just a Number" Proven</div>
+          <p class="bento-desc">The correlation between age and performance is near zero (ρ = 0.04 for women, 0.19 for men). A 27-year-old and 34-year-old are statistically indistinguishable, and the median 45-year-old totals the same as a 20-year-old. The 30s aren't a decline; there is no "athletic cliff."</p>
+        </div>
+        
+        <div class="bento-card">
+          <div class="bento-metric">17% vs 32% R²</div>
+          <div class="bento-title">The Female Bulking Gamble</div>
+          <p class="bento-desc">Mass predicts strength twice as effectively for men as it does for women. For female lifters, gaining weight yields high-variance, unpredictable strength transfer due to a higher ratio of non-force-producing tissue gain.</p>
+        </div>
+        
+        <div class="bento-card">
+          <div class="bento-metric">ρ = 0.963</div>
+          <div class="bento-title">The Squat is King</div>
+          <p class="bento-desc">The squat correlates highest with total output. Squat-dominant lifters consistently post totals 12.5% higher than deadlift-dominant lifters, and the sport-wide squat ratio is rising year-over-year.</p>
+        </div>
+
+        <div class="bento-card">
+          <div class="bento-metric">570kg vs 310kg</div>
+          <div class="bento-title">Specialization Backfires</div>
+          <p class="bento-desc">The "Balanced Push-Pull" archetype (equal squat/deadlift) claims the highest median total (570kg). The "Deadlift Specialist" cluster posts the absolute worst. A freakishly high deadlift ratio usually just means a weak squat.</p>
+        </div>
+
+        <div class="bento-card">
+          <div class="bento-metric">~4 kg / Year</div>
+          <div class="bento-title">The Granular Grind</div>
+          <p class="bento-desc">Social media transformations are outliers. The average male adds +4.3 kg to their total annually; females add +3.2 kg. Real strength is built over years of incredibly slow, consistent compound gains.</p>
+        </div>
+
+        <div class="bento-card">
+          <div class="bento-metric">3+ Meets in Yr 1</div>
+          <div class="bento-title">Surviving the Drop-Out Cliff</div>
+          <p class="bento-desc">80% of single-meet competitors never return. Competing three or more times in your debut year is the single strongest predictor of longevity, nearly doubling your 5-year retention probability in the sport.</p>
+        </div>
+
+        <div class="bento-card">
+          <div class="bento-metric">+3.6 kg / Year</div>
+          <div class="bento-title">The Rising Baseline</div>
+          <p class="bento-desc">The median total for an 83–93kg male has climbed every year since 2010. To be an "average" 83kg male today, you must lift 36kg more than a decade ago. Progress you'd be proud of then is table stakes now.</p>
+        </div>
+
+        <div class="bento-card col-span-2">
+          <div class="bento-metric">Peak at 30-31</div>
+          <div class="bento-title">You Haven't Missed Your Window</div>
+          <p class="bento-desc">While starting as a teenager accumulates a minor neuroplastic advantage, the biological absolute peak sits tightly at 31 years for men and 30 years for women regardless of debut age. If you're 30, you're at the summit right now.</p>
+        </div>
+
+      </div>
+
+      <div style="margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.05);">
+        <p>If you are further interested and want to deep dive into this analysis, go check out the code, plots & the report in the GitHub repository below.</p>
+      </div>
     </div>
   </div>
   
@@ -476,9 +612,78 @@ footer span{font-size:12px;color:var(--dim);}
 .lift-val { font-size: 20px; font-weight: 600; color: rgba(240,239,235,0.9); }
 .lift-var-small { font-size: 10px; color: var(--dim); margin-top: 2px; font-family: monospace; }
 
-.quote-box { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; max-width: 600px; margin-left: auto; margin-right: auto; }
-.quote-box p { font-size: 14px; font-style: italic; color: rgba(240,239,235,0.5); line-height: 1.7; margin-bottom: 0.75rem; font-family: var(--fi); }
-.quote-box span { font-size: 10px; color: var(--dim); text-transform: uppercase; letter-spacing: 0.1em; }
+/* --- Mike Mentzer Tribute --- */
+.quote-box { 
+  margin-top: 4.5rem; 
+  padding: 4rem 2rem 2rem; /* Extra top padding for the watermark */
+  border-top: 1px solid var(--border); 
+  text-align: center; 
+  max-width: 750px; 
+  margin-left: auto; 
+  margin-right: auto; 
+  position: relative;
+}
+
+/* Massive background quote watermark */
+.quote-box::before {
+  content: '"';
+  position: absolute;
+  top: -1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--fi);
+  font-size: 160px;
+  color: rgba(255, 255, 255, 0.04);
+  line-height: 1;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.quote-box p { 
+  position: relative;
+  z-index: 1;
+  font-size: clamp(18px, 4vw, 24px); /* Scales dynamically with screen size */
+  font-style: italic; 
+  color: rgba(240,239,235,0.85); /* Much higher contrast */
+  line-height: 1.6; 
+  margin-bottom: 2rem; 
+  font-family: var(--fi); 
+}
+
+/* Make the capitalized part hit hard */
+.quote-box .quote-punchline {
+  font-style: normal;
+  font-family: var(--ff);
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.02em;
+  display: block; /* Drops it to its own line for impact */
+  margin-top: 1rem;
+}
+
+/* Hero Author Tag */
+.quote-box .author-tag { 
+  position: relative;
+  z-index: 1;
+  font-size: 14px; 
+  font-weight: 700;
+  color: var(--text); 
+  text-transform: uppercase; 
+  letter-spacing: 0.2em; 
+  display: inline-flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Decorative lines flanking his name */
+.quote-box .author-tag::before,
+.quote-box .author-tag::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--dim);
+}
 
 @media (max-width: 768px) { .calc-container { grid-template-columns: 1fr; gap: 2rem; } .calc-outputs { padding: 1.5rem; } }
 
@@ -535,5 +740,116 @@ footer span{font-size:12px;color:var(--dim);}
 @keyframes dlLeg { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(2.333); } }
 </style>
 
+<style is:global>
+/* --- Methodology Pipeline --- */
+.pipeline-container {
+  position: relative;
+  padding-left: 2rem;
+  margin-top: 1.5rem;
+  margin-bottom: 3rem;
+}
+.pipeline-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 5px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--text) 0%, rgba(255,255,255,0.05) 100%);
+  border-radius: 2px;
+}
+.pipe-step {
+  position: relative;
+  padding-bottom: 2.5rem;
+}
+.pipe-step:last-child {
+  padding-bottom: 0;
+}
+.pipe-node {
+  position: absolute;
+  left: -2rem;
+  top: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--text);
+  box-shadow: 0 0 10px rgba(240,239,235,0.4);
+  z-index: 2;
+}
+.pipe-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.02em;
+}
+.pipe-desc {
+  font-size: 14px;
+  color: rgba(240,239,235,0.65);
+  line-height: 1.7;
+}
+.pipe-desc strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* --- Findings Bento Grid --- */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+.col-span-2 {
+  grid-column: span 2;
+}
+.bento-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.75rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.bento-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+.bento-metric {
+  font-family: var(--ff);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+.bento-metric .divider {
+  color: var(--dim);
+  font-weight: 300;
+  margin: 0 8px;
+}
+.bento-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--green);
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+.bento-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .bento-grid { grid-template-columns: 1fr; }
+  .col-span-2 { grid-column: span 1; }
+}
+</style>
 </body>
 </html>
