@@ -17,8 +17,8 @@
 <div id="proj-power" style="display: block;">
   <nav class="proj-nav animate-pill">
     <a href="/#works" class="back-btn" style="text-decoration:none;"><span class="back-arr">←</span> All projects</a>
-    
   </nav>
+  
   <div class="proj-header">
     <div class="proj-tags">
       <span class="ptag">Machine Learning</span>
@@ -29,15 +29,112 @@
     <h1 class="proj-page-title"><span class="animate-blog-1" style="display:inline-block;">Powerlifting </span><em class="animate-blog-2" style="display:inline-block;">Strength Analytics</em></h1>
     <p class="proj-tagline">Using competitive powerlifting data to answer a deceptively simple question: how strong is strong?</p>
   </div>
+  
   <div class="demo-zone">
-    <div class="demo-label"><span class="live-dot"></span>Strength Percentile Calculator</div>
-    <div class="demo-frame">
-      <div class="demo-frame-inner">
-        <div class="demo-title-sm">How strong are you?</div>
-        <div class="demo-coming">Enter your squat / bench / deadlift → get your percentile against competitive lifters</div>
+    <div class="demo-label"><span class="live-dot"></span>Biological Potential Calculator</div>
+    <div class="demo-frame" style="height: auto; padding: 2.5rem 1.5rem;">
+      <div class="calc-container">
+        <div class="calc-inputs">
+          <div class="input-group">
+            <label>Biological Sex</label>
+            <div class="segmented-control">
+              <button class="seg-btn active" id="btn-male" onclick="setSex('male')">Male</button>
+              <button class="seg-btn" id="btn-female" onclick="setSex('female')">Female</button>
+            </div>
+          </div>
+          
+          <div class="input-group">
+            <div class="slider-header">
+              <label>Bodyweight</label>
+              <div class="slider-value"><span id="bw-val">80</span> kg</div>
+            </div>
+            <input type="range" class="premium-slider" id="bw-slider" min="45" max="180" value="80" oninput="updateSliderUI('bw')">
+          </div>
+
+          <div class="input-group">
+            <div class="slider-header">
+              <label>Age</label>
+              <div class="slider-value"><span id="age-val">25</span> years</div>
+            </div>
+            <input type="range" class="premium-slider" id="age-slider" min="14" max="75" value="25" oninput="updateSliderUI('age')">
+          </div>
+
+          <button class="calc-action-btn" onclick="runCalculation()">Calculate Biological Potential</button>
+        </div>
+        
+        <div class="calc-outputs empty-state" id="output-board">
+          <div class="output-header">
+            <div class="live-indicator"><span class="pulse-dot"></span> <span id="status-text">Awaiting Input...</span></div>
+          </div>
+          
+          <div class="total-box">
+            <div class="total-label">Expected Total Capacity</div>
+            <div class="total-val"><span id="out-total">---</span> <span class="kg" id="out-kg" style="opacity: 0;">kg</span></div>
+            <div class="total-var">Statistical Variance: <span id="out-var" class="var-badge">---</span></div>
+          </div>
+          
+          <div class="lifts-breakdown">
+            <div class="lift-box">
+              <div class="anim-window">
+                <div class="sq-scene" id="scene-sq">
+                  <div class="sq-legs"></div>
+                  <div class="sq-group">
+                    <div class="sq-head"></div>
+                    <div class="sq-torso"></div>
+                    <div class="sq-arms"></div>
+                    <div class="sq-bar"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="lift-name">Squat</div>
+              <div class="lift-val" id="out-sq">---</div>
+              <div class="lift-var-small" id="var-sq"></div>
+            </div>
+            
+            <div class="lift-box">
+              <div class="anim-window">
+                <div class="bn-scene" id="scene-bn">
+                  <div class="bn-pad"></div>
+                  <div class="bn-legs"></div>
+                  <div class="bn-torso"></div>
+                  <div class="bn-head"></div>
+                  <div class="bn-arms"></div>
+                  <div class="bn-bar"></div>
+                </div>
+              </div>
+              <div class="lift-name">Bench</div>
+              <div class="lift-val" id="out-bn">---</div>
+              <div class="lift-var-small" id="var-bn"></div>
+            </div>
+            
+            <div class="lift-box">
+              <div class="anim-window">
+                <div class="dl-scene" id="scene-dl">
+                  <div class="dl-floor"></div>
+                  <div class="dl-legs"></div>
+                  <div class="dl-group">
+                    <div class="dl-head"></div>
+                    <div class="dl-torso"></div>
+                    <div class="dl-arms"></div>
+                    <div class="dl-bar"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="lift-name">Deadlift</div>
+              <div class="lift-val" id="out-dl">---</div>
+              <div class="lift-var-small" id="var-dl"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="quote-box">
+        <p>"Do not worry about your individual potential since it's an expression of possibility, and something that can only be measured in retrospect... you never know how good you become unless you try."</p>
+        <span>— Mike Mentzer</span>
       </div>
     </div>
   </div>
+
   <div class="proj-body">
     <div class="proj-section">
       <div class="proj-section-label">Why & How?</div>
@@ -48,41 +145,133 @@
     
     <div class="proj-section">
       <div class="proj-section-label">Approach</div>
-      <p class="proj-p">The analysis utilized the OpenPowerlifting dataset, rigorously filtering over one million raw entries down to 433,376 drug-tested, full-power competition records to establish a clean baseline for pure raw strength[cite: 1].</p>
-      <p class="proj-p">The methodology combined Exploratory Data Analysis with advanced statistical techniques, using log-log linear regression to extract allometric scaling exponents and bootstrap confidence intervals to pinpoint biological peak ages[cite: 1].</p>
-      <p class="proj-p">To move beyond static observations, medical Kaplan-Meier survival modeling was applied to quantify athlete retention and churn rates[cite: 1]. Finally, a temporally split XGBoost machine learning architecture and Unsupervised K-Means clustering were deployed to predict strength totals and identify distinct biomechanical archetypes[cite: 1].</p>
+      <p class="proj-p">The analysis utilized the OpenPowerlifting dataset, rigorously filtering over one million raw entries down to 433,376 drug-tested, full-power competition records to establish a clean baseline for pure raw strength.</p>
+      <p class="proj-p">The methodology combined Exploratory Data Analysis with advanced statistical techniques, using log-log linear regression to extract allometric scaling exponents and bootstrap confidence intervals to pinpoint biological peak ages.</p>
+      <p class="proj-p">To move beyond static observations, medical Kaplan-Meier survival modeling was applied to quantify athlete retention and churn rates. Finally, a temporally split XGBoost machine learning architecture and Unsupervised K-Means clustering were deployed to predict strength totals and identify distinct biomechanical archetypes.</p>
     </div>
     
     <div class="proj-section">
       <div class="proj-section-label">Outcomes & Findings</div>
       <ul style="color:rgba(240,239,235,0.65); font-size:15px; line-height:1.9; margin-left: 20px; margin-bottom: 1rem;">
-        <li><strong>Sex-Specific Scaling Bias:</strong> Log-log regression empirically proved that male strength scales at an exponent of 0.672 (near perfect geometric scaling), while female strength diverges heavily at 0.460[cite: 1]. This mathematically proves that standard coefficients like Wilks inherently penalize heavier women[cite: 1].</li>
-        <li><strong>The Biological Peak:</strong> Bootstrap analysis clustered the peak age for raw lifters at 31.0 years for males and 30.0 years for females[cite: 1]. The performance curve is remarkably flat across the prime competitive window, confirming a gradual decline rather than a sudden "athletic cliff"[cite: 1].</li>
-        <li><strong>High-Churn Sport:</strong> Survival analysis revealed a median career duration of just 98 to 119 days, proving powerlifting functions largely as a high-churn tourist sport[cite: 1]. However, athletes who compete three or more times in their first year double their five-year retention probability[cite: 1].</li>
-        <li><strong>Machine Learning Predictions:</strong> A temporally split XGBoost architecture successfully predicted raw total outputs using purely baseline demographic inputs (Age, Sex, Bodyweight, Year) with an $R^{2}$ of 0.722, quantifying a lifter's pure biological potential without knowing their training history[cite: 1].</li>
-        <li><strong>Biomechanical Archetypes:</strong> K-Means clustering identified 5 distinct lifter profiles[cite: 1]. This validated the "Old Man Bench" phenomenon (aging lifters shifting to upper-body reliance) and proved that a "Balanced Push-Pull" strategy achieves the highest elite totals rather than extreme specialization[cite: 1].</li>
+        <li><strong>Sex-Specific Scaling Bias:</strong> Log-log regression empirically proved that male strength scales at an exponent of 0.672 (near perfect geometric scaling), while female strength diverges heavily at 0.460. This mathematically proves that standard coefficients like Wilks inherently penalize heavier women.</li>
+        <li><strong>The Biological Peak:</strong> Bootstrap analysis clustered the peak age for raw lifters at 31.0 years for males and 30.0 years for females. The performance curve is remarkably flat across the prime competitive window, confirming a gradual decline rather than a sudden "athletic cliff".</li>
+        <li><strong>High-Churn Sport:</strong> Survival analysis revealed a median career duration of just 98 to 119 days, proving powerlifting functions largely as a high-churn tourist sport. However, athletes who compete three or more times in their first year double their five-year retention probability.</li>
+        <li><strong>Machine Learning Predictions:</strong> A temporally split XGBoost architecture successfully predicted raw total outputs using purely baseline demographic inputs (Age, Sex, Bodyweight, Year) with an R<sup>2</sup> of 0.722, quantifying a lifter's pure biological potential without knowing their training history.</li>
+        <li><strong>Biomechanical Archetypes:</strong> K-Means clustering identified 5 distinct lifter profiles. This validated the "Old Man Bench" phenomenon (aging lifters shifting to upper-body reliance) and proved that a "Balanced Push-Pull" strategy achieves the highest elite totals rather than extreme specialization.</li>
       </ul>
     </div>
   </div>
+  
   <div class="proj-links-row">
     <a href="https://github.com/RawKnuck/Project-SBD" class="btn-fill" target="_blank">GitHub Repository →</a>
   </div>
+  
   <footer>
     <span>Raunak Jalan — 2026</span>
     <a href="/#works" class="btn-ghost" style="font-size:12px; text-decoration:none;">← Back to all projects</a>
   </footer>
 </div>
 
+<script src="/xgb_model.js" is:inline></script>
+
 <script is:inline>
-  document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-      document.documentElement.classList.add('reveal-ready');
-    }, 50);
+  let isMale = true;
+
+  function updateSliderUI(type) {
+    if(type === 'bw') {
+      document.getElementById('bw-val').innerText = document.getElementById('bw-slider').value;
+    }
+    if(type === 'age') {
+      document.getElementById('age-val').innerText = document.getElementById('age-slider').value;
+    }
+    
+    const sliders = document.querySelectorAll('.premium-slider');
+    sliders.forEach(slider => {
+      const min = slider.min || 0;
+      const max = slider.max || 100;
+      const val = slider.value;
+      const percentage = ((val - min) / (max - min)) * 100;
+      slider.style.background = `linear-gradient(to right, rgba(255,255,255,0.6) ${percentage}%, rgba(255,255,255,0.1) ${percentage}%)`;
+    });
+  }
+
+  function setSex(sex) {
+    isMale = (sex === 'male');
+    document.getElementById('btn-male').className = isMale ? 'seg-btn active' : 'seg-btn';
+    document.getElementById('btn-female').className = !isMale ? 'seg-btn active' : 'seg-btn';
+  }
+
+  function runCalculation() {
+    const board = document.getElementById('output-board');
+    board.classList.remove('empty-state');
+    document.getElementById('status-text').innerText = "Model Executed successfully";
+    document.getElementById('out-kg').style.opacity = 1;
+
+    document.getElementById('scene-sq').classList.add('active-sq');
+    document.getElementById('scene-bn').classList.add('active-bn');
+    document.getElementById('scene-dl').classList.add('active-dl');
+
+    const bw = parseFloat(document.getElementById('bw-slider').value);
+    const age = parseFloat(document.getElementById('age-slider').value);
+
+    const sex_enc = isMale ? 1 : 0;
+    const equipment_enc = 1; 
+    const year = new Date().getFullYear(); 
+    
+    // NOTE: If you still get 'NaN' after hitting calculate, it means your Python model 
+    // expects more than just these 5 columns. You must add the extra 0s to this array.
+    const features = [sex_enc, equipment_enc, bw, age, year];
+
+    let predicted_total = 0;
+    
+    try {
+      // FIX APPLIED HERE: Changed from score(features) to predictTotal(features)
+      predicted_total = predictTotal(features); 
+    } catch (e) {
+      console.error("Machine Learning Error", e);
+      document.getElementById('out-total').innerText = "ERR";
+      return;
+    }
+    
+    // Safety check if the feature array length is wrong
+    if (isNaN(predicted_total)) {
+      document.getElementById('out-total').innerText = "NaN";
+      return;
+    }
+
+    predicted_total = Math.round(predicted_total);
+
+    const sqRatio = isMale ? 0.356 : 0.363;
+    const bnRatio = isMale ? 0.232 : 0.200;
+    const dlRatio = isMale ? 0.411 : 0.435;
+
+    const totalVariance = Math.round(predicted_total * 0.134);
+    
+    const sqVar = Math.round(totalVariance * sqRatio);
+    const bnVar = Math.round(totalVariance * bnRatio);
+    const dlVar = Math.round(totalVariance * dlRatio);
+
+    document.getElementById('out-total').innerText = predicted_total;
+    const lowerBound = predicted_total - totalVariance;
+    const upperBound = predicted_total + totalVariance;
+    document.getElementById('out-var').innerText = `${lowerBound}kg – ${upperBound}kg (±${totalVariance}kg)`;
+    
+    document.getElementById('out-sq').innerText = Math.round(predicted_total * sqRatio) + ' kg';
+    document.getElementById('var-sq').innerText = `±${sqVar} kg`;
+
+    document.getElementById('out-bn').innerText = Math.round(predicted_total * bnRatio) + ' kg';
+    document.getElementById('var-bn').innerText = `±${bnVar} kg`;
+
+    document.getElementById('out-dl').innerText = Math.round(predicted_total * dlRatio) + ' kg';
+    document.getElementById('var-dl').innerText = `±${dlVar} kg`;
+  }
+
+  window.addEventListener('load', () => {
+    document.documentElement.classList.add('reveal-ready');
+    updateSliderUI('bw');
+    updateSliderUI('age');
   });
 </script>
-
-</body>
-</html>
 
 <style is:global>
 .h-val em a { color: var(--muted); text-decoration-color: rgba(255, 255, 255, 0.1); }
@@ -233,4 +422,110 @@ footer span{font-size:12px;color:var(--dim);}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
 .fade-in{animation:fadeUp .45s ease both;}
 .fd1{animation-delay:.05s;}.fd2{animation-delay:.12s;}.fd3{animation-delay:.2s;}
+
+.calc-container { display: grid; grid-template-columns: 1fr 1.2fr; gap: 3rem; width: 100%; max-width: 840px; margin: 0 auto; text-align: left; align-items: center; }
+
+.calc-inputs { display: flex; flex-direction: column; gap: 2rem; }
+.input-group label { display: block; font-size: 11px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; }
+
+.segmented-control { display: flex; background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 8px; padding: 4px; margin-top: 0.75rem; }
+.seg-btn { flex: 1; background: transparent; border: none; color: var(--muted); padding: 0.6rem; border-radius: 6px; font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.2s ease; }
+.seg-btn:hover { color: var(--text); }
+.seg-btn.active { background: rgba(255,255,255,0.1); color: var(--text); box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+
+.slider-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 0.75rem; }
+.slider-value { font-size: 14px; color: var(--muted); font-weight: 400; }
+.slider-value span { font-size: 18px; font-weight: 600; color: var(--text); }
+
+.premium-slider { -webkit-appearance: none; width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 100px; outline: none; cursor: pointer; }
+.premium-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--text); box-shadow: 0 0 10px rgba(255,255,255,0.2); cursor: pointer; transition: transform 0.1s ease; border: 2px solid var(--bg); }
+.premium-slider::-webkit-slider-thumb:hover { transform: scale(1.15); box-shadow: 0 0 15px rgba(255,255,255,0.4); }
+
+.calc-action-btn { width: 100%; margin-top: 1rem; padding: 1rem; background: var(--text); color: var(--bg); border: none; border-radius: 8px; font-size: 14px; font-weight: 700; font-family: var(--ff); text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(255,255,255,0.1); }
+.calc-action-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,255,255,0.2); background: #fff; }
+.calc-action-btn:active { transform: translateY(1px); }
+
+.calc-outputs { background: radial-gradient(circle at top right, rgba(255,255,255,0.06), transparent 70%), rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem 2rem; position: relative; overflow: hidden; transition: all 0.5s ease; }
+.calc-outputs.empty-state { opacity: 0.5; filter: grayscale(100%); pointer-events: none; }
+.calc-outputs.empty-state .live-indicator .pulse-dot { background: var(--muted); box-shadow: none; animation: none; }
+.calc-outputs.empty-state .live-indicator { color: var(--muted); }
+
+.output-header { display: flex; justify-content: flex-end; margin-bottom: 1rem; }
+.live-indicator { font-size: 10px; color: var(--green); text-transform: uppercase; letter-spacing: 0.1em; display: flex; align-items: center; gap: 6px; font-weight: 600; }
+.pulse-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; box-shadow: 0 0 8px var(--green); animation: pulse 2s infinite; }
+@keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+
+.total-box { margin-bottom: 2.5rem; }
+.total-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+.total-val { font-size: clamp(48px, 6vw, 64px); font-weight: 700; color: var(--text); line-height: 1; margin-bottom: 1rem; letter-spacing: -0.03em; }
+.total-val .kg { font-size: 24px; color: var(--dim); font-weight: 500; letter-spacing: 0; }
+.total-var { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+.var-badge { background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 4px; border: 1px solid var(--border); font-family: monospace; color: rgba(240,239,235,0.8); }
+
+.lifts-breakdown { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; border-top: 1px solid var(--border); padding-top: 1.5rem; }
+.lift-box { text-align: left; }
+.lift-name { font-size: 10px; color: var(--dim); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.3rem; font-weight: 600; }
+.lift-val { font-size: 20px; font-weight: 600; color: rgba(240,239,235,0.9); }
+.lift-var-small { font-size: 10px; color: var(--dim); margin-top: 2px; font-family: monospace; }
+
+.quote-box { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; max-width: 600px; margin-left: auto; margin-right: auto; }
+.quote-box p { font-size: 14px; font-style: italic; color: rgba(240,239,235,0.5); line-height: 1.7; margin-bottom: 0.75rem; font-family: var(--fi); }
+.quote-box span { font-size: 10px; color: var(--dim); text-transform: uppercase; letter-spacing: 0.1em; }
+
+@media (max-width: 768px) { .calc-container { grid-template-columns: 1fr; gap: 2rem; } .calc-outputs { padding: 1.5rem; } }
+
+/* --- Scene Windows --- */
+.anim-window { width: 100%; height: 80px; border-bottom: 1px solid rgba(255,255,255,0.05); margin-bottom: 10px; position: relative; overflow: hidden; background: rgba(0,0,0,0.15); border-radius: 8px; }
+
+/* =========================================
+   1. SQUAT (Group moves DOWN, Legs shrink)
+   ========================================= */
+.sq-scene { width: 60px; height: 70px; margin: 10px auto 0; position: relative; }
+.sq-legs { position: absolute; bottom: 0; left: 20px; width: 20px; height: 35px; border: 2px solid var(--muted); border-top: none; border-radius: 0 0 4px 4px; transform-origin: top; }
+.sq-group { position: absolute; top: 0; left: 0; width: 100%; height: 35px; } 
+.sq-bar { position: absolute; top: 18px; left: 0; width: 60px; height: 4px; background: var(--text); border-radius: 2px; }
+.sq-head { position: absolute; top: 0; left: 24px; width: 12px; height: 12px; border: 2px solid var(--muted); border-radius: 50%; }
+.sq-torso { position: absolute; top: 12px; left: 29px; width: 2px; height: 23px; background: var(--muted); }
+.sq-arms { position: absolute; top: 18px; left: 16px; width: 28px; height: 12px; border: 2px solid var(--muted); border-bottom: none; border-radius: 4px 4px 0 0; }
+
+.active-sq .sq-group { animation: sqDown 2s ease-in-out infinite; }
+.active-sq .sq-legs { animation: sqLeg 2s ease-in-out infinite; }
+@keyframes sqDown { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(18px); } }
+@keyframes sqLeg { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(0.48); } }
+
+/* =========================================
+   2. BENCH (Bar moves DOWN, Arms shrink)
+   ========================================= */
+.bn-scene { width: 60px; height: 70px; margin: 10px auto 0; position: relative; }
+.bn-pad { position: absolute; bottom: 15px; left: 0; width: 60px; height: 8px; background: var(--dim); border-radius: 4px; }
+.bn-head { position: absolute; bottom: 23px; right: 5px; width: 12px; height: 12px; border: 2px solid var(--muted); border-radius: 50%; }
+.bn-torso { position: absolute; bottom: 28px; right: 17px; width: 26px; height: 2px; background: var(--muted); }
+.bn-legs { position: absolute; bottom: 5px; left: 5px; width: 12px; height: 24px; border: 2px solid var(--muted); border-right: none; border-radius: 4px 0 0 4px; }
+.bn-arms { position: absolute; bottom: 30px; left: 24px; width: 12px; height: 20px; border: 2px solid var(--muted); border-bottom: none; border-radius: 4px 4px 0 0; transform-origin: bottom; }
+.bn-bar { position: absolute; top: 16px; left: 10px; width: 40px; height: 4px; background: var(--text); border-radius: 2px; }
+
+.active-bn .bn-bar { animation: bnBar 2s ease-in-out infinite; }
+.active-bn .bn-arms { animation: bnArm 2s ease-in-out infinite; }
+@keyframes bnBar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(14px); } }
+@keyframes bnArm { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(0.3); } }
+
+/* =========================================
+   3. DEADLIFT (Group moves UP, Legs stretch)
+   ========================================= */
+.dl-scene { width: 60px; height: 70px; margin: 10px auto 0; position: relative; }
+.dl-floor { position: absolute; bottom: 5px; left: 0; width: 100%; height: 2px; background: var(--border2); }
+.dl-legs { position: absolute; bottom: 7px; left: 20px; width: 20px; height: 15px; border: 2px solid var(--muted); border-top: none; border-radius: 0 0 4px 4px; transform-origin: bottom; }
+.dl-group { position: absolute; bottom: 0; left: 0; width: 100%; height: 70px; }
+.dl-head { position: absolute; top: 20px; left: 24px; width: 12px; height: 12px; border: 2px solid var(--muted); border-radius: 50%; }
+.dl-torso { position: absolute; top: 32px; left: 29px; width: 2px; height: 16px; background: var(--muted); }
+.dl-arms { position: absolute; top: 36px; left: 22px; width: 16px; height: 25px; border: 2px solid var(--muted); border-top: none; border-radius: 0 0 4px 4px; }
+.dl-bar { position: absolute; top: 61px; left: 0; width: 60px; height: 4px; background: var(--text); border-radius: 2px; }
+
+.active-dl .dl-group { animation: dlUp 2.5s ease-in-out infinite; }
+.active-dl .dl-legs { animation: dlLeg 2.5s ease-in-out infinite; }
+@keyframes dlUp { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+@keyframes dlLeg { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(2.333); } }
 </style>
+
+</body>
+</html>
