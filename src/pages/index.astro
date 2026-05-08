@@ -140,14 +140,19 @@ const allBlogs = await getCollection('blogs');
       </a>
       
       <a href="/proj-power" class="proj-tile t-power" data-filter="ml" style="display:block; text-decoration:none;">
-        <div class="proj-bg"><div class="geo"></div></div>
-        <div class="proj-overlay"><span class="view-pill">view project</span></div>
-        <div class="proj-info">
-          <div class="proj-meta"><span class="live-dot"></span>live demo</div>
-          <div class="proj-name">Powerlifting Strength Analytics</div>
-          <div class="proj-cat">Data / Machine Learning</div>
-        </div>
-      </a>
+  <div class="proj-bg">
+    <img src="/projects/power.png" alt="Powerlifting Strength Analytics" class="card-bg-img" />
+    <div class="card-fade-overlay"></div>
+  </div>
+  
+  <div class="proj-overlay"><span class="view-pill">view project</span></div>
+  
+  <div class="proj-info">
+    <div class="proj-meta"><span class="live-dot"></span>live demo</div>
+    <div class="proj-name">Powerlifting Strength Analytics</div>
+    <div class="proj-cat">Data / Machine Learning</div>
+  </div>
+</a>
       
       <a href="/proj-adipic" class="proj-tile wide t-adipic" data-filter="chemeng" style="display:block; text-decoration:none;">
   <div class="proj-bg">
@@ -986,4 +991,38 @@ document.querySelectorAll('.filter').forEach(btn=>{
       }
     }, 8); 
   });
+
 </script>
+
+<style is:global>
+  /* ── PROJECT CARD IMAGE STYLING ── */
+  .proj-bg {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    overflow: hidden; 
+  }
+
+  .card-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.6; 
+    transition: transform 0.7s ease, opacity 0.3s ease;
+  }
+
+  .card-fade-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(
+      to bottom, 
+      rgba(10, 10, 10, 0) 0%, 
+      rgba(10, 10, 10, 0.4) 50%, 
+      rgba(10, 10, 10, 0.95) 100%
+    );
+  }
+
+  .proj-tile:hover .card-bg-img {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+</style>
