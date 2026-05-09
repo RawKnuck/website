@@ -34,7 +34,7 @@
     <div style="max-width: 1000px; margin: 0 auto;">
       <div style="display: grid; grid-template-columns: 340px 1fr; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; background: #0a0a0a; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.5);">
         
-        <div style="padding: 2.5rem 2rem; display: flex; flex-direction: column; gap: 2.5rem; background: rgba(255,255,255,0.02); border-right: 1px solid rgba(255,255,255,0.05);">
+        <div style="padding: 2.5rem 2rem; display: flex; flex-direction: column; gap: 1.5rem; background: rgba(255,255,255,0.02); border-right: 1px solid rgba(255,255,255,0.05);">
           
           <div>
             <div style="font-size: 10px; font-weight: 600; text-transform: uppercase; color: #888; letter-spacing: 0.1em; margin-bottom: 0.75rem;">Fluid Preset</div>
@@ -46,7 +46,6 @@
                 <option value="nitro">Nitro Beer (N₂)</option>
                 <option value="custom">Custom Fluid System</option>
               </select>
-
               <div style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); pointer-events: none; color: #888;">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
               </div>
@@ -63,10 +62,18 @@
 
           <div>
             <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 0.75rem;">
-              <span style="font-size: 10px; font-weight: 600; text-transform: uppercase; color: #888; letter-spacing: 0.1em;">Surface Tension</span>
+              <span style="font-size: 10px; font-weight: 600; text-transform: uppercase; color: #888; letter-spacing: 0.1em;">Surface Tension (&sigma;)</span>
               <span style="font-size: 16px; font-weight: 700; color: #f0efeb;" id="val-sigma">0.072 <span style="font-size: 12px; color: #666; font-weight: 500;">N/m</span></span>
             </div>
             <input type="range" id="sim-sigma" style="accent-color: #f0efeb; width: 100%; cursor: pointer;" min="0.0" max="0.1" step="0.001" value="0.072">
+          </div>
+
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 0.75rem;">
+              <span style="font-size: 10px; font-weight: 600; text-transform: uppercase; color: #888; letter-spacing: 0.1em;">Viscosity (&mu;)</span>
+              <span style="font-size: 16px; font-weight: 700; color: #f0efeb;" id="val-mu">0.0010 <span style="font-size: 12px; color: #666; font-weight: 500;">Pa&middot;s</span></span>
+            </div>
+            <input type="range" id="sim-mu" style="accent-color: #f0efeb; width: 100%; cursor: pointer;" min="0.0001" max="0.0100" step="0.0001" value="0.0010">
           </div>
 
           <div>
@@ -110,6 +117,7 @@
     <div class="proj-section">
       <div class="proj-section-label">The Problem</div>
       <p class="proj-p">You won't believe this but bubbles are dynamic oscillators at the microscale. When a gas bubble trapped in an liquid medium is disturbed, it undergoes radial expansion and contraction. In multiphase fluids, these volumetric oscillations act as the primary source of liquid sound.</p>
+  
       <p class="proj-p">Traditional introductory fluid mechanics often models this in an idealized inviscid liquid. However, <strong>to accurately model real-world acoustic phenomena like cavitation in pumps, boiling, or the sound of pouring a beverage, we must understand how interfacial surface tension (&sigma;) and fluid viscosity (&mu;) comes into play.</strong></p>
       <p class="proj-p">The goal of this project was to understand the implications of interfacial and viscous effects in bubble dynamics and it's further applications in acoustics.</p>
     </div>
@@ -117,7 +125,7 @@
     <div class="proj-section">
       <div class="proj-section-label">Approach</div>
       <p class="proj-p">This project derives the governing Rayleigh-Plesset equation from first principles, utilizing the continuity equation, unsteady Bernoulli equation, and normal stress balances at the gas-liquid interface.</p>
-      <p class="proj-p">Because the resulting differential equation is highly complex & non-linear, I applied <strong>first- and second-order perturbation analysis</strong> to solve for the bubble radius R(t). This mathematical framework  simplified the complex governing equations, revealing the distinct physical roles of the fluid properties:</p>
+      <p class="proj-p">Because the resulting differential equation is highly complex & non-linear, I applied <strong>first- and second-order perturbation analysis</strong> to solve for the bubble radius R(t). This mathematical framework simplified the complex governing equations, revealing the distinct physical roles of the fluid properties:</p>
       <ul style="color:rgba(240,239,235,0.65); font-size:15px; line-height:1.9; margin-bottom:1rem; padding-left:1.5rem;">
         <li><strong>Viscosity (&mu;)</strong> acts as the primary energy dissipator <strong>(and hence the stabiliser as well, otherwise the bubble would oscillate forever which happens in case of ideal inviscid flow)</strong>, causing the oscillation amplitude to decay exponentially and bring the bubble back to its equilibrium.</li>
         <li><strong>Surface Tension (&sigma;)</strong> provides an additional restoring force, increasing the system's stiffness and noticeably shifting the resonance higher.</li>
@@ -133,7 +141,7 @@
         <li><strong>Micro-Scale Imperative:</strong> The analysis proved that while ignoring surface tension is fine for large bubbles (>1.0 mm), the frequency error diverges exponentially for micro-bubbles below 0.05 mm, resulting in need for factoring in Laplace Pressure while designing and modeling micro-scale engineering like targeted drug delivery or sonochemical microreactors.</li>
       </ul>
     <br>
-    <p>Play around with the acoustic simulator above and if you are interested in the Mathematics and Transport Phenomena behind this problem, check out the GitHub repository below. </p>
+    <p>Play around with the acoustic simulator above and if you are interested in the Mathematics and Transport Phenomena behind this problem, check out the GitHub repository below.</p>
     </div>
   </div>
   
@@ -151,30 +159,35 @@
   document.addEventListener('DOMContentLoaded', () => {
     const P_inf = 101325;
     const presets = {
-      water: { rho: 1000, sigma: 0.072, gamma: 1.40, r0: 2.0, mu: 0.001, color: '255, 255, 255' },      // White
-      cola:  { rho: 1040, sigma: 0.055, gamma: 1.28, r0: 1.0, mu: 0.0015, color: '226, 75, 74' },      // Red
-      beer:  { rho: 1015, sigma: 0.040, gamma: 1.28, r0: 0.5, mu: 0.002, color: '237, 177, 32' },      // Golden
-      nitro: { rho: 1015, sigma: 0.040, gamma: 1.40, r0: 0.1, mu: 0.002, color: '186, 117, 23' },      // Golden Brown
-      custom:{ color: '34, 197, 94' }                                                                  // Powerlifting Green
+      water: { rho: 1000, sigma: 0.072, gamma: 1.40, r0: 2.0, mu: 0.001, color: '255, 255, 255' },
+      cola:  { rho: 1040, sigma: 0.055, gamma: 1.28, r0: 1.0, mu: 0.0015, color: '226, 75, 74' },
+      beer:  { rho: 1015, sigma: 0.040, gamma: 1.28, r0: 0.5, mu: 0.002, color: '237, 177, 32' },
+      nitro: { rho: 1015, sigma: 0.040, gamma: 1.40, r0: 0.1, mu: 0.002, color: '186, 117, 23' },
+      custom:{ color: '34, 197, 94' }
     };
 
     const presetSelect = document.getElementById('sim-preset');
     const r0Slider = document.getElementById('sim-r0');
     const sigmaSlider = document.getElementById('sim-sigma');
+    const muSlider = document.getElementById('sim-mu');
     const slowSlider = document.getElementById('sim-slow');
     const btnPerturb = document.getElementById('btn-perturb');
+
     const canvas = document.getElementById('bubbleCanvas');
     const ctx = canvas.getContext('2d');
     
     const valR0 = document.getElementById('val-r0');
     const valSigma = document.getElementById('val-sigma');
+    const valMu = document.getElementById('val-mu');
     const valSlow = document.getElementById('val-slow');
+
     const statFreq = document.getElementById('stat-freq');
     const statAudio = document.getElementById('stat-audio');
     const liveIndicator = document.getElementById('live-indicator');
 
     let currentPreset = presets.water;
     let bubbleColor = presets.water.color;
+
     let f0 = 0;
     let beta = 0;
     let isAnimating = false;
@@ -184,9 +197,10 @@
     function calculatePhysics() {
       const r0_m = parseFloat(r0Slider.value) * 1e-3;
       const sigma = parseFloat(sigmaSlider.value);
+      const mu = parseFloat(muSlider.value);
+      
       const rho = currentPreset.rho;
       const gamma = currentPreset.gamma;
-      const mu = currentPreset.mu;
 
       const term1 = (3 * gamma * P_inf) / rho;
       const term2 = ((6 * gamma - 2) * sigma) / (rho * r0_m);
@@ -212,8 +226,11 @@
         currentPreset = presets[selection];
         r0Slider.value = currentPreset.r0;
         sigmaSlider.value = currentPreset.sigma;
+        muSlider.value = currentPreset.mu;
+        
         valR0.innerHTML = `${currentPreset.r0.toFixed(2)} <span style="font-size: 12px; color: #666; font-weight: 500;">mm</span>`;
         valSigma.innerHTML = `${currentPreset.sigma.toFixed(3)} <span style="font-size: 12px; color: #666; font-weight: 500;">N/m</span>`;
+        valMu.innerHTML = `${currentPreset.mu.toFixed(4)} <span style="font-size: 12px; color: #666; font-weight: 500;">Pa&middot;s</span>`;
       }
       bubbleColor = presets[selection].color;
       calculatePhysics();
@@ -233,6 +250,13 @@
       calculatePhysics(); 
     });
     
+    muSlider.addEventListener('input', (e) => {
+      valMu.innerHTML = `${parseFloat(e.target.value).toFixed(4)} <span style="font-size: 12px; color: #666; font-weight: 500;">Pa&middot;s</span>`;
+      presetSelect.value = 'custom';
+      bubbleColor = presets.custom.color;
+      calculatePhysics();
+    });
+    
     slowSlider.addEventListener('input', (e) => { 
       valSlow.innerHTML = `${e.target.value}<span style="font-size: 12px; color: #666; font-weight: 500;">x</span>`;
     });
@@ -246,7 +270,11 @@
       const baseRadiusPx = 40 + Math.pow(r0_val / 5.0, 0.6) * 120; 
       
       const epsilon = 0.15; 
-      const visualDecay = Math.max(beta * simTime, realElapsedSec * 1.5);
+      
+      // STRICT PHYSICS DAMPING: 
+      // Ties the visual decay multiplier strictly to the physical beta. 
+      // High viscosity (high beta) damps in <1 second. Low viscosity damps in ~20+ seconds.
+      const visualDecay = beta * realElapsedSec * 2.5; 
       const damping = Math.exp(-visualDecay);
       const oscillation = Math.cos(2 * Math.PI * f0 * simTime);
       const currentRadiusPx = baseRadiusPx * (1 + (epsilon * damping * oscillation));
@@ -279,7 +307,7 @@
 
       drawBubble(simTime, realElapsedSec);
 
-      const visualDecay = Math.max(beta * simTime, realElapsedSec * 1.5);
+      const visualDecay = beta * realElapsedSec * 2.5;
       if (Math.exp(-visualDecay) < 0.005) {
         isAnimating = false;
         drawBubble(0, 0); 
