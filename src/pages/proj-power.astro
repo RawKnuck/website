@@ -27,7 +27,7 @@
       <span class="ptag">OpenPowerlifting</span>
     </div>
     <h1 class="proj-page-title"><span class="animate-blog-1" style="display:inline-block;">Powerlifting </span><em class="animate-blog-2" style="display:inline-block;">Meets Machine Learning</em></h1>
-    <p class="proj-tagline">The most rigorous multidimensional analysis of 50+ years of Powerlifting historical data on the internet, through the lens of Machine Learning & Statistics, with real-life practical insights.</p>
+    <p class="proj-tagline">The most rigorous multidimensional analysis of 50+ years of Powerlifting historical data on the internet, through the lens of Machine Learning & Statistics, with real-life practical insights for gym-goers.</p>
   </div>
   
   <div class="demo-zone">
@@ -129,7 +129,7 @@
       </div>
       
       <div class="quote-box">
-        <p>"Do not worry about your individual potential. Potential is only the expression of a possibility, something that can be assessed accurately only in retrospect. <span class="quote-punchline">IN OTHER WORDS YOU'LL NEVER KNOW HOW GOOD YOU BECOME AT SOMETHING, UNLESS YOU TRY.</span>"</p>
+        <p>Do not worry about your individual potential. Potential is only the expression of a possibility, something that can be assessed accurately only in retrospect. <span class="quote-punchline">IN OTHER WORDS YOU'LL NEVER KNOW HOW GOOD YOU BECOME AT SOMETHING, UNLESS YOU TRY.</span></p>
         <div class="author-tag">Mike Mentzer</div>
       </div>
     </div>
@@ -139,99 +139,186 @@
     <div class="proj-section">
       <div class="proj-section-label">Why & How?</div>
       <p class="proj-p">[<i>Powerlifting is a sport in which you are required to lift heavy on the ‘‘Big 3’’ lifts- Squat, Bench Press & Deadlift. The total score is the sum of weight lifted in all 3 lifts. There are bodyweight, gender and age classes for level playing field.</i>]</p>
-      <p class="proj-p">After falling down the powerlifting rabbit hole, I discovered <a href="https://www.openpowerlifting.org/" style="text-decoration: underline; color: inherit;" target="_blank">OpenPowerlifting</a>: an open-source database which tracks literally EVERY SINGLE national & international powerlifting competitions from the 1970s to today. It is updated daily. <i>(Click on the link above & you will see why it's one of the best sports to analyse!)</i> I initially downloaded it to do some basic trend analysis in Excel for fun, only to watch my PC lagging and crashing when trying to load over a million rows.</p>
+      <p class="proj-p">After falling down the powerlifting rabbit hole, I discovered <strong><a href="https://www.openpowerlifting.org/" style="text-decoration: underline; color: inherit;" target="_blank">OpenPowerlifting</a></strong>: a database which tracks literally EVERY SINGLE national & international powerlifting competitions from the 1970s to today. It is updated daily. <i>(Check out the OpenPowerlifting link above & you will see why it's one of the best sports to analyse!)</i> I initially downloaded it to do some basic trend analysis in Excel for fun, only to watch my PC lagging and crashing when trying to load over 1 million+ rows.</p>
       <p class="proj-p">Hence I was resorted to Python, and what started as a timepass curiosity evolved into what is *likely* the most rigorous statistical and ML-based breakdown of this dataset till date on the internet.</p>
     </div>
     
+    
+    
     <div class="proj-section">
-      <div class="proj-section-label">Methodology Pipeline</div>
-      
-      <div class="pipeline-container">
-    <div class="pipe-step">
-      <div class="pipe-node"></div>
-      <div class="pipe-content">
-        <div class="pipe-title">1. Massive-Scale Data Engineering</div>
-        <p class="pipe-desc">Ingested the colossal 1,048,575-row OpenPowerlifting databank. Executed a merciless multi-stage filter to strip away untested entries and equipped anomalies, yielding a pristine, steroid-free baseline of <strong>433,376 full-power (SBD) records</strong>. Engineered multidimensional features including continuous Wilks2 recomputes and true allometric scaling metrics.</p>
+  <div class="proj-section-label">Methodology Pipeline</div>
+
+  <div class="sbd-pipeline">
+
+    <!-- Phase 1 -->
+    <div class="sbd-phase">
+      <div class="sbd-spine">
+        <div class="sbd-num" style="--ph-color:#3b82f6;">01</div>
+        <div class="sbd-vline"></div>
       </div>
-    </div>
-    
-    <div class="pipe-step">
-      <div class="pipe-node"></div>
-      <div class="pipe-content">
-        <div class="pipe-title">2. Allometric Auditing & Survival Modeling</div>
-        <p class="pipe-desc">Deployed <strong>Log-log linear regression</strong> to mathematically extract the true biological scaling constants of human mass-to-force translation. Simultaneously mapped the brutal attrition of the sport using medical-grade <strong>Kaplan-Meier survival estimators</strong> to quantify athlete churn and lifecycle half-lives.</p>
-      </div>
-    </div>
-    
-    <div class="pipe-step">
-      <div class="pipe-node"></div>
-      <div class="pipe-content">
-        <div class="pipe-title">3. Non-Linear Machine Learning Architecture</div>
-        <p class="pipe-desc">Architected a temporally-split (pre-2022 vs 2022+) <strong>XGBoost Regressor</strong> to predict absolute biological potential strictly from demographic baselines, eliminating data leakage. Unpacked the algorithmic black box via <strong>SHAP TreeExplainer</strong> to reveal the precise kilogram-impact of sexual dimorphism and age.</p>
+      <div class="sbd-body">
+        <div class="sbd-phase-cat" style="color:#3b82f6;">Data Engineering</div>
+        <div class="sbd-phase-title">Raw Ingestion & Six-Stage Filter Cascade</div>
+        <div class="sbd-tags">
+          <span class="sbd-tag">sequential boolean masking</span>
+          <span class="sbd-tag">S+B+D summation audit</span>
+          <span class="sbd-tag">dtype coercion & BW bounds</span>
+        </div>
+        <div class="sbd-output" style="--out-color:#3b82f6;">1,048,575 raw rows → <strong>433,376 retained (41.4%)</strong> across 6 sequential filters: Tested, Event=SBD, Equipment, Sex, TotalKg, BodyweightKg</div>
       </div>
     </div>
 
-    <div class="pipe-step">
-      <div class="pipe-node"></div>
-      <div class="pipe-content">
-        <div class="pipe-title">4. Unsupervised Phenotype Clustering</div>
-        <p class="pipe-desc">Utilized <strong>Unsupervised K-Means clustering</strong> across a four-dimensional biomechanical feature space to organically discover five distinct lifter archetypes, mathematically validating gym lore like the "Old Man Bench" and identifying the true push-pull blueprint for elite totals.</p>
+    <!-- Phase 2 -->
+    <div class="sbd-phase">
+      <div class="sbd-spine">
+        <div class="sbd-num" style="--ph-color:#14b8a6;">02</div>
+        <div class="sbd-vline"></div>
+      </div>
+      <div class="sbd-body">
+        <div class="sbd-phase-cat" style="color:#14b8a6;">Feature Engineering</div>
+        <div class="sbd-phase-title">13 Derived Features — Allometric Metrics, Lift Ratios & Era Buckets</div>
+        <div class="sbd-tags">
+          <span class="sbd-tag">AlloTotal = Total ÷ BW^(2/3)</span>
+          <span class="sbd-tag">Wilks2 5th-degree polynomial</span>
+          <span class="sbd-tag">lift ratio decomposition</span>
+        </div>
+        <div class="sbd-output" style="--out-color:#14b8a6;"><strong>27-column enriched dataset</strong> · StrengthToWeight, AlloTotal, SquatRatio, BenchRatio, DeadRatio, AgeGroup, Era, Sex_enc · Wilks2 median discrepancy: 0.00 pts</div>
       </div>
     </div>
-  </div>
+
+    <!-- Phase 3 -->
+    <div class="sbd-phase">
+      <div class="sbd-spine">
+        <div class="sbd-num" style="--ph-color:#8b5cf6;">03</div>
+        <div class="sbd-vline"></div>
+      </div>
+      <div class="sbd-body">
+        <div class="sbd-phase-cat" style="color:#8b5cf6;">Exploratory Data Analysis</div>
+        <div class="sbd-phase-title">Spearman Correlation Matrices, KDE Distributions & Lift Ratio Composition</div>
+        <div class="sbd-tags">
+          <span class="sbd-tag">Spearman ρ matrices (n=283k M / 149k F)</span>
+          <span class="sbd-tag">KDE violin overlays</span>
+          <span class="sbd-tag">lift ratio by BW class</span>
+        </div>
+        <div class="sbd-output" style="--out-color:#8b5cf6;">Mass→Total: <strong>ρ=0.55 M / 0.39 F</strong> · Wilks–BW bias: +0.09 M vs <strong>−0.17 F</strong> · female bench ratio flat at 20% across all 8 weight classes</div>
+      </div>
     </div>
-    
+
+    <!-- Phase 4 -->
+    <div class="sbd-phase">
+      <div class="sbd-spine">
+        <div class="sbd-num" style="--ph-color:#a78bfa;">04</div>
+        <div class="sbd-vline"></div>
+      </div>
+      <div class="sbd-body">
+        <div class="sbd-phase-cat" style="color:#a78bfa;">Statistical Analysis & Hypothesis Testing</div>
+        <div class="sbd-phase-title">Bootstrap Peak Age · Log-Log Allometry · Kruskal-Wallis ANOVA · Era Controls</div>
+        <div class="sbd-tags">
+          <span class="sbd-tag">500-sample bootstrap CI</span>
+          <span class="sbd-tag">log-log OLS regression</span>
+          <span class="sbd-tag">Kruskal-Wallis ANOVA</span>
+          <span class="sbd-tag">fixed weight-class control</span>
+        </div>
+        <div class="sbd-output" style="--out-color:#a78bfa;">Scaling exponents: <strong>0.672 M (≈2/3) · 0.460 F (−31% divergence)</strong> · peak age 31M / 30F · squat-dominant +12.5% total · +3.6 kg/yr fixed-class trend</div>
+      </div>
+    </div>
+
+    <!-- Phase 5 -->
+    <div class="sbd-phase">
+      <div class="sbd-spine">
+        <div class="sbd-num" style="--ph-color:#f59e0b;">05</div>
+        <div class="sbd-vline"></div>
+      </div>
+      <div class="sbd-body">
+        <div class="sbd-phase-cat" style="color:#f59e0b;">Career Lifecycle Analysis</div>
+        <div class="sbd-phase-title">Kaplan-Meier Survival · Career Trajectory · Three-Method Outlier Detection</div>
+        <div class="sbd-tags">
+          <span class="sbd-tag">Kaplan-Meier estimator</span>
+          <span class="sbd-tag">OLS improvement rate</span>
+          <span class="sbd-tag">Z-score · IQR · Isolation Forest</span>
+        </div>
+        <div class="sbd-output" style="--out-color:#f59e0b;">Median career: <strong>98–119 days</strong> (one prep block) · +4.3 kg/yr gain rate · 3+ meets in Yr 1 <strong>doubles 5-yr retention to ≈25%</strong></div>
+      </div>
+    </div>
+
+    <!-- Phase 6 -->
+    <div class="sbd-phase">
+      <div class="sbd-spine">
+        <div class="sbd-num" style="--ph-color:#f97316;">06</div>
+        <div class="sbd-vline"></div>
+      </div>
+      <div class="sbd-body">
+        <div class="sbd-phase-cat" style="color:#f97316;">Machine Learning Architecture</div>
+        <div class="sbd-phase-title">Temporal Split · Five-Model Benchmark · XGBoost Biological Potential Predictor</div>
+        <div class="sbd-tags">
+          <span class="sbd-tag">temporal split pre-2022 / 2022+</span>
+          <span class="sbd-tag">XGBoost · LightGBM · Random Forest</span>
+          <span class="sbd-tag">MAE / RMSE / R² benchmark</span>
+        </div>
+        <div class="sbd-output" style="--out-color:#f97316;">XGBoost <strong>R²=0.720 · MAE ±62 kg</strong> from 5 demographic inputs · +9.7% over linear baseline · residual mean +12.8 kg (quantifies meet-day adrenaline effect)</div>
+      </div>
+    </div>
+
+    <!-- Phase 7 -->
+    <div class="sbd-phase sbd-phase-last">
+      <div class="sbd-spine">
+        <div class="sbd-num" style="--ph-color:var(--green);">07</div>
+      </div>
+      <div class="sbd-body">
+        <div class="sbd-phase-cat" style="color:var(--green);">Explainability & Archetype Discovery</div>
+        <div class="sbd-phase-title">SHAP TreeExplainer · K-Means Clustering · Wilks Reverse-Engineering</div>
+        <div class="sbd-tags">
+          <span class="sbd-tag">SHAP TreeExplainer (n=3,000)</span>
+          <span class="sbd-tag">K-Means k=5 silhouette-selected</span>
+          <span class="sbd-tag">PCA 2D projection</span>
+        </div>
+        <div class="sbd-output" style="--out-color:var(--green);">Sex SHAP <strong>79.6 kg > BW SHAP 46.4 kg</strong> · 5 archetypes from 413k entries · sex recovered unsupervised · Wilks 5th-degree polynomial reverse-engineered from data</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
     <div class="proj-section">
-      <div class="proj-section-label">Scientific Discoveries & Insights</div>
+      <div class="proj-section-label">Interesting Insights</div>
       
       <div class="bento-grid">
         
         <div class="bento-card col-span-2">
           <div class="bento-metric">M: 0.672 <span class="divider" style="margin: 0 8px; color: var(--border);">|</span> F: 0.460</div>
-          <div class="bento-title">31% Allometric Divergence</div>
-          <p class="bento-desc">Theoretical strength scaling sits at an exponent of 0.667. Male scaling matches perfectly, but female scaling severely lags at 0.460. Female strength grows dramatically slower per unit of added mass.</p>
+          <div class="bento-title">Female SBD strength scaling deviates 31% from biological theory</div>
+          <p class="bento-desc">Theoretical geometric strength scales as <strong>STRENGTH &prop; BW<sup>0.667</sup></strong>. Male scaling matches perfectly at 0.672, but female scaling severely lags at 0.460. This means female SBD strength grows much slower per kg of added mass than geometry predicts, attributable to the higher proportion of fat tissue in female mass gain.</p>
         </div>
         
         <div class="bento-card">
-          <div class="bento-metric">ρ = −0.17</div>
-          <div class="bento-title">Mathematical Bias in Wilks</div>
-          <p class="bento-desc">The Spearman correlation for females is negatively biased. A heavier female lifter is structurally disadvantaged by male-optimized scoring polynomials, regardless of her absolute raw strength.</p>
+          <div class="bento-metric">Gender Bias</div>
+          <div class="bento-title">Wilks Scoring Formula Is Biased</div>
+          <p class="bento-desc">The Wilks-BodyWeight correlation should be ideally 0 for a fair formula. For males, it is +0.09, nearly ideal. But for females, it is -0.17, <strong>penalising heavier female lifters</strong> regardless of her absolute raw strength.</p>
         </div>
         
         <div class="bento-card">
-          <div class="bento-metric">~20% Flat</div>
-          <div class="bento-title">Zero Mass-to-Force Transfer</div>
-          <p class="bento-desc">While male bench press share rises with bodyweight (up to 24.4%), the female ratio stays perfectly flat at ~20% across all weight classes. Upper-body force is bound by androgen receptors, not just mass.</p>
+          <div class="bento-metric">Flat Bench Press</div>
+          <div class="bento-title">Sexual Dimorphism</div>
+          <p class="bento-desc">For males, bench as a share of total rises monotonically with BW from 22.1% (sub-59kg) to 24.1% (120+kg). For females, ratio stays perfectly flat at ~20% across all weight classes. It's a quantitative proof that female mass accumulation produces near zero relative upper body force transfer advantage.</p>
         </div>
 
         <div class="bento-card">
-          <div class="bento-metric">98 - 119 Days</div>
-          <div class="bento-title">The 12-Week Churn Rate</div>
-          <p class="bento-desc">Applying the Kaplan-Meier estimator proves powerlifting functions as a high-churn tourist sport. For both sexes, the median career duration is effectively just one single competition prep block.</p>
-        </div>
-
-        <div class="bento-card">
-          <div class="bento-metric">3+ Meets</div>
+          <div class="bento-metric">Doubling Retention Rates</div>
           <div class="bento-title">Beating the Drop-Out Curve</div>
-          <p class="bento-desc">Lifters who compete only once have a ~15% 2-year survival rate. Securing three or more meets in year one fundamentally changes the curve, doubling their 5-year retention probability to ~25%.</p>
+          <p class="bento-desc">Lifters who compete only once have a ~15% 2-year survival rate. Two competitions in year one lifts this to ≈30%. Three or more in year one produces a fundamentally different survival curve: ≈50% at 2 years, ≈25% at 5 years — nearly double the one-meet group. It has <strong>direct policy implications for federation's athlete retention strategies.</strong></p>
         </div>
 
         <div class="bento-card">
-          <div class="bento-metric">1.7× Impact</div>
-          <div class="bento-title">Biological Sex Dominates BW</div>
-          <p class="bento-desc">SHAP analysis reveals biological sex acts as a far more powerful total predictor (|SHAP| = 79.6 kg) than the athlete's own bodyweight (46.4 kg), organically learning the massive hormonal force divergence.</p>
+          <div class="bento-metric">One & Done</div>
+          <div class="bento-title">The 12-Week Churn Rate</div>
+          <p class="bento-desc">Applying the Kaplan-Meier estimator reveals that the majority of registered competitors never return after their debut. For both sexes, the median career duration is effectively just one single competition prep block (~12 weeks). Most people just prepare for one competition and never return again. </p>
         </div>
 
-        <div class="bento-card">
-          <div class="bento-metric">Blind Recovery</div>
-          <div class="bento-title">K-Means Reconstructs Sex</div>
-          <p class="bento-desc">Pure mathematical clustering on lift proportions alone independently partitioned the population by sex. The "Anti-Bencher" cluster formed organically, mapping strictly to a 66.8% female demographic.</p>
-        </div>
 
         <div class="bento-card col-span-2">
-          <div class="bento-metric">1.90x → 2.21x</div>
-          <div class="bento-title">Accelerating Sexual Dimorphism</div>
-          <p class="bento-desc">The overall male-to-female total ratio is a stable 1.75x. However, the upper-body strength divergence isn't fixed—it's dynamic, widening aggressively from 1.90x in lightweights to 2.21x in heavyweights.</p>
+          <div class="bento-metric">Unsupervised ML</div>
+          <div class="bento-title">K-Means Reconstructs Sex Without Being Told It</div>
+          <p class="bento-desc">K-Means clustering on lift ratios alone (no sex variable) organically segregated the population. The ‘‘Anti-Bencher’’ cluster is 66.8% female; the ‘‘Deadlift Specialist’’ is 62% female. The two high-total clusters are 83–93% male. Pure mathematical clustering on biomechanical proportions independently reconstructed the biological sex divide — a data-driven confirmation that male and female lift composition profiles are structurally different phenotypes.</p>
         </div>
 
       </div>
@@ -243,51 +330,33 @@
       <div class="bento-grid">
         
         <div class="bento-card col-span-2">
-          <div class="bento-metric">Flat from 27 → 35</div>
-          <div class="bento-title">"Age is Just a Number" Proven</div>
-          <p class="bento-desc">The correlation between age and performance is near zero (ρ = 0.04 for women, 0.19 for men). A 27-year-old and 34-year-old are statistically indistinguishable, and the median 45-year-old totals the same as a 20-year-old. The 30s aren't a decline; there is no "athletic cliff."</p>
+          <div class="bento-metric">Age Is Just A Number</div>
+          <div class="bento-title">Proven Mathematically</div>
+          <p class="bento-desc">The correlation between age and performance is near zero (ρ = 0.04 for women, 0.19 for men).  The performance curve is genuinely flat from age 27 through 35. A 27-year-old and a 34-year-old are statistically indistinguishable. The median 45-year-old posts totals matching the median 20-year-old. Only past 50 does a real decline appear. It's not too late to start, so go hit the gym and pick up the barbell !</p>
         </div>
         
         <div class="bento-card">
-          <div class="bento-metric">17% vs 32% R²</div>
-          <div class="bento-title">The Female Bulking Gamble</div>
-          <p class="bento-desc">Mass predicts strength twice as effectively for men as it does for women. For female lifters, gaining weight yields high-variance, unpredictable strength transfer due to a higher ratio of non-force-producing tissue gain.</p>
+          <div class="bento-metric">Female Bulking Trap</div>
+          <div class="bento-title">Sustainability is king for females</div>
+          <p class="bento-desc">For men, gaining bodyweight translates meaningfully to more strength (ρ = 0.55). For women, the same relationship is much weaker (ρ = 0.39), and the R² of mass predicting total is barely half that of men (17% vs 32%). When a woman gains weight to move up a class, a larger fraction is fat, not muscle; so the strength transfer is unpredictable and high-variance.</p>
         </div>
         
         <div class="bento-card">
-          <div class="bento-metric">ρ = 0.963</div>
-          <div class="bento-title">The Squat is King</div>
-          <p class="bento-desc">The squat correlates highest with total output. Squat-dominant lifters consistently post totals 12.5% higher than deadlift-dominant lifters, and the sport-wide squat ratio is rising year-over-year.</p>
+          <div class="bento-metric">Squat is the undisputed King</div>
+          <div class="bento-title">From every possible angle</div>
+          <p class="bento-desc">The squat correlates highest with total (ρ = 0.963). Your Deadlift also increases with the Squat due to positive correlation between them. Squat-dominant lifters post totals 12.5% higher than deadlift-dominant ones (605 kg vs 538 kg). Even when bodyweight is controlled, the squat's edge holds. And as a sport,<strong> the squat ratio has been rising year-on-year since 2012; elite lifters are squatting more, and hence you need to as well.</strong></p>
         </div>
 
         <div class="bento-card">
-          <div class="bento-metric">570kg vs 310kg</div>
-          <div class="bento-title">Specialization Backfires</div>
-          <p class="bento-desc">The "Balanced Push-Pull" archetype (equal squat/deadlift) claims the highest median total (570kg). The "Deadlift Specialist" cluster posts the absolute worst. A freakishly high deadlift ratio usually just means a weak squat.</p>
+          <div class="bento-metric">Specialization Backfires</div>
+          <div class="bento-title">570kgs vs 310kgs</div>
+          <p class="bento-desc">The ‘‘Balanced Squat-Deadlift’’ archetype (Squat ~ Deadlift) claims the highest median total (570kg) and the highest relative strength score as well. (Wilks = 377). The next best group was balanced archetype. The ‘‘Deadlift Specialist’’ cluster posts the absolute worst. A freakishly high deadlift ratio usually means a weak squat, not an elite deadlift.</p>
         </div>
 
         <div class="bento-card">
-          <div class="bento-metric">~4 kg / Year</div>
-          <div class="bento-title">The Granular Grind</div>
-          <p class="bento-desc">Social media transformations are outliers. The average male adds +4.3 kg to their total annually; females add +3.2 kg. Real strength is built over years of incredibly slow, consistent compound gains.</p>
-        </div>
-
-        <div class="bento-card">
-          <div class="bento-metric">3+ Meets in Yr 1</div>
-          <div class="bento-title">Surviving the Drop-Out Cliff</div>
-          <p class="bento-desc">80% of single-meet competitors never return. Competing three or more times in your debut year is the single strongest predictor of longevity, nearly doubling your 5-year retention probability in the sport.</p>
-        </div>
-
-        <div class="bento-card">
-          <div class="bento-metric">+3.6 kg / Year</div>
-          <div class="bento-title">The Rising Baseline</div>
-          <p class="bento-desc">The median total for an 83–93kg male has climbed every year since 2010. To be an "average" 83kg male today, you must lift 36kg more than a decade ago. Progress you'd be proud of then is table stakes now.</p>
-        </div>
-
-        <div class="bento-card col-span-2">
-          <div class="bento-metric">Peak at 30-31</div>
-          <div class="bento-title">You Haven't Missed Your Window</div>
-          <p class="bento-desc">While starting as a teenager accumulates a minor neuroplastic advantage, the biological absolute peak sits tightly at 31 years for men and 30 years for women regardless of debut age. If you're 30, you're at the summit right now.</p>
+          <div class="bento-metric">Submit To The Grind</div>
+          <div class="bento-title">Rome wasn't built in a day</div>
+          <p class="bento-desc">Rapid social media transformations are either beginners, outliers or steroid-users. The average male gains +4.3 kg of total per year; females +3.2 kg. Lifters with 7+ years of experience post Wilks score of ~407 vs ~361 for 1st-year lifters. And to be an average 83 kg male today, you need to be 36 kg stronger than the average 83 kg male from a decade ago. The sport's baseline keeps rising.</p>
         </div>
 
       </div>
@@ -742,56 +811,77 @@ footer span{font-size:12px;color:var(--dim);}
 
 <style is:global>
 /* --- Methodology Pipeline --- */
-.pipeline-container {
-  position: relative;
-  padding-left: 2rem;
-  margin-top: 1.5rem;
-  margin-bottom: 3rem;
+.sbd-pipeline { margin-top: 1.75rem; }
+.sbd-phase { display: flex; gap: 0; margin-bottom: 0; }
+.sbd-phase-last .sbd-body { padding-bottom: 0; }
+.sbd-spine { display: flex; flex-direction: column; align-items: center; width: 52px; flex-shrink: 0; }
+.sbd-num {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.04em;
+  color: var(--ph-color, var(--text));
+  border: 1px solid var(--ph-color, var(--border2));
+  background: rgba(255,255,255,0.02);
+  flex-shrink: 0; position: relative; z-index: 2;
 }
-.pipeline-container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 5px;
-  width: 2px;
-  background: linear-gradient(to bottom, var(--text) 0%, rgba(255,255,255,0.05) 100%);
-  border-radius: 2px;
+.sbd-vline {
+  flex: 1; width: 1px; min-height: 20px;
+  background: var(--border); margin: 6px 0;
 }
-.pipe-step {
-  position: relative;
-  padding-bottom: 2.5rem;
+.sbd-body { flex: 1; padding: 0 0 2.5rem 1rem; min-width: 0; }
+.sbd-phase-cat {
+  font-size: 10px; font-weight: 600; letter-spacing: .09em;
+  text-transform: uppercase; margin-bottom: 5px;
 }
-.pipe-step:last-child {
-  padding-bottom: 0;
+.sbd-phase-title {
+  font-size: 16px; font-weight: 700; color: var(--text);
+  margin-bottom: 0.65rem; line-height: 1.4; letter-spacing: -0.01em;
 }
-.pipe-node {
-  position: absolute;
-  left: -2rem;
-  top: 4px;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--bg);
-  border: 2px solid var(--text);
-  box-shadow: 0 0 10px rgba(240,239,235,0.4);
-  z-index: 2;
+.sbd-phase-desc {
+  font-size: 13.5px; color: var(--muted); line-height: 1.75; margin-bottom: 1rem;
 }
-.pipe-title {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: 0.5rem;
-  letter-spacing: 0.02em;
+.sbd-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1rem; }
+.sbd-tag {
+  font-size: 11px; font-weight: 500;
+  padding: 3px 9px; border-radius: 100px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border2);
+  color: var(--muted); white-space: nowrap;
 }
-.pipe-desc {
-  font-size: 14px;
-  color: rgba(240,239,235,0.65);
-  line-height: 1.7;
+.sbd-stat-row {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 8px; margin-bottom: 1rem;
 }
-.pipe-desc strong {
-  color: var(--text);
-  font-weight: 600;
+.sbd-stat {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border);
+  border-radius: 8px; padding: 10px 12px;
+}
+.sbd-stat-val { font-size: 16px; font-weight: 700; color: var(--text); line-height: 1.2; }
+.sbd-stat-sub { font-size: 11px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+.sbd-steps { list-style: none; display: flex; flex-direction: column; gap: 5px; margin-bottom: 1rem; }
+.sbd-steps li {
+  font-size: 13px; color: var(--muted); padding-left: 16px;
+  position: relative; line-height: 1.65;
+}
+.sbd-steps li::before {
+  content: '→'; position: absolute; left: 0;
+  color: var(--dim); font-size: 11px; top: 2px;
+}
+.sbd-steps li strong { color: rgba(240,239,235,0.85); font-weight: 600; }
+.sbd-output {
+  background: rgba(255,255,255,0.02);
+  border-left: 2px solid var(--out-color, var(--border2));
+  border-radius: 0 6px 6px 0;
+  padding: 9px 12px;
+  font-size: 12.5px; color: var(--muted); line-height: 1.6;
+}
+.sbd-output strong { color: rgba(240,239,235,0.75); font-weight: 600; }
+@media (max-width: 768px) {
+  .sbd-stat-row { grid-template-columns: 1fr; }
+  .sbd-num { width: 30px; height: 30px; font-size: 11px; }
+  .sbd-spine { width: 42px; }
+  .sbd-phase-title { font-size: 14px; }
 }
 
 /* --- Findings Bento Grid --- */
