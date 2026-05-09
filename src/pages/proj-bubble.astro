@@ -27,15 +27,81 @@
       <span class="ptag">Physics</span>
     </div>
     <h1 class="proj-page-title"><span class="animate-blog-1" style="display:inline-block;">Bubble Dynamics &amp; </span><em class="animate-blog-2" style="display:inline-block;">Minnaert Frequency</em></h1>
-    <p class="proj-tagline">An interactive simulator exploring how gas bubbles oscillate in different liquid media and why they make the sounds they do.</p>
+    <p class="proj-tagline">Insights into how different gas bubbles oscillate in different liquid media and why they make the sounds they do.</p>
   </div>
   
-  <div class="demo-zone">
-    <div class="demo-label"><span class="live-dot"></span>Interactive Simulator</div>
-    <div class="demo-frame">
-      <div class="demo-frame-inner">
-        <div class="demo-title-sm">Bubble Oscillation Simulator</div>
-        <div class="demo-coming">Interactive demo loading here — fluid presets, bubble radius slider, audio playback</div>
+  <div class="demo-zone" id="bubble-sim-wrapper" style="padding: 4rem 3rem; background: var(--bg); border-bottom: 1px solid rgba(255,255,255,0.08);">
+    <div style="max-width: 1000px; margin: 0 auto;">
+      <div style="display: grid; grid-template-columns: 340px 1fr; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; background: #0a0a0a; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.5);">
+        
+        <div style="padding: 2.5rem 2rem; display: flex; flex-direction: column; gap: 2.5rem; background: rgba(255,255,255,0.02); border-right: 1px solid rgba(255,255,255,0.05);">
+          
+          <div>
+            <div style="font-size: 10px; font-weight: 600; text-transform: uppercase; color: #888; letter-spacing: 0.1em; margin-bottom: 0.75rem;">Fluid Preset</div>
+            <div style="position: relative;">
+              <select id="sim-preset" style="appearance: none; -webkit-appearance: none; background: #141414 !important; color: #f0efeb !important; border: 1px solid rgba(255,255,255,0.15) !important; border-radius: 6px !important; padding: 0.85rem 1rem !important; width: 100% !important; font-family: inherit; font-size: 13px; font-weight: 500; cursor: pointer; outline: none; box-shadow: none !important;">
+                <option value="water">Pure Water (Air)</option>
+                <option value="cola">Carbonated Cola (CO₂)</option>
+                <option value="beer">Classic Beer (CO₂)</option>
+                <option value="nitro">Nitro Beer (N₂)</option>
+                <option value="custom">Custom Fluid System</option>
+              </select>
+
+              <div style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); pointer-events: none; color: #888;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 0.75rem;">
+              <span style="font-size: 10px; font-weight: 600; text-transform: uppercase; color: #888; letter-spacing: 0.1em;">Radius (R<sub>0</sub>)</span>
+              <span style="font-size: 16px; font-weight: 700; color: #f0efeb;" id="val-r0">2.00 <span style="font-size: 12px; color: #666; font-weight: 500;">mm</span></span>
+            </div>
+            <input type="range" id="sim-r0" style="accent-color: #f0efeb; width: 100%; cursor: pointer;" min="0.05" max="5.0" step="0.05" value="2.0">
+          </div>
+
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 0.75rem;">
+              <span style="font-size: 10px; font-weight: 600; text-transform: uppercase; color: #888; letter-spacing: 0.1em;">Surface Tension</span>
+              <span style="font-size: 16px; font-weight: 700; color: #f0efeb;" id="val-sigma">0.072 <span style="font-size: 12px; color: #666; font-weight: 500;">N/m</span></span>
+            </div>
+            <input type="range" id="sim-sigma" style="accent-color: #f0efeb; width: 100%; cursor: pointer;" min="0.0" max="0.1" step="0.001" value="0.072">
+          </div>
+
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 0.75rem;">
+              <span style="font-size: 10px; font-weight: 600; text-transform: uppercase; color: #888; letter-spacing: 0.1em;">Visual Slowdown</span>
+              <span style="font-size: 16px; font-weight: 700; color: #f0efeb;" id="val-slow">1000<span style="font-size: 12px; color: #666; font-weight: 500;">x</span></span>
+            </div>
+            <input type="range" id="sim-slow" style="accent-color: #f0efeb; width: 100%; cursor: pointer;" min="100" max="10000" step="100" value="1000">
+          </div>
+
+          <button id="btn-perturb" style="background: #f0efeb !important; color: #0a0a0a !important; width: 100% !important; padding: 1.1rem !important; border-radius: 6px !important; border: none !important; font-family: inherit !important; font-weight: 700 !important; font-size: 12px !important; text-transform: uppercase !important; letter-spacing: 0.1em !important; cursor: pointer !important; margin-top: auto; box-shadow: 0 4px 15px rgba(240, 239, 235, 0.15);">Perturb Bubble</button>
+        </div>
+
+        <div style="position: relative; display: flex; flex-direction: column; background: #0a0a0a;">
+          <div style="padding: 2.5rem 2.5rem 0 2.5rem; display: flex; justify-content: space-between; align-items: flex-start; z-index: 2;">
+            <div>
+              <div style="font-size: 10px; font-weight: 600; text-transform: uppercase; color: #666; letter-spacing: 0.1em; margin-bottom: 0.5rem;">Natural Acoustic Frequency</div>
+              <div style="font-size: 56px; font-weight: 700; color: #f0efeb; line-height: 1; letter-spacing: -0.03em;">
+                <span id="stat-freq">--</span>
+                <span style="font-size: 20px; color: #666; font-weight: 500; letter-spacing: 0;">Hz</span>
+              </div>
+              <div style="margin-top: 1.5rem; display: inline-flex; align-items: center; gap: 8px; padding: 4px 10px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.05); background: rgba(255,255,255,0.02);">
+                <span style="font-size: 11px; color: #666; letter-spacing: 0.05em;">ACOUSTIC STATUS:</span>
+                <span id="stat-audio" style="font-size: 11px; font-weight: 600; color: var(--green); letter-spacing: 0.05em;">--</span>
+              </div>
+            </div>
+            <div id="live-indicator" style="display: flex; align-items: center; gap: 6px; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--green); opacity: 0.5;">
+              <div style="width: 6px; height: 6px; background: var(--green); border-radius: 50%; box-shadow: 0 0 8px var(--green);"></div>
+              SYSTEM READY
+            </div>
+          </div>
+          <div style="flex: 1; display: flex; align-items: center; justify-content: center; position: relative;">
+            <canvas id="bubbleCanvas" width="600" height="400" style="max-width: 100%; height: auto;"></canvas>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -44,30 +110,30 @@
     <div class="proj-section">
       <div class="proj-section-label">The Problem</div>
       <p class="proj-p">You won't believe this but bubbles are dynamic oscillators at the microscale. When a gas bubble trapped in an liquid medium is disturbed, it undergoes radial expansion and contraction. In multiphase fluids, these volumetric oscillations act as the primary source of liquid sound.</p>
-      <p class="proj-p">Traditional introductory fluid mechanics often models this in an idealized inviscid liquid. However, to accurately model real-world acoustic phenomena like cavitation in pumps, boiling, or the sound of pouring a beverage, we must understand how interfacial surface tension (&sigma;) and fluid viscosity (&mu;) comes into play.</p>
-      <p class="proj-p">The goal of this project was to understand the implications of interfacial and viscous effects in bubble dynamics and it's further applications in acoustics.
+      <p class="proj-p">Traditional introductory fluid mechanics often models this in an idealized inviscid liquid. However, <strong>to accurately model real-world acoustic phenomena like cavitation in pumps, boiling, or the sound of pouring a beverage, we must understand how interfacial surface tension (&sigma;) and fluid viscosity (&mu;) comes into play.</strong></p>
+      <p class="proj-p">The goal of this project was to understand the implications of interfacial and viscous effects in bubble dynamics and it's further applications in acoustics.</p>
     </div>
     
     <div class="proj-section">
       <div class="proj-section-label">Approach</div>
       <p class="proj-p">This project derives the governing Rayleigh-Plesset equation from first principles, utilizing the continuity equation, unsteady Bernoulli equation, and normal stress balances at the gas-liquid interface.</p>
-      <p class="proj-p">Because the resulting differential equation is highly complex & non-linear, I applied <strong>first- and second-order perturbation analysis</strong> to solve for the bubble radius R(t). This mathematical framework simplified the complex governing equations, revealing the distinct physical roles of the fluid properties:</p>
+      <p class="proj-p">Because the resulting differential equation is highly complex & non-linear, I applied <strong>first- and second-order perturbation analysis</strong> to solve for the bubble radius R(t). This mathematical framework  simplified the complex governing equations, revealing the distinct physical roles of the fluid properties:</p>
       <ul style="color:rgba(240,239,235,0.65); font-size:15px; line-height:1.9; margin-bottom:1rem; padding-left:1.5rem;">
         <li><strong>Viscosity (&mu;)</strong> acts as the primary energy dissipator <strong>(and hence the stabiliser as well, otherwise the bubble would oscillate forever which happens in case of ideal inviscid flow)</strong>, causing the oscillation amplitude to decay exponentially and bring the bubble back to its equilibrium.</li>
-        <li><strong>Surface Tension (&sigma;)</strong> provides an additional restoring force, increasing the system's stiffness and noticeably shifting the natural resonance (Minnaert frequency) higher.</li>
+        <li><strong>Surface Tension (&sigma;)</strong> provides an additional restoring force, increasing the system's stiffness and noticeably shifting the resonance higher.</li>
       </ul>
     </div>
     
     <div class="proj-section">
       <div class="proj-section-label">Outcomes & Insights</div>
-      <p class="proj-p">The second-order mathematical decomposition exposed a ‘‘baseline drift’’ proving that a pulsating bubble effectively spends slightly more time and distance in its expanded state than its compressed state (unlike ideal damped harmonic oscillations centered around 0 due to the non-linear isotropic PV<sup>&gamma;</sup> = constant ).</p>
-      <p class="proj-p">Extending this to acoustics, I mapped the theoretical frequencies across four real-world fluid systems we encounter in everyday life: Pure Water, Cola, Classic Beer, and <a href="https://www.foodandwine.com/news/nitro-beers-explained"><u><strong>Nitro Beer</strong></u></a>.</p>
+      <p class="proj-p">The second-order mathematical decomposition exposed a ‘‘baseline drift’’ proving that a pulsating bubble effectively spends slightly more time and distance in its expanded state than its compressed state. (unlike ideal harmonic oscillations centered around 0 due to the non-linear thermodynamics of the system).</p>
+      <p class="proj-p">Extending this to acoustics, I mapped the theoretical frequencies across four real-world fluid systems we encounter in everyday life: Pure Water, Cola, Classic Beer, and <a href="https://www.foodandwine.com/news/nitro-beers-explained"><strong><u>Nitro Beer</u></strong></a>.</p>
       <ul style="color:rgba(240,239,235,0.65); font-size:15px; line-height:1.9; padding-left:1.5rem;">
-        <li><strong>The Silent Pour Of Nitrogenated Beer:</strong> Nitrogen's poor solubility in stout beer yields highly stable, microscopic bubbles (R<sub>0</sub> approx 0.1 mm). The Minnaert frequency for these exceeds 30,000 Hz, rendering the pour completely silent to the human ear (ultrasonic).</li>
+        <li><strong>The Silent Pour Of Nitrogenated Beer:</strong> Nitrogen's poor solubility in stout beer yields highly stable, microscopic bubbles (R<sub>0</sub> ≈ 0.1 mm). The Minnaert frequency for these exceeds 30,000 Hz, making the pour completely silent to the human ear (ultrasonic).</li>
         <li><strong>Micro-Scale Imperative:</strong> The analysis proved that while ignoring surface tension is fine for large bubbles (>1.0 mm), the frequency error diverges exponentially for micro-bubbles below 0.05 mm, resulting in need for factoring in Laplace Pressure while designing and modeling micro-scale engineering like targeted drug delivery or sonochemical microreactors.</li>
       </ul>
-      <br>
-      <p class="proj-p">Play around with the acoustic simulator above and if you are interested in the Mathematics and Transport Phenomena behind this problem, check out the GitHub repository below.</p>
+    <br>
+    <p>Play around with the acoustic simulator above and if you are interested in the Mathematics and Transport Phenomena behind this problem, check out the GitHub repository below. </p>
     </div>
   </div>
   
@@ -83,17 +149,196 @@
 
 <script is:inline>
   document.addEventListener('DOMContentLoaded', () => {
+    const P_inf = 101325;
+    const presets = {
+      water: { rho: 1000, sigma: 0.072, gamma: 1.40, r0: 2.0, mu: 0.001, color: '255, 255, 255' },      // White
+      cola:  { rho: 1040, sigma: 0.055, gamma: 1.28, r0: 1.0, mu: 0.0015, color: '226, 75, 74' },      // Red
+      beer:  { rho: 1015, sigma: 0.040, gamma: 1.28, r0: 0.5, mu: 0.002, color: '237, 177, 32' },      // Golden
+      nitro: { rho: 1015, sigma: 0.040, gamma: 1.40, r0: 0.1, mu: 0.002, color: '186, 117, 23' },      // Golden Brown
+      custom:{ color: '34, 197, 94' }                                                                  // Powerlifting Green
+    };
+
+    const presetSelect = document.getElementById('sim-preset');
+    const r0Slider = document.getElementById('sim-r0');
+    const sigmaSlider = document.getElementById('sim-sigma');
+    const slowSlider = document.getElementById('sim-slow');
+    const btnPerturb = document.getElementById('btn-perturb');
+    const canvas = document.getElementById('bubbleCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    const valR0 = document.getElementById('val-r0');
+    const valSigma = document.getElementById('val-sigma');
+    const valSlow = document.getElementById('val-slow');
+    const statFreq = document.getElementById('stat-freq');
+    const statAudio = document.getElementById('stat-audio');
+    const liveIndicator = document.getElementById('live-indicator');
+
+    let currentPreset = presets.water;
+    let bubbleColor = presets.water.color;
+    let f0 = 0;
+    let beta = 0;
+    let isAnimating = false;
+    let animStartTime = 0;
+    let audioCtx = null;
+
+    function calculatePhysics() {
+      const r0_m = parseFloat(r0Slider.value) * 1e-3;
+      const sigma = parseFloat(sigmaSlider.value);
+      const rho = currentPreset.rho;
+      const gamma = currentPreset.gamma;
+      const mu = currentPreset.mu;
+
+      const term1 = (3 * gamma * P_inf) / rho;
+      const term2 = ((6 * gamma - 2) * sigma) / (rho * r0_m);
+      f0 = (1 / (2 * Math.PI * r0_m)) * Math.sqrt(term1 + term2);
+      
+      beta = (2 * mu) / (rho * Math.pow(r0_m, 2));
+
+      statFreq.innerText = Math.round(f0).toLocaleString();
+      
+      if (f0 > 20000) {
+        statAudio.innerText = "ULTRASONIC (SILENT)";
+        statAudio.style.color = "#666";
+      } else {
+        statAudio.innerText = "AUDIBLE";
+        statAudio.style.color = "var(--green)";
+      }
+      drawBubble(0, 0); 
+    }
+
+    presetSelect.addEventListener('change', (e) => {
+      const selection = e.target.value;
+      if (selection !== 'custom') {
+        currentPreset = presets[selection];
+        r0Slider.value = currentPreset.r0;
+        sigmaSlider.value = currentPreset.sigma;
+        valR0.innerHTML = `${currentPreset.r0.toFixed(2)} <span style="font-size: 12px; color: #666; font-weight: 500;">mm</span>`;
+        valSigma.innerHTML = `${currentPreset.sigma.toFixed(3)} <span style="font-size: 12px; color: #666; font-weight: 500;">N/m</span>`;
+      }
+      bubbleColor = presets[selection].color;
+      calculatePhysics();
+    });
+
+    r0Slider.addEventListener('input', (e) => { 
+      valR0.innerHTML = `${parseFloat(e.target.value).toFixed(2)} <span style="font-size: 12px; color: #666; font-weight: 500;">mm</span>`;
+      presetSelect.value = 'custom';
+      bubbleColor = presets.custom.color;
+      calculatePhysics(); 
+    });
+    
+    sigmaSlider.addEventListener('input', (e) => { 
+      valSigma.innerHTML = `${parseFloat(e.target.value).toFixed(3)} <span style="font-size: 12px; color: #666; font-weight: 500;">N/m</span>`;
+      presetSelect.value = 'custom';
+      bubbleColor = presets.custom.color;
+      calculatePhysics(); 
+    });
+    
+    slowSlider.addEventListener('input', (e) => { 
+      valSlow.innerHTML = `${e.target.value}<span style="font-size: 12px; color: #666; font-weight: 500;">x</span>`;
+    });
+
+    function drawBubble(simTime, realElapsedSec) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+      
+      const r0_val = parseFloat(r0Slider.value);
+      const baseRadiusPx = 40 + Math.pow(r0_val / 5.0, 0.6) * 120; 
+      
+      const epsilon = 0.15; 
+      const visualDecay = Math.max(beta * simTime, realElapsedSec * 1.5);
+      const damping = Math.exp(-visualDecay);
+      const oscillation = Math.cos(2 * Math.PI * f0 * simTime);
+      const currentRadiusPx = baseRadiusPx * (1 + (epsilon * damping * oscillation));
+
+      // Equilibrium guide line
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, baseRadiusPx, 0, 2 * Math.PI);
+      ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+      ctx.setLineDash([4, 6]);
+      ctx.stroke();
+
+      // Dynamic colored bubble
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, Math.max(1, currentRadiusPx), 0, 2 * Math.PI);
+      ctx.fillStyle = `rgba(${bubbleColor}, 0.08)`; 
+      ctx.fill();
+      ctx.strokeStyle = `rgba(${bubbleColor}, 0.8)`;
+      ctx.setLineDash([]);
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+
+    function animate(timestamp) {
+      if (!isAnimating) return;
+      if (!animStartTime) animStartTime = timestamp;
+      
+      const slowFactor = parseFloat(slowSlider.value);
+      const realElapsedSec = (timestamp - animStartTime) / 1000;
+      const simTime = realElapsedSec / slowFactor; 
+
+      drawBubble(simTime, realElapsedSec);
+
+      const visualDecay = Math.max(beta * simTime, realElapsedSec * 1.5);
+      if (Math.exp(-visualDecay) < 0.005) {
+        isAnimating = false;
+        drawBubble(0, 0); 
+        liveIndicator.innerHTML = '<div style="width: 6px; height: 6px; background: var(--green); border-radius: 50%; box-shadow: 0 0 8px var(--green);"></div> SYSTEM READY';
+        liveIndicator.style.opacity = '0.5';
+      } else {
+        requestAnimationFrame(animate);
+      }
+    }
+
+    function playSound() {
+      if (f0 > 24000) return; 
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+
+      const osc = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+
+      osc.type = 'sine';
+      osc.frequency.value = Math.min(f0, 24000); 
+
+      const now = audioCtx.currentTime;
+      gainNode.gain.setValueAtTime(0.8, now);
+      
+      const timeConstant = Math.max(0.001, 1 / beta); 
+      gainNode.gain.setTargetAtTime(0.0001, now, timeConstant);
+
+      osc.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+
+      osc.start(now);
+      osc.stop(now + (timeConstant * 6)); 
+    }
+
+    btnPerturb.addEventListener('click', () => {
+      isAnimating = true;
+      animStartTime = 0;
+      liveIndicator.innerHTML = '<div style="width: 6px; height: 6px; background: #fff; border-radius: 50%; box-shadow: 0 0 8px #fff;"></div> SIMULATING...';
+      liveIndicator.style.opacity = '1';
+      playSound();
+      requestAnimationFrame(animate);
+    });
+
+    btnPerturb.addEventListener('mouseover', () => { btnPerturb.style.backgroundColor = '#ffffff'; btnPerturb.style.transform = 'translateY(-2px)'; });
+    btnPerturb.addEventListener('mouseout', () => { btnPerturb.style.backgroundColor = '#f0efeb'; btnPerturb.style.transform = 'translateY(0)'; });
+
+    calculatePhysics();
+  });
+</script>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       document.documentElement.classList.add('reveal-ready');
     }, 50);
   });
 </script>
 
-</body>
-</html>
-
 <style is:global>
-/* Keep all your existing global styles exactly as they were */
 .h-val em a { color: var(--muted); text-decoration-color: rgba(255, 255, 255, 0.1); }
 .h-val em a:hover { color: var(--text); }
 .bento-hobbies { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; padding: 1.5rem 0; border-bottom: 1px solid var(--border); }
@@ -243,3 +488,5 @@ footer span{font-size:12px;color:var(--dim);}
 .fade-in{animation:fadeUp .45s ease both;}
 .fd1{animation-delay:.05s;}.fd2{animation-delay:.12s;}.fd3{animation-delay:.2s;}
 </style>
+</body>
+</html>
