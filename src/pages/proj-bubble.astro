@@ -17,8 +17,8 @@
 <div id="proj-bubble" style="display: block;">
   <nav class="proj-nav animate-pill">
     <a href="/#works" class="back-btn" style="text-decoration:none;"><span class="back-arr">←</span> All projects</a>
-    
   </nav>
+  
   <div class="proj-header">
     <div class="proj-tags">
       <span class="ptag">Chemical Engineering</span>
@@ -29,6 +29,7 @@
     <h1 class="proj-page-title"><span class="animate-blog-1" style="display:inline-block;">Bubble Dynamics &amp; </span><em class="animate-blog-2" style="display:inline-block;">Minnaert Frequency</em></h1>
     <p class="proj-tagline">An interactive simulator exploring how gas bubbles oscillate in different liquid media — and why they make the sounds they do.</p>
   </div>
+  
   <div class="demo-zone">
     <div class="demo-label"><span class="live-dot"></span>Interactive Simulator</div>
     <div class="demo-frame">
@@ -38,26 +39,42 @@
       </div>
     </div>
   </div>
+  
   <div class="proj-body">
     <div class="proj-section">
       <div class="proj-section-label">The Problem</div>
-      <p class="proj-p">When a gas bubble in a liquid is disturbed — by a pressure wave, a vibration, or simply being formed — it doesn't just sit there. It oscillates, expanding and contracting at a characteristic frequency. This is the Minnaert frequency, named after the Dutch physicist Marcel Minnaert who first described it in 1933.</p>
-      <p class="proj-p">Understanding this frequency matters across a surprising range of applications: acoustic cavitation in medical ultrasound, the distinct sound signature of carbonated beverages, underwater acoustics, and even industrial mixing processes. The sound of a stream, it turns out, is almost entirely the sound of bubbles.</p>
+      <p class="proj-p">You won't believe this but bubbles are dynamic oscillators at the microscale. When a gas bubble trapped in an liquid medium is disturbed, it undergoes radial expansion and contraction. In multiphase fluids, these volumetric oscillations act as the primary source of liquid sound.</p>
+      <p class="proj-p">Traditional introductory fluid mechanics often models this in an idealized inviscid liquid. However, to accurately model real-world acoustic phenomena like cavitation in pumps, boiling, or the sound of pouring a beverage, we must understand how interfacial surface tension (&sigma;) and fluid viscosity (&mu;) comes into play.</p>
+      <p class="proj-p">The goal of this project was to understand the implications of interfacial and viscous effects in bubble dynamics and it's further applications in acoustics.
     </div>
+    
     <div class="proj-section">
       <div class="proj-section-label">Approach</div>
-      <p class="proj-p">The Minnaert frequency is derived from the equation of motion of a bubble modeled as a damped harmonic oscillator. For a spherical bubble of radius R in a liquid of density ρ at ambient pressure P₀, the resonant frequency is:</p>
-      <p class="proj-p" style="font-family:monospace;font-size:14px;color:rgba(240,239,235,0.5);padding:1rem 1.25rem;background:var(--bg1);border-radius:8px;border:1px solid var(--border);">f = (1/2πR) × √(3γP₀/ρ)</p>
-      <p class="proj-p">I implemented this model computationally and extended it to account for different fluid media — varying surface tension, dissolved gas concentration, and viscosity. The simulator uses presets for water, carbonated water, beer (CO₂ in solution), and nitrogenated stout (a CO₂/N₂ mix), which explains the dramatically different bubble behaviour and sound between, say, a Guinness and a lager.</p>
+      <p class="proj-p">This project derives the governing Rayleigh-Plesset equation from first principles, utilizing the continuity equation, unsteady Bernoulli equation, and normal stress balances at the gas-liquid interface.</p>
+      <p class="proj-p">Because the resulting differential equation is highly complex & non-linear, I applied <strong>first- and second-order perturbation analysis</strong> to solve for the bubble radius R(t). This mathematical framework simplified the complex governing equations, revealing the distinct physical roles of the fluid properties:</p>
+      <ul style="color:rgba(240,239,235,0.65); font-size:15px; line-height:1.9; margin-bottom:1rem; padding-left:1.5rem;">
+        <li><strong>Viscosity (&mu;)</strong> acts as the primary energy dissipator <strong>(and hence the stabiliser as well, otherwise the bubble would oscillate forever which happens in case of ideal inviscid flow)</strong>, causing the oscillation amplitude to decay exponentially and bring the bubble back to its equilibrium.</li>
+        <li><strong>Surface Tension (&sigma;)</strong> provides an additional restoring force, increasing the system's stiffness and noticeably shifting the natural resonance (Minnaert frequency) higher.</li>
+      </ul>
     </div>
+    
     <div class="proj-section">
-      <div class="proj-section-label">Outcomes</div>
-      <p class="proj-p">The finished tool lets users set bubble radius and fluid properties (via presets or custom sliders), visualise the oscillation waveform in real time, and hear the computed resonant frequency as an audio tone. The difference between CO₂ bubbles in lager (~2mm radius, ~1.6 kHz) and nitrogen bubbles in stout (~0.05mm radius, ~65 kHz) is immediately audible.</p>
+      <div class="proj-section-label">Outcomes & Insights</div>
+      <p class="proj-p">The second-order mathematical decomposition exposed a ‘‘baseline drift’’ proving that a pulsating bubble effectively spends slightly more time and distance in its expanded state than its compressed state (unlike ideal damped harmonic oscillations centered around 0 due to the non-linear isotropic PV<sup>&gamma;</sup> = constant ).</p>
+      <p class="proj-p">Extending this to acoustics, I mapped the theoretical frequencies across four real-world fluid systems we encounter in everyday life: Pure Water, Cola, Classic Beer, and <a href="https://www.foodandwine.com/news/nitro-beers-explained"><u><strong>Nitro Beer</strong></u></a>.</p>
+      <ul style="color:rgba(240,239,235,0.65); font-size:15px; line-height:1.9; padding-left:1.5rem;">
+        <li><strong>The Silent Pour Of Nitrogenated Beer:</strong> Nitrogen's poor solubility in stout beer yields highly stable, microscopic bubbles (R<sub>0</sub> approx 0.1 mm). The Minnaert frequency for these exceeds 30,000 Hz, rendering the pour completely silent to the human ear (ultrasonic).</li>
+        <li><strong>Micro-Scale Imperative:</strong> The analysis proved that while ignoring surface tension is fine for large bubbles (>1.0 mm), the frequency error diverges exponentially for micro-bubbles below 0.05 mm, resulting in need for factoring in Laplace Pressure while designing and modeling micro-scale engineering like targeted drug delivery or sonochemical microreactors.</li>
+      </ul>
+      <br>
+      <p class="proj-p">Play around with the acoustic simulator above and if you are interested in the Mathematics and Transport Phenomena behind this problem, check out the GitHub repository below.</p>
     </div>
   </div>
+  
   <div class="proj-links-row">
     <a href="https://github.com/RawKnuck/Impact-of-Interfacial-and-Viscous-Effects-on-Rayleigh-Plesset-Bubble-Dynamics" class="btn-fill" target="_blank">GitHub Repository →</a>
   </div>
+  
   <footer>
     <span>Raunak Jalan — 2026</span>
     <a href="/#works" class="btn-ghost" style="font-size:12px; text-decoration:none;">← Back to all projects</a>
@@ -76,6 +93,7 @@
 </html>
 
 <style is:global>
+/* Keep all your existing global styles exactly as they were */
 .h-val em a { color: var(--muted); text-decoration-color: rgba(255, 255, 255, 0.1); }
 .h-val em a:hover { color: var(--text); }
 .bento-hobbies { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; padding: 1.5rem 0; border-bottom: 1px solid var(--border); }
